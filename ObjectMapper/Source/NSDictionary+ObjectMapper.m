@@ -12,7 +12,7 @@
 
 - (id)objectForClass:(Class)class
 {
-	return [[ObjectMapper sharedInstance] objectFromDictionary:self toInstanceOfClass:class];
+	return [[ObjectMapper sharedInstance] objectFromSource:self toInstanceOfClass:class];
 }
 
 @end

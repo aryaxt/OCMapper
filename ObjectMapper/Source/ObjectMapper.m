@@ -65,23 +65,23 @@
 	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
 }
 
-- (id)objectFromDictionary:(NSDictionary *)dictionary toInstanceOfClass:(Class)class
+- (id)objectFromSource:(NSDictionary *)source toInstanceOfClass:(Class)class
 {
 	id object = [[class alloc] init];
 	
-	for (NSString *key in dictionary)
+	for (NSString *key in source)
 	{
 		ObjectMappingInfo *mappingInfo = [self mappingInfoByDictionaryKey:key forClass:class];
-		id value = [dictionary objectForKey:(NSString *)key];
+		id value = [source objectForKey:(NSString *)key];
 		
 		if ([value isKindOfClass:[NSDictionary class]])
 		{
 			if (mappingInfo)
 			{
 				NSString *propertyName = mappingInfo.propertyKey;
-				id nestedObject = [self objectFromDictionary:value toInstanceOfClass:mappingInfo.objectType];
+				id nestedObject = [self objectFromSource:value toInstanceOfClass:mappingInfo.objectType];
 				
-				if ([object respondsToSelector:@selector(propertyName)])
+				if ([object respondsToSelector:NSSelectorFromString(propertyName)])
 				{
 					[object setValue:nestedObject forKey:propertyName];
 				}
@@ -93,7 +93,7 @@
 				
 				if (nestedClass && [object respondsToSelector:NSSelectorFromString(propertyName)])
 				{
-					id nestedObject = [self objectFromDictionary:value toInstanceOfClass:nestedClass];
+					id nestedObject = [self objectFromSource:value toInstanceOfClass:nestedClass];
 					[object setValue:nestedObject forKey:propertyName];
 				}
 			}
@@ -108,7 +108,7 @@
 				
 				if (mappingInfo)
 				{
-					nestedObject = [self objectFromDictionary:value toInstanceOfClass:mappingInfo.objectType];
+					nestedObject = [self objectFromSource:value toInstanceOfClass:mappingInfo.objectType];
 				}
 				else
 				{
@@ -119,7 +119,7 @@
 					
 					if (nestedClass)
 					{
-						nestedObject = [self objectFromDictionary:objectInArray toInstanceOfClass:nestedClass];
+						nestedObject = [self objectFromSource:objectInArray toInstanceOfClass:nestedClass];
 					}
 				}
 				

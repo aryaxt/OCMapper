@@ -10,11 +10,14 @@
 #import "ObjectMapper.h"
 #import "NSDictionary+ObjectMapper.h"
 #import "User.h"
+#import "Comment.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	[self testObjectMapper];
+	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -24,23 +27,32 @@
 
 - (void)testObjectMapper
 {
+	
 	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
 	[addressDictionary setObject:@"San Diego" forKey:@"city"];
 	[addressDictionary setObject:@"US" forKey:@"country"];
 	
+	NSMutableDictionary *authorDictionary = [NSMutableDictionary dictionary];
+	[authorDictionary setObject:@"Bijan" forKey:@"firstName"];
+	[authorDictionary setObject:@"Ghassemi" forKey:@"lastName"];
+	[authorDictionary setObject:@20 forKey:@"age"];
+	[authorDictionary setObject:addressDictionary forKey:@"address"];
+	
 	NSMutableDictionary *commentDictionary = [NSMutableDictionary dictionary];
 	[commentDictionary setObject:@"This is an awesome title" forKey:@"title"];
 	[commentDictionary setObject:@"this is the body of my crazy crazy post" forKey:@"body"];
+	[commentDictionary setObject:authorDictionary forKey:@"author"];
 	
-	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-	[dictionary setObject:@"Aryan" forKey:@"firstName"];
-	[dictionary setObject:@"Ghassemi" forKey:@"lastName"];
-	[dictionary setObject:@10 forKey:@"age"];
-	[dictionary setObject:addressDictionary forKey:@"address"];
-	[dictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"Ghassemi" forKey:@"lastName"];
+	[userDictionary setObject:@26 forKey:@"age"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
 	
+	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 	
-	id result = [dictionary objectForClass:[User class]];
+	id result = [userDictionary objectForClass:[User class]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

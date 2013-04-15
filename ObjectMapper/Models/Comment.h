@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class User;
 @interface Comment : NSObject
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) User *author;
 
 @end

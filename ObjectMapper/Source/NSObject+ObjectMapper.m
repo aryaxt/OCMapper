@@ -12,7 +12,7 @@
 
 - (id)objectFromDictionary:(NSDictionary *)dictionary
 {
-	return [[ObjectMapper sharedInstance] objectFromDictionary:dictionary toInstanceOfClass:[self class]];
+	return [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[self class]];
 }
 
 @end
