@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "ObjectMapper.h"
+#import "NSDictionary+ObjectMapper.h"
+#import "User.h"
 
 @implementation AppDelegate
 
@@ -17,6 +20,27 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)testObjectMapper
+{
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[addressDictionary setObject:@"US" forKey:@"country"];
+	
+	NSMutableDictionary *commentDictionary = [NSMutableDictionary dictionary];
+	[commentDictionary setObject:@"This is an awesome title" forKey:@"title"];
+	[commentDictionary setObject:@"this is the body of my crazy crazy post" forKey:@"body"];
+	
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+	[dictionary setObject:@"Aryan" forKey:@"firstName"];
+	[dictionary setObject:@"Ghassemi" forKey:@"lastName"];
+	[dictionary setObject:@10 forKey:@"age"];
+	[dictionary setObject:addressDictionary forKey:@"address"];
+	[dictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
+	
+	
+	id result = [dictionary objectForClass:[User class]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
