@@ -7,7 +7,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "ObjectMapper.h"
 
 @interface ObjectMapperTests : SenTestCase
+
+@property (nonatomic, strong) ObjectMapper *mapper;
 
 @end

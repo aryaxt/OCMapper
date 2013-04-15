@@ -16,5 +16,6 @@
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) Address *address;
 @property (nonatomic, strong) NSMutableArray *comments;
+@property (nonatomic, strong) NSMutableArray *randomKeywords;
 
 @end

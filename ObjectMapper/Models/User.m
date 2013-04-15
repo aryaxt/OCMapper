@@ -13,5 +13,6 @@
 @synthesize lastName;
 @synthesize age;
 @synthesize comments;
+@synthesize randomKeywords;
 
 @end
