@@ -27,7 +27,6 @@
 
 - (void)testObjectMapper
 {
-	
 	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
 	[addressDictionary setObject:@"San Diego" forKey:@"city"];
 	[addressDictionary setObject:@"US" forKey:@"country"];
@@ -47,6 +46,7 @@
 	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
 	[userDictionary setObject:@"Ghassemi" forKey:@"lastName"];
 	[userDictionary setObject:@26 forKey:@"age"];
+	[userDictionary setObject:@"2013-05-01" forKey:@"dateOfBirth"];
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
 	[userDictionary setObject:@[@"hello", @"byy", @"go", @"come back"] forKey:@"randomKeywords"];

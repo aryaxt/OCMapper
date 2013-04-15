@@ -16,6 +16,7 @@
 
 @implementation ObjectMapper
 @synthesize mappingDictionary;
+@synthesize defaultDateFormatter;
 
 #pragma mark - initialization -
 
@@ -36,6 +37,8 @@
 	if (self = [super init])
 	{
 		self.mappingDictionary = [NSMutableDictionary dictionary];
+		self.defaultDateFormatter = [[NSDateFormatter alloc] init];
+		[self.defaultDateFormatter setDateFormat:@"yyyy-MM-dd"];
 	}
 	
 	return self;
@@ -81,6 +84,8 @@
 	}
 }
 
+#pragma mark - Private Methods -
+
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
 	id object = [[class alloc] init];
@@ -116,8 +121,15 @@
 			nestedObject = [self processArray:value forClass:objectType];
 		}
 		else
-		{
-			nestedObject = value;
+		{ 
+			if ([[self typeForProperty:propertyName andClass:class] rangeOfString:@"NSDate"].length)
+			{
+				nestedObject = [self dateFromString:value forKey:key andClass:class];
+			}
+			else
+			{
+				nestedObject = value;
+			}
 		}
 		
 		if ([object respondsToSelector:NSSelectorFromString(propertyName)])
@@ -143,8 +155,6 @@
 
 	return nestedArray;
 }
-
-#pragma mark - Private Methods -
 
 - (Class)classFromString:(NSString *)className
 {
@@ -188,6 +198,24 @@
 	}
 	
 	return nil;
+}
+
+- (NSDate *)dateFromString:(NSString *)string forKey:(NSString *)key andClass:(Class)class
+{
+	// if custom dateformatter is set use it
+	
+	return [self.defaultDateFormatter dateFromString:string];
+}
+
+- (NSString *)typeForProperty:(NSString *)property andClass:(Class)class
+{
+	const char *type = property_getAttributes(class_getProperty(class, [property UTF8String]));
+	NSString *typeString = [NSString stringWithUTF8String:type];
+	NSArray *attributes = [typeString componentsSeparatedByString:@","];
+	NSString *typeAttribute = [attributes objectAtIndex:0];
+	NSString *propertyType = [typeAttribute substringFromIndex:1];
+	const char *rawPropertyType = [propertyType UTF8String];
+	return [NSString stringWithFormat:@"%s" , rawPropertyType];
 }
 
 @end

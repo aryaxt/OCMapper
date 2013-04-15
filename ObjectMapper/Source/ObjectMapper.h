@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 #import "ObjectMappingInfo.h"
 
 @interface ObjectMapper : NSObject
+
+@property (nonatomic, strong) NSDateFormatter *defaultDateFormatter;
 
 + (ObjectMapper *)sharedInstance;
 - (id)objectFromSource:(id)dictionary toInstanceOfClass:(Class)class;

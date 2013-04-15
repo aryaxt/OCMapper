@@ -14,5 +14,6 @@
 @synthesize age;
 @synthesize comments;
 @synthesize randomKeywords;
+@synthesize dateOfBirth;
 
 @end
