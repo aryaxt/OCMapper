@@ -7,10 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "ObjectMapper.h"
-#import "NSDictionary+ObjectMapper.h"
 #import "User.h"
 #import "Comment.h"
+#import "OCMapper.h"
 
 @implementation AppDelegate
 

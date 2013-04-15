@@ -76,6 +76,7 @@
 		15E2B98E171BEAF400526C77 /* ObjectMapperTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapperTests.h; sourceTree = "<group>"; };
 		15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMapperTests.m; sourceTree = "<group>"; };
 		15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCMapperTests-Info.plist"; sourceTree = "<group>"; };
+		15E2B994171BED2400526C77 /* OCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +175,7 @@
 				15E2B97A171BEAEB00526C77 /* ObjectMapper.m */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
 				15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */,
+				15E2B994171BED2400526C77 /* OCMapper.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
