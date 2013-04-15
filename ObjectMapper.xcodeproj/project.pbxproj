@@ -488,6 +488,7 @@
 				15B554E0171B7B3C0058E159 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15B554E1171B7B3C0058E159 /* Build configuration list for PBXNativeTarget "ObjectMapperTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +497,7 @@
 				15B554E3171B7B3C0058E159 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

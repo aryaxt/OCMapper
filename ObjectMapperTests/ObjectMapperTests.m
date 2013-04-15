@@ -155,4 +155,11 @@
 	return nil;
 }
 
+- (NSDictionary *)dictionaryFromJsonString:(NSString *)jsonString
+{
+	return [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
+										   options:NSJSONReadingMutableContainers
+											 error:nil];
+}
+
 @end

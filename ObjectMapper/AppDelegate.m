@@ -49,10 +49,12 @@
 	[userDictionary setObject:@26 forKey:@"age"];
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
+	[userDictionary setObject:@[@"hello", @"byy", @"go", @"come back"] forKey:@"randomKeywords"];
+	
 	
 	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 	
-	id result = [userDictionary objectForClass:[User class]];
+	id result = [[ObjectMapper sharedInstance] objectFromSource:@[userDictionary, userDictionary, userDictionary] toInstanceOfClass:[User class]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

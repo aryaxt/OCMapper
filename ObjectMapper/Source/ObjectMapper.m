@@ -65,7 +65,23 @@
 	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
 }
 
-- (id)objectFromSource:(NSDictionary *)source toInstanceOfClass:(Class)class
+- (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
+{
+	if ([source isKindOfClass:[NSDictionary class]])
+	{
+		return [self processDictionary:source forClass:class];
+	}
+	else if ([source isKindOfClass:[NSArray class]])
+	{
+		return [self processArray:source forClass:class];
+	}
+	else
+	{
+		return source;
+	}
+}
+
+- (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
 	id object = [[class alloc] init];
 	
@@ -73,79 +89,59 @@
 	{
 		ObjectMappingInfo *mappingInfo = [self mappingInfoByDictionaryKey:key forClass:class];
 		id value = [source objectForKey:(NSString *)key];
+		NSString *propertyName;
+		Class objectType;
+		id nestedObject;
 		
-		if ([value isKindOfClass:[NSDictionary class]])
+		if (mappingInfo)
 		{
-			if (mappingInfo)
-			{
-				NSString *propertyName = mappingInfo.propertyKey;
-				id nestedObject = [self objectFromSource:value toInstanceOfClass:mappingInfo.objectType];
-				
-				if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-				{
-					[object setValue:nestedObject forKey:propertyName];
-				}
-			}
-			else
-			{
-				NSString *propertyName = key;
-				Class nestedClass = [self classFromString:key];
-				
-				if (nestedClass && [object respondsToSelector:NSSelectorFromString(propertyName)])
-				{
-					id nestedObject = [self objectFromSource:value toInstanceOfClass:nestedClass];
-					[object setValue:nestedObject forKey:propertyName];
-				}
-			}
-		}
-		else if ([value isKindOfClass:[NSArray class]])
-		{
-			NSMutableArray *nestedArray = [NSMutableArray array];
-
-			for (id objectInArray in value)
-			{
-				id nestedObject = nil;
-				
-				if (mappingInfo)
-				{
-					nestedObject = [self objectFromSource:value toInstanceOfClass:mappingInfo.objectType];
-				}
-				else
-				{
-					Class nestedClass = [self classFromString:key];
-					
-					if (!nestedClass && key.length && [[key substringFromIndex:key.length-1] isEqual:@"s"])
-						nestedClass = [self classFromString:[key substringToIndex:key.length-1]];
-					
-					if (nestedClass)
-					{
-						nestedObject = [self objectFromSource:objectInArray toInstanceOfClass:nestedClass];
-					}
-				}
-				
-				if (nestedObject)
-					[nestedArray addObject:nestedObject];
-			}
-			
-			NSString *propertyName = (mappingInfo) ? mappingInfo.propertyKey : key;
-			
-			if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-			{
-				[object setValue:nestedArray forKey:propertyName];
-			}
+			propertyName = mappingInfo.propertyKey;
+			objectType = mappingInfo.objectType;
 		}
 		else
 		{
-			NSString *propertyName = (mappingInfo) ? mappingInfo.propertyKey : key;
-				
-			if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-			{
-				[object setValue:value forKey:propertyName];
-			}
+			propertyName = key;
+			objectType = [self classFromString:key];
+			
+			if (!objectType && key.length && [[key substringFromIndex:key.length-1] isEqual:@"s"])
+				objectType = [self classFromString:[key substringToIndex:key.length-1]];
+		}
+		
+		if ([value isKindOfClass:[NSDictionary class]])
+		{
+			nestedObject = [self processDictionary:value forClass:objectType];
+		}
+		else if ([value isKindOfClass:[NSArray class]])
+		{
+			nestedObject = [self processArray:value forClass:objectType];
+		}
+		else
+		{
+			nestedObject = value;
+		}
+		
+		if ([object respondsToSelector:NSSelectorFromString(propertyName)])
+		{
+			[object setValue:nestedObject forKey:propertyName];
 		}
 	}
 	
 	return object;
+}
+
+- (id)processArray:(NSArray *)value forClass:(Class)class
+{
+	NSMutableArray *nestedArray = [NSMutableArray array];
+	
+	for (id objectInArray in value)
+	{
+		id nestedObject = [self objectFromSource:objectInArray toInstanceOfClass:class];
+		
+		if (nestedObject)
+			[nestedArray addObject:nestedObject];
+	}
+
+	return nestedArray;
 }
 
 #pragma mark - Private Methods -

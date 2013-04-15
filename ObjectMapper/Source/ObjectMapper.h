@@ -12,7 +12,7 @@
 @interface ObjectMapper : NSObject
 
 + (ObjectMapper *)sharedInstance;
-- (id)objectFromSource:(NSDictionary *)dictionary toInstanceOfClass:(Class)class;
+- (id)objectFromSource:(id)dictionary toInstanceOfClass:(Class)class;
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class;
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class;
 
