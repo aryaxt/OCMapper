@@ -12,11 +12,13 @@
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableDictionary *mappingDictionary;
+@property (nonatomic, strong) NSMutableArray *commonDateFormaters;
 @end
 
 @implementation ObjectMapper
 @synthesize mappingDictionary;
 @synthesize defaultDateFormatter;
+@synthesize commonDateFormaters;
 
 #pragma mark - initialization -
 
@@ -37,8 +39,6 @@
 	if (self = [super init])
 	{
 		self.mappingDictionary = [NSMutableDictionary dictionary];
-		self.defaultDateFormatter = [[NSDateFormatter alloc] init];
-		[self.defaultDateFormatter setDateFormat:@"yyyy-MM-dd"];
 	}
 	
 	return self;
@@ -124,7 +124,7 @@
 		{ 
 			if ([[self typeForProperty:propertyName andClass:class] rangeOfString:@"NSDate"].length)
 			{
-				nestedObject = [self dateFromString:value forKey:key andClass:class];
+				nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
 			}
 			else
 			{
@@ -200,11 +200,64 @@
 	return nil;
 }
 
-- (NSDate *)dateFromString:(NSString *)string forKey:(NSString *)key andClass:(Class)class
+- (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
 {
-	// if custom dateformatter is set use it
+	NSDate *date;
 	
-	return [self.defaultDateFormatter dateFromString:string];
+	// if custom dateformatter is set use it
+	//else
+	if (self.defaultDateFormatter)
+	{
+		date = [self.defaultDateFormatter dateFromString:string];
+	}
+	
+	if (!date)
+	{
+		
+		for (NSDateFormatter *dateFormatter in self.commonDateFormaters)
+		{
+			date = [dateFormatter dateFromString:string];
+			
+			if (date)
+				return date;
+		}
+	}
+	
+	return date;
+}
+
+- (NSMutableArray *)commonDateFormaters
+{
+	if (!commonDateFormaters)
+	{
+		commonDateFormaters = [NSMutableArray array];
+		
+		NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
+		[formatter1 setDateFormat:@"yyyy-MM-dd"];
+		[commonDateFormaters addObject:formatter1];
+		
+		NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
+		[formatter2 setDateFormat:@"MM/dd/yyyy"];
+		[commonDateFormaters addObject:formatter2];
+		
+		NSDateFormatter *formatter3 = [[NSDateFormatter alloc] init];
+		[formatter3 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ"];
+		[commonDateFormaters addObject:formatter3];
+		
+		NSDateFormatter *formatter4 = [[NSDateFormatter alloc] init];
+		[formatter4 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+		[commonDateFormaters addObject:formatter4];
+		
+		NSDateFormatter *formatter5 = [[NSDateFormatter alloc] init];
+		[formatter5 setDateFormat:@"MM/dd/yyyy HH:mm:ss aaa"];
+		[commonDateFormaters addObject:formatter5];
+		
+		NSDateFormatter *formatter6 = [[NSDateFormatter alloc] init];
+		[formatter6 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+		[commonDateFormaters addObject:formatter6];
+	}
+	
+	return commonDateFormaters;
 }
 
 - (NSString *)typeForProperty:(NSString *)property andClass:(Class)class

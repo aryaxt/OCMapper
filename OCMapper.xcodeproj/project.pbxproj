@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
+		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
+		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
+		15B554CE171B7B3C0058E159 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554CD171B7B3C0058E159 /* SenTestingKit.framework */; };
+		15B554CF171B7B3C0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
+		15B554D0171B7B3C0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
+		15E2B97D171BEAEB00526C77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B964171BEAEB00526C77 /* AppDelegate.m */; };
+		15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B965171BEAEB00526C77 /* Default-568h@2x.png */; };
+		15E2B97F171BEAEB00526C77 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B966171BEAEB00526C77 /* Default.png */; };
+		15E2B980171BEAEB00526C77 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B967171BEAEB00526C77 /* Default@2x.png */; };
+		15E2B981171BEAEB00526C77 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B968171BEAEB00526C77 /* InfoPlist.strings */; };
+		15E2B982171BEAEB00526C77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96A171BEAEB00526C77 /* main.m */; };
+		15E2B983171BEAEB00526C77 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96D171BEAEB00526C77 /* Address.m */; };
+		15E2B984171BEAEB00526C77 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96F171BEAEB00526C77 /* Comment.m */; };
+		15E2B985171BEAEB00526C77 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B971171BEAEB00526C77 /* User.m */; };
+		15E2B986171BEAEB00526C77 /* OCMapper-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B972171BEAEB00526C77 /* OCMapper-Info.plist */; };
+		15E2B987171BEAEB00526C77 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */; };
+		15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */; };
+		15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97A171BEAEB00526C77 /* ObjectMapper.m */; };
+		15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */; };
+		15E2B991171BEAF400526C77 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B98C171BEAF400526C77 /* InfoPlist.strings */; };
+		15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */; };
+		15E2B993171BEAF400526C77 /* OCMapperTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		15B554D1171B7B3C0058E159 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15B554A2171B7B3B0058E159 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15B554AA171B7B3B0058E159;
+			remoteInfo = ObjectMapper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		15B554B3171B7B3B0058E159 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		15B554CC171B7B3C0058E159 /* OCMapperTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCMapperTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15B554CD171B7B3C0058E159 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		15E2B963171BEAEB00526C77 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		15E2B964171BEAEB00526C77 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		15E2B965171BEAEB00526C77 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		15E2B966171BEAEB00526C77 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		15E2B967171BEAEB00526C77 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		15E2B969171BEAEB00526C77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		15E2B96A171BEAEB00526C77 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		15E2B96C171BEAEB00526C77 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		15E2B96D171BEAEB00526C77 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		15E2B96E171BEAEB00526C77 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		15E2B96F171BEAEB00526C77 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		15E2B970171BEAEB00526C77 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		15E2B971171BEAEB00526C77 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		15E2B972171BEAEB00526C77 /* OCMapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCMapper-Info.plist"; sourceTree = "<group>"; };
+		15E2B973171BEAEB00526C77 /* OCMapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCMapper-Prefix.pch"; sourceTree = "<group>"; };
+		15E2B975171BEAEB00526C77 /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
+		15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
+		15E2B977171BEAEB00526C77 /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
+		15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
+		15E2B979171BEAEB00526C77 /* ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
+		15E2B97A171BEAEB00526C77 /* ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMapper.m; sourceTree = "<group>"; };
+		15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMappingInfo.h; sourceTree = "<group>"; };
+		15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMappingInfo.m; sourceTree = "<group>"; };
+		15E2B98D171BEAF400526C77 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		15E2B98E171BEAF400526C77 /* ObjectMapperTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapperTests.h; sourceTree = "<group>"; };
+		15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMapperTests.m; sourceTree = "<group>"; };
+		15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCMapperTests-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		15B554A8171B7B3B0058E159 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */,
+				15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */,
+				15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15B554C8171B7B3C0058E159 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15B554CE171B7B3C0058E159 /* SenTestingKit.framework in Frameworks */,
+				15B554CF171B7B3C0058E159 /* UIKit.framework in Frameworks */,
+				15B554D0171B7B3C0058E159 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15B554A0171B7B3B0058E159 = {
+			isa = PBXGroup;
+			children = (
+				15E2B962171BEAEB00526C77 /* OCMapper */,
+				15E2B98B171BEAF400526C77 /* OCMapperTests */,
+				15B554AE171B7B3B0058E159 /* Frameworks */,
+				15B554AC171B7B3B0058E159 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		15B554AC171B7B3B0058E159 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15B554AB171B7B3B0058E159 /* OCMapper.app */,
+				15B554CC171B7B3C0058E159 /* OCMapperTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		15B554AE171B7B3B0058E159 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15B554AF171B7B3B0058E159 /* UIKit.framework */,
+				15B554B1171B7B3B0058E159 /* Foundation.framework */,
+				15B554B3171B7B3B0058E159 /* CoreGraphics.framework */,
+				15B554CD171B7B3C0058E159 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		15E2B962171BEAEB00526C77 /* OCMapper */ = {
+			isa = PBXGroup;
+			children = (
+				15E2B974171BEAEB00526C77 /* Source */,
+				15E2B96B171BEAEB00526C77 /* Models */,
+				15E2B963171BEAEB00526C77 /* AppDelegate.h */,
+				15E2B964171BEAEB00526C77 /* AppDelegate.m */,
+				15E2B965171BEAEB00526C77 /* Default-568h@2x.png */,
+				15E2B966171BEAEB00526C77 /* Default.png */,
+				15E2B967171BEAEB00526C77 /* Default@2x.png */,
+				15E2B968171BEAEB00526C77 /* InfoPlist.strings */,
+				15E2B96A171BEAEB00526C77 /* main.m */,
+				15E2B972171BEAEB00526C77 /* OCMapper-Info.plist */,
+				15E2B973171BEAEB00526C77 /* OCMapper-Prefix.pch */,
+			);
+			path = OCMapper;
+			sourceTree = "<group>";
+		};
+		15E2B96B171BEAEB00526C77 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15E2B96C171BEAEB00526C77 /* Address.h */,
+				15E2B96D171BEAEB00526C77 /* Address.m */,
+				15E2B96E171BEAEB00526C77 /* Comment.h */,
+				15E2B96F171BEAEB00526C77 /* Comment.m */,
+				15E2B970171BEAEB00526C77 /* User.h */,
+				15E2B971171BEAEB00526C77 /* User.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		15E2B974171BEAEB00526C77 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				15E2B975171BEAEB00526C77 /* NSDictionary+ObjectMapper.h */,
+				15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */,
+				15E2B977171BEAEB00526C77 /* NSObject+ObjectMapper.h */,
+				15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */,
+				15E2B979171BEAEB00526C77 /* ObjectMapper.h */,
+				15E2B97A171BEAEB00526C77 /* ObjectMapper.m */,
+				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
+				15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		15E2B98B171BEAF400526C77 /* OCMapperTests */ = {
+			isa = PBXGroup;
+			children = (
+				15E2B98C171BEAF400526C77 /* InfoPlist.strings */,
+				15E2B98E171BEAF400526C77 /* ObjectMapperTests.h */,
+				15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */,
+				15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */,
+			);
+			path = OCMapperTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		15B554AA171B7B3B0058E159 /* OCMapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15B554DE171B7B3C0058E159 /* Build configuration list for PBXNativeTarget "OCMapper" */;
+			buildPhases = (
+				15B554A7171B7B3B0058E159 /* Sources */,
+				15B554A8171B7B3B0058E159 /* Frameworks */,
+				15B554A9171B7B3B0058E159 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OCMapper;
+			productName = ObjectMapper;
+			productReference = 15B554AB171B7B3B0058E159 /* OCMapper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		15B554CB171B7B3C0058E159 /* OCMapperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15B554E1171B7B3C0058E159 /* Build configuration list for PBXNativeTarget "OCMapperTests" */;
+			buildPhases = (
+				15B554C7171B7B3C0058E159 /* Sources */,
+				15B554C8171B7B3C0058E159 /* Frameworks */,
+				15B554C9171B7B3C0058E159 /* Resources */,
+				15B554CA171B7B3C0058E159 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				15B554D2171B7B3C0058E159 /* PBXTargetDependency */,
+			);
+			name = OCMapperTests;
+			productName = ObjectMapperTests;
+			productReference = 15B554CC171B7B3C0058E159 /* OCMapperTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		15B554A2171B7B3B0058E159 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Aryan Ghassemi";
+			};
+			buildConfigurationList = 15B554A5171B7B3B0058E159 /* Build configuration list for PBXProject "OCMapper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 15B554A0171B7B3B0058E159;
+			productRefGroup = 15B554AC171B7B3B0058E159 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				15B554AA171B7B3B0058E159 /* OCMapper */,
+				15B554CB171B7B3C0058E159 /* OCMapperTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		15B554A9171B7B3B0058E159 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */,
+				15E2B97F171BEAEB00526C77 /* Default.png in Resources */,
+				15E2B980171BEAEB00526C77 /* Default@2x.png in Resources */,
+				15E2B981171BEAEB00526C77 /* InfoPlist.strings in Resources */,
+				15E2B986171BEAEB00526C77 /* OCMapper-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15B554C9171B7B3C0058E159 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15E2B991171BEAF400526C77 /* InfoPlist.strings in Resources */,
+				15E2B993171BEAF400526C77 /* OCMapperTests-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		15B554CA171B7B3C0058E159 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		15B554A7171B7B3B0058E159 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15E2B97D171BEAEB00526C77 /* AppDelegate.m in Sources */,
+				15E2B982171BEAEB00526C77 /* main.m in Sources */,
+				15E2B983171BEAEB00526C77 /* Address.m in Sources */,
+				15E2B984171BEAEB00526C77 /* Comment.m in Sources */,
+				15E2B985171BEAEB00526C77 /* User.m in Sources */,
+				15E2B987171BEAEB00526C77 /* NSDictionary+ObjectMapper.m in Sources */,
+				15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */,
+				15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */,
+				15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15B554C7171B7B3C0058E159 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		15B554D2171B7B3C0058E159 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15B554AA171B7B3B0058E159 /* OCMapper */;
+			targetProxy = 15B554D1171B7B3C0058E159 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		15E2B968171BEAEB00526C77 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				15E2B969171BEAEB00526C77 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		15E2B98C171BEAF400526C77 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				15E2B98D171BEAF400526C77 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		15B554DC171B7B3C0058E159 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		15B554DD171B7B3C0058E159 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		15B554DF171B7B3C0058E159 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
+				INFOPLIST_FILE = "OCMapper/OCMapper-Info.plist";
+				PRODUCT_NAME = OCMapper;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		15B554E0171B7B3C0058E159 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
+				INFOPLIST_FILE = "OCMapper/OCMapper-Info.plist";
+				PRODUCT_NAME = OCMapper;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		15B554E2171B7B3C0058E159 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCMapper.app/OCMapper";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
+				INFOPLIST_FILE = "OCMapperTests/OCMapperTests-Info.plist";
+				PRODUCT_NAME = OCMapperTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		15B554E3171B7B3C0058E159 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCMapper.app/OCMapper";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
+				INFOPLIST_FILE = "OCMapperTests/OCMapperTests-Info.plist";
+				PRODUCT_NAME = OCMapperTests;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		15B554A5171B7B3B0058E159 /* Build configuration list for PBXProject "OCMapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15B554DC171B7B3C0058E159 /* Debug */,
+				15B554DD171B7B3C0058E159 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15B554DE171B7B3C0058E159 /* Build configuration list for PBXNativeTarget "OCMapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15B554DF171B7B3C0058E159 /* Debug */,
+				15B554E0171B7B3C0058E159 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15B554E1171B7B3C0058E159 /* Build configuration list for PBXNativeTarget "OCMapperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15B554E2171B7B3C0058E159 /* Debug */,
+				15B554E3171B7B3C0058E159 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15B554A2171B7B3B0058E159 /* Project object */;
+}
