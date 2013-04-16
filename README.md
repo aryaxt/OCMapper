@@ -45,7 +45,7 @@ Simple Automatic Mapping
 ```objective-c
 {
    "firstName"   : "Aryan",
-   "surName"    : "Ghassemi",
+   "lastName"    : "Ghassemi",
    "age"         : 26,
    "dateOfBirth" : "01/01/2013"
 }
