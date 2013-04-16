@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSDate *dateOfBirth;
+@property (nonatomic, strong) NSDate *accountCreationDate;
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) Address *address;
 @property (nonatomic, strong) NSMutableArray *comments;

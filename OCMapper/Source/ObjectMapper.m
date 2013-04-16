@@ -12,11 +12,13 @@
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableDictionary *mappingDictionary;
+@property (nonatomic, strong) NSMutableDictionary *dateFormatterDictionary;
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
 @end
 
 @implementation ObjectMapper
 @synthesize mappingDictionary;
+@synthesize dateFormatterDictionary;
 @synthesize defaultDateFormatter;
 @synthesize commonDateFormaters;
 
@@ -84,7 +86,22 @@
 	}
 }
 
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
+{
+	if (!dateFormatterDictionary)
+	{
+		dateFormatterDictionary = [[NSMutableDictionary alloc] init];
+	}
+	
+	[self.dateFormatterDictionary setObject:dateFormatter forKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
+}
+
 #pragma mark - Private Methods -
+
+- (NSDateFormatter *)dateFormatterForProperty:(NSString *)property andClass:(Class)class
+{
+	return [self.dateFormatterDictionary objectForKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
+}
 
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
@@ -203,9 +220,12 @@
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
 {
 	NSDate *date;
+	NSDateFormatter *customDateFormatter = [self dateFormatterForProperty:property andClass:class];
 	
-	// if custom dateformatter is set use it
-	//else
+	if (customDateFormatter)
+	{
+		date = [customDateFormatter dateFromString:string];
+	}
 	if (self.defaultDateFormatter)
 	{
 		date = [self.defaultDateFormatter dateFromString:string];

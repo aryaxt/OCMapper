@@ -137,6 +137,45 @@
 	STAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
 }
 
+- (void)testAutomaticDMappingWithArrayOnRootLevel
+{
+	NSMutableDictionary *user1Dictionary = [NSMutableDictionary dictionary];
+	[user1Dictionary setObject:@"Aryan" forKey:@"firstName"];
+	
+	NSMutableDictionary *user2Dictionary = [NSMutableDictionary dictionary];
+	[user2Dictionary setObject:@"Chuck" forKey:@"firstName"];
+	
+	NSArray *users = [self.mapper objectFromSource:@[user1Dictionary, user2Dictionary] toInstanceOfClass:[User class]];
+	STAssertTrue(users.count == 2, @"Did not populate correct number of items");
+	STAssertTrue([[[users objectAtIndex:0] firstName] isEqual:
+				  [user1Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
+	STAssertTrue([[[users objectAtIndex:1] firstName] isEqual:
+				  [user2Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
+}
+
+- (void)testCustomDateConversion
+{
+	NSString *dateOfBirthString = @"01-21/2005";
+	NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
+	[dateOfBirthFormatter setDateFormat:@"MM-dd/yyyy"];
+	
+	NSString *accountCreationDateString = @"01(2005(21";
+	NSDateFormatter *accountCreationFormatter = [[NSDateFormatter alloc] init];
+	[accountCreationFormatter setDateFormat:@"MM(yyyy(dd"];
+	
+	NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
+	[userDict setObject:dateOfBirthString forKey:@"dateOfBirth"];
+	[userDict setObject:accountCreationDateString forKey:@"accountCreationDate"];
+	
+	[self.mapper setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
+	[self.mapper setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
+	
+	User *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[User class]];
+	STAssertNotNil(user.accountCreationDate, @"Did nor populate date");
+	STAssertNotNil(user.dateOfBirth, @"Did nor populate date");
+	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
+}
+
 #pragma mark - Helpers -
 
 - (NSDictionary *)userDictionary
