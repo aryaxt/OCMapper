@@ -226,7 +226,7 @@
 	{
 		date = [customDateFormatter dateFromString:string];
 	}
-	if (self.defaultDateFormatter)
+	else if (self.defaultDateFormatter)
 	{
 		date = [self.defaultDateFormatter dateFromString:string];
 	}
