@@ -103,12 +103,18 @@ Here is a more complex scenario
                          {
                              "title" : "Post 1 title",
                              "datePosted : "04/15/2013",
-                             "author" : { "firstName" : "Chuck", "lastName" : "Norris" }
+                             "author" : { 
+                                             "firstName" : "Chuck", 
+                                             "lastName" : "Norris" 
+                                        }
                          },
                          {
                              "title" : "Post 2 title",
                              "datePosted : "04/12/2013",
-                             "author" : { "firstName" : "Chuck", "lastName" : "Norris" }
+                             "author" : { 
+                                             "firstName" : "Chuck", 
+                                             "lastName" : "Norris" 
+                                        }
                          }
                    ]
 }
