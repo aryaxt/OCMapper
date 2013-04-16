@@ -128,12 +128,12 @@ Each post has an author and the conversion class (User) doesn't have a similar n
 User *user = [User objectFromDictionary:aDictionary];
 ```
 
-Mapping roort Level Array
+Mapping Array on root level
 ------------------------- 
 ```objective-c
 [
    {
-      "firstName" : "Chuck",
+      "firstName" : "Aryan",
       ... rest of JSON data ...
    },
    {
