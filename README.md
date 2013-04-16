@@ -25,7 +25,7 @@ Examples
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) NSDate *dateOfBirth;
 @property (nonatomic, strong) Address *address;
-@property (nonatomic, strong) Post *Posts;
+@property (nonatomic, strong) NSMutableArray *posts;
 @end
 
 @interface Address
@@ -119,3 +119,11 @@ Here is a more complex scenario
 [[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
+
+Date Conversion
+-------------------------
+Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties
+
+If defaultDateFormatter is not set the library attempts to create an NSDate using a list of common NSDateFormatters
+
+You can also have custom NSDateFormatter specific to classes & properties
