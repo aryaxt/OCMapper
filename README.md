@@ -14,7 +14,10 @@ Features:
 - Takes default dateformatter and uses it for all NSDate conversions
 - NSDate conversion can be configured based on specific class & properties
 
-Let's say these are our models
+
+
+Examples
+-------------------------
 ```objective-c
 @interface User
 @property (nonatomic, strong) NSString *firstName;
@@ -33,16 +36,16 @@ Let's say these are our models
 @interface Post
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) User *author;
+@property (nonatomic, strong) NSDate *datePosted;
 @end
 ```
 
 Simple Automatic Mapping
 -------------------------
-Simple mapping when all dictionary key/values match the property names
 ```objective-c
 {
    "firstName"   : "Aryan"
-   "lastName"    : "Ghassemi"
+   "surName"    : "Ghassemi"
    "age"         : 26
    "dateOfBirth" : "01/01/2013"
 }
@@ -50,19 +53,69 @@ Simple mapping when all dictionary key/values match the property names
 User *user = [User objectFromDictionary:aDictionary];
 ```
 
-Simple Custom Mapping
+Nested Automatic Mapping
 -------------------------
-Simple mapping when all dictionary key/values match the property names
-keys for lastname and dateOfBirth don't match
+In this case everything is mapped automatic as well because all key/values are similar.
+"address" will automatically convert to "Address" Object.
+"posts" will automatically convert to array of "Post" objects.
+The library detect the plural sign at the end of the key, and finds the right class to use for mapping
 ```objective-c
 {
    "firstName"   : "Aryan"
-   "surName"    : "Ghassemi"
+   "lastName"    : "Ghassemi"
    "age"         : 26
-   "dob" : "01/01/2013"
+   "dateOfBirth" : "01/01/2013"
+   "address"     : { 
+                        "city" : "San Diego", 
+                        "country" : "US"  
+                   }
+   "posts"       : [
+                         {
+                             "title" : "Post 1 title",
+                             "datePosted : "04/15/2013",
+                         },
+                         {
+                             "title" : "Post 2 title",
+                             "datePosted : "04/12/2013",
+                         }
+                   ]
 }
 
-[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"surName" toPropertyKey:@"lastName" forClass:[NSString class]];
-[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[NSString class]];
 User *user = [User objectFromDictionary:aDictionary];
 ```
+
+Complex Mapping
+-------------------------
+Here is a more complex scenario
+1- The key for date of birth changes from "dateOfBirth" to "dob"
+2- Each post has an author and the conversion class (User) doesn't have a similar name
+{
+   "firstName"   : "Aryan"
+   "lastName"    : "Ghassemi"
+   "age"         : 26
+   "dob" : "01/01/2013"
+   "address"     : { 
+                        "city" : "San Diego", 
+                        "country" : "US"  
+                   }
+   "posts"       : [
+                         {
+                             "title" : "Post 1 title",
+                             "datePosted : "04/15/2013",
+                             "author" : { "firstName" : "Chuck", "lastName" : "Norris" }
+                         },
+                         {
+                             "title" : "Post 2 title",
+                             "datePosted : "04/12/2013",
+                             "author" : { "firstName" : "Chuck", "lastName" : "Norris" }
+                         }
+                   ]
+}
+
+// Handle different key for dateOfBirth
+[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[User class]];
+
+// Handle conversion of "author" to a "User" object
+[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
+
+User *user = [User objectFromDictionary:aDictionary];
