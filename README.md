@@ -89,6 +89,7 @@ Complex Mapping
 Here is a more complex scenario
 1- The key for date of birth changes from "dateOfBirth" to "dob"
 2- Each post has an author and the conversion class (User) doesn't have a similar name
+```objective-c
 {
    "firstName"   : "Aryan"
    "lastName"    : "Ghassemi"
@@ -119,6 +120,7 @@ Here is a more complex scenario
 [[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
+```
 
 Date Conversion
 -------------------------
