@@ -183,3 +183,16 @@ NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
 
 User *user = [User objectFromDictionary:aDictionary];
 ```
+
+Different Usage & Helpers
+-------------------------
+```objective-c
+// Using ObjectMapper directly
+Urse *user = [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[User class]];
+
+// Using NSObject Category
+User *user = [User objectFromDictionary:aDictionary];
+
+// Using NSDictionary Category
+User *user = [aDictionary objectForClass:[User class]];
+```
