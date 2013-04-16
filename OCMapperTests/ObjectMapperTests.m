@@ -123,6 +123,20 @@
 	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
 }
 
+- (void)testAutomaticDateConversion
+{
+	NSString *dateString = @"06/21/2013";
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
+	NSDate *expectedDate = [dateFormatter dateFromString:dateString];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:dateString forKey:@"dateOfBirth"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
+}
+
 #pragma mark - Helpers -
 
 - (NSDictionary *)userDictionary

@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSDateFormatter *defaultDateFormatter;
 
 + (ObjectMapper *)sharedInstance;
-- (id)objectFromSource:(id)dictionary toInstanceOfClass:(Class)class;
+- (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class;
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class;
 

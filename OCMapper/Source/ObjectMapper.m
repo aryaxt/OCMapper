@@ -46,7 +46,7 @@
 
 #pragma mark - Public Methods -
 
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class
+- (void)mapFromDictionaryKey:(NSString *)source toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class
 {
 	NSMutableDictionary *mappingForClass = [self.mappingDictionary objectForKey:NSStringFromClass(class)];
 	
@@ -57,7 +57,7 @@
 	}
 	
 	NSMutableArray *objectMappingInfos = [mappingForClass objectForKey:KEY_FOR_ARRAY_OF_OBJECT_MAPPING_INFOS];
-	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andObjectType:objectType];
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:source propertyKey:propertyKey andObjectType:objectType];
 	[objectMappingInfos addObject:info];
 	
 	[self.mappingDictionary setObject:mappingForClass forKey:NSStringFromClass(class)];

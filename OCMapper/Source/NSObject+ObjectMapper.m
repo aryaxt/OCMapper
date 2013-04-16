@@ -10,7 +10,7 @@
 
 @implementation NSObject (ObjectMapper)
 
-- (id)objectFromDictionary:(NSDictionary *)dictionary
++ (id)objectFromDictionary:(NSDictionary *)dictionary
 {
 	return [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[self class]];
 }

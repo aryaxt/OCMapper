@@ -11,6 +11,6 @@
 
 @interface NSObject (ObjectMapper)
 
-- (id)objectFromDictionary:(NSDictionary *)dictionary;
++ (id)objectFromDictionary:(NSDictionary *)dictionary;
 
 @end
