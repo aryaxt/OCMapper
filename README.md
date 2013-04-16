@@ -178,7 +178,7 @@ NSDateFormatter *accountCreationFormatter = [[NSDateFormatter alloc] init];
 
 // Custom formatter for date of birth
 NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
-[dateOfBirthFormatter setDateFormat:@"MM/dd/yyyy"];
+[dateOfBirthFormatter setDateFormat:@"yyyy-dd-MM"];
 [self.mapper setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
 
 User *user = [User objectFromDictionary:aDictionary];
