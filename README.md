@@ -44,9 +44,9 @@ Simple Automatic Mapping
 -------------------------
 ```objective-c
 {
-   "firstName"   : "Aryan"
-   "surName"    : "Ghassemi"
-   "age"         : 26
+   "firstName"   : "Aryan",
+   "surName"    : "Ghassemi",
+   "age"         : 26,
    "dateOfBirth" : "01/01/2013"
 }
 
@@ -61,14 +61,14 @@ In this case everything is mapped automatic as well because all key/values are s
 The library detect the plural sign at the end of the key, and finds the right class to use for mapping
 ```objective-c
 {
-   "firstName"   : "Aryan"
-   "lastName"    : "Ghassemi"
-   "age"         : 26
-   "dateOfBirth" : "01/01/2013"
+   "firstName"   : "Aryan",
+   "lastName"    : "Ghassemi",
+   "age"         : 26,
+   "dateOfBirth" : "01/01/2013",
    "address"     : { 
                         "city" : "San Diego", 
                         "country" : "US"  
-                   }
+                   },
    "posts"       : [
                          {
                              "title" : "Post 1 title",
@@ -91,14 +91,14 @@ Here is a more complex scenario
 2- Each post has an author and the conversion class (User) doesn't have a similar name
 ```objective-c
 {
-   "firstName"   : "Aryan"
-   "lastName"    : "Ghassemi"
-   "age"         : 26
-   "dob" : "01/01/2013"
+   "firstName"   : "Aryan",
+   "lastName"    : "Ghassemi",
+   "age"         : 26,
+   "dob" : "01/01/2013",
    "address"     : { 
                         "city" : "San Diego", 
                         "country" : "US"  
-                   }
+                   },
    "posts"       : [
                          {
                              "title" : "Post 1 title",
