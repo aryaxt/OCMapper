@@ -128,6 +128,23 @@ Each post has an author and the conversion class (User) doesn't have a similar n
 User *user = [User objectFromDictionary:aDictionary];
 ```
 
+Mapping roort Level Array
+------------------------- 
+```objective-c
+[
+   {
+      "firstName" : "Chuck",
+      ... rest of JSON data ...
+   },
+   {
+      "firstName" : "Chuck",
+      ... rest of JSON data ...
+   },
+]
+
+NSArray *users = [User objectFromDictionary:aDictionary];
+```
+
 Date Conversion
 -------------------------
 Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties
