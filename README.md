@@ -36,11 +36,16 @@ Let's say these are our models
 @end
 ```
 
-Simple Mapping
-
+Simple Automatic Mapping
+-------------------------
 ```objective-c
 {
-   firstName
+   "firstName"   : "Aryan"
+   "lastName"    : "Ghassemi"
+   "age"         : 26
+   "dateOfBirth" : "01/01/2013"
 }
+
+User *user = [User objectFromDictionary:aDictionary];
 
 ```
