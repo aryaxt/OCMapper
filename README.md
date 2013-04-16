@@ -38,6 +38,7 @@ Let's say these are our models
 
 Simple Automatic Mapping
 -------------------------
+Simple mapping when all dictionary key/values match the property names
 ```objective-c
 {
    "firstName"   : "Aryan"
@@ -47,5 +48,21 @@ Simple Automatic Mapping
 }
 
 User *user = [User objectFromDictionary:aDictionary];
+```
 
+Simple Custom Mapping
+-------------------------
+Simple mapping when all dictionary key/values match the property names
+keys for lastname and dateOfBirth don't match
+```objective-c
+{
+   "firstName"   : "Aryan"
+   "surName"    : "Ghassemi"
+   "age"         : 26
+   "dob" : "01/01/2013"
+}
+
+[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"surName" toPropertyKey:@"lastName" forClass:[NSString class]];
+[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[NSString class]];
+User *user = [User objectFromDictionary:aDictionary];
 ```
