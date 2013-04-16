@@ -50,10 +50,11 @@
 	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
 	[userDictionary setObject:@[@"hello", @"byy", @"go", @"come back"] forKey:@"randomKeywords"];
 	
-	
+	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"" toPropertyKey:@"" forClass:[NSString class]];
 	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 	
 	id result = [[ObjectMapper sharedInstance] objectFromSource:@[userDictionary, userDictionary, userDictionary] toInstanceOfClass:[User class]];
+	NSLog(@"%@", result);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

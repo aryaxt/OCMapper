@@ -17,19 +17,15 @@
 		15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B965171BEAEB00526C77 /* Default-568h@2x.png */; };
 		15E2B97F171BEAEB00526C77 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B966171BEAEB00526C77 /* Default.png */; };
 		15E2B980171BEAEB00526C77 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B967171BEAEB00526C77 /* Default@2x.png */; };
-		15E2B981171BEAEB00526C77 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B968171BEAEB00526C77 /* InfoPlist.strings */; };
 		15E2B982171BEAEB00526C77 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96A171BEAEB00526C77 /* main.m */; };
 		15E2B983171BEAEB00526C77 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96D171BEAEB00526C77 /* Address.m */; };
 		15E2B984171BEAEB00526C77 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96F171BEAEB00526C77 /* Comment.m */; };
 		15E2B985171BEAEB00526C77 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B971171BEAEB00526C77 /* User.m */; };
-		15E2B986171BEAEB00526C77 /* OCMapper-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B972171BEAEB00526C77 /* OCMapper-Info.plist */; };
 		15E2B987171BEAEB00526C77 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */; };
 		15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */; };
 		15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97A171BEAEB00526C77 /* ObjectMapper.m */; };
 		15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */; };
-		15E2B991171BEAF400526C77 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B98C171BEAF400526C77 /* InfoPlist.strings */; };
 		15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */; };
-		15E2B993171BEAF400526C77 /* OCMapperTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -265,8 +261,6 @@
 				15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */,
 				15E2B97F171BEAEB00526C77 /* Default.png in Resources */,
 				15E2B980171BEAEB00526C77 /* Default@2x.png in Resources */,
-				15E2B981171BEAEB00526C77 /* InfoPlist.strings in Resources */,
-				15E2B986171BEAEB00526C77 /* OCMapper-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,8 +268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15E2B991171BEAF400526C77 /* InfoPlist.strings in Resources */,
-				15E2B993171BEAF400526C77 /* OCMapperTests-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
