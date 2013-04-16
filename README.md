@@ -148,12 +148,12 @@ NSArray *users = [User objectFromDictionary:aDictionary];
 
 Date Conversion
 -------------------------
-Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance
+Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance. Note that custom dateFormatters have priority over defaultDateFormatter
 ```objective-c
 [[ObjectMapper sharedInstance] setDefaultDateFormatter:aDefaultDateFormatter];
 ```
 
-If defaultDateFormatter is not set the library attempts to create an NSDate using a list of common NSDateFormatters. Here is a list of common dateFormats supported out of the box
+ObjectMapper uses a list of common NSDateFormatters to convert string to NSDate. Here is a list of common dateFormats supported out of the box
 ```objective-c
 "yyyy-MM-dd"
 "MM/dd/yyyy"
