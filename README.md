@@ -187,9 +187,16 @@ User *user = [User objectFromDictionary:aDictionary];
 Different Usage & Helpers
 -------------------------
 ```objective-c
-// Using ObjectMapper directly
-Urse *user = [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[User class]];
+// Using ObjectMapper Directly
+ObjectMapper *mapper = [[ObjectMapper alloc] init];
+Urse *user = [mapper objectFromSource:dictionary toInstanceOfClass:[User class]];
 
+// Using ObjectMapper Singleton Instance
+Urse *user = [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[User class]];
+```
+
+In order to use these categories you must add the mapping to the singleton Instance
+```objective-c
 // Using NSObject Category
 User *user = [User objectFromDictionary:aDictionary];
 
