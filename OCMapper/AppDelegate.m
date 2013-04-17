@@ -10,51 +10,19 @@
 #import "User.h"
 #import "Comment.h"
 #import "OCMapper.h"
+#import "CoreDataManager.h"
+#import "NSManagedObjectMapper.h"
+#import "CDAddress.h"
+#import "CDUser.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[self testObjectMapper];
-	
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
-}
-
-- (void)testObjectMapper
-{
-	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
-	[addressDictionary setObject:@"San Diego" forKey:@"city"];
-	[addressDictionary setObject:@"US" forKey:@"country"];
-	
-	NSMutableDictionary *authorDictionary = [NSMutableDictionary dictionary];
-	[authorDictionary setObject:@"Bijan" forKey:@"firstName"];
-	[authorDictionary setObject:@"Ghassemi" forKey:@"lastName"];
-	[authorDictionary setObject:@20 forKey:@"age"];
-	[authorDictionary setObject:addressDictionary forKey:@"address"];
-	
-	NSMutableDictionary *commentDictionary = [NSMutableDictionary dictionary];
-	[commentDictionary setObject:@"This is an awesome title" forKey:@"title"];
-	[commentDictionary setObject:@"this is the body of my crazy crazy post" forKey:@"body"];
-	[commentDictionary setObject:authorDictionary forKey:@"author"];
-	
-	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
-	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
-	[userDictionary setObject:@"Ghassemi" forKey:@"lastName"];
-	[userDictionary setObject:@26 forKey:@"age"];
-	[userDictionary setObject:@"2013-05-01" forKey:@"dateOfBirth"];
-	[userDictionary setObject:addressDictionary forKey:@"address"];
-	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];
-	[userDictionary setObject:@[@"hello", @"byy", @"go", @"come back"] forKey:@"randomKeywords"];
-	
-	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"" toPropertyKey:@"" forClass:[NSString class]];
-	[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
-	
-	id result = [[ObjectMapper sharedInstance] objectFromSource:@[userDictionary, userDictionary, userDictionary] toInstanceOfClass:[User class]];
-	NSLog(@"%@", result);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

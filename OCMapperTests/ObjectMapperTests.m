@@ -176,43 +176,4 @@
 	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
 }
 
-#pragma mark - Helpers -
-
-- (NSDictionary *)userDictionary
-{
-	/*NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
-	[addressDictionary setObject:city forKey:@"city"];
-	[addressDictionary setObject:country forKey:@"country"];
-	
-	NSMutableDictionary *authorAddressDictionary = [NSMutableDictionary dictionary];
-	[addressDictionary setObject:authorCity forKey:@"city"];
-	[addressDictionary setObject:authorCountry forKey:@"country"];
-	
-	NSMutableDictionary *authorDictionary = [NSMutableDictionary dictionary];
-	[authorDictionary setObject:authorFirstName forKey:@"firstName"];
-	[authorDictionary setObject:authirLastName forKey:@"lastName"];
-	[authorDictionary setObject:[NSNumber numberWithInt:authorAge] forKey:@"age"];
-	[authorDictionary setObject:authorAddressDictionary forKey:@"address"];
-	
-	NSMutableDictionary *commentDictionary = [NSMutableDictionary dictionary];
-	[commentDictionary setObject:postTitle forKey:@"title"];
-	[commentDictionary setObject:postBody forKey:@"body"];
-	[commentDictionary setObject:authorDictionary forKey:@"author"];
-	
-	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
-	[userDictionary setObject:firstName forKey:@"firstName"];
-	[userDictionary setObject:lastName forKey:@"lastName"];
-	[userDictionary setObject:[NSNumber numberWithInt:age] forKey:@"age"];
-	[userDictionary setObject:addressDictionary forKey:@"address"];
-	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];*/
-	return nil;
-}
-
-- (NSDictionary *)dictionaryFromJsonString:(NSString *)jsonString
-{
-	return [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
-										   options:NSJSONReadingMutableContainers
-											 error:nil];
-}
-
 @end

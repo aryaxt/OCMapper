@@ -103,9 +103,14 @@
 	return [self.dateFormatterDictionary objectForKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
 }
 
+- (id)emptyInstanceFromClass:(Class)class
+{
+	return [[class alloc] init];
+}
+
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
-	id object = [[class alloc] init];
+	id object = [self emptyInstanceFromClass:class];
 	
 	for (NSString *key in source)
 	{
@@ -139,7 +144,7 @@
 		}
 		else
 		{ 
-			if ([[self typeForProperty:propertyName andClass:class] rangeOfString:@"NSDate"].length)
+			if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
 			{
 				nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
 			}
@@ -281,14 +286,14 @@
 }
 
 - (NSString *)typeForProperty:(NSString *)property andClass:(Class)class
-{
+{	
 	const char *type = property_getAttributes(class_getProperty(class, [property UTF8String]));
 	NSString *typeString = [NSString stringWithUTF8String:type];
 	NSArray *attributes = [typeString componentsSeparatedByString:@","];
 	NSString *typeAttribute = [attributes objectAtIndex:0];
-	NSString *propertyType = [typeAttribute substringFromIndex:1];
-	const char *rawPropertyType = [propertyType UTF8String];
-	return [NSString stringWithFormat:@"%s" , rawPropertyType];
+	return [[[typeAttribute substringFromIndex:1]
+			 stringByReplacingOccurrencesOfString:@"@" withString:@""]
+			stringByReplacingOccurrencesOfString:@"\"" withString:@""];
 }
 
 @end

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3075171E3655005AAB02 /* CoreDataManager.m */; };
+		157B307C171E36D4005AAB02 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B307B171E36D4005AAB02 /* CDUser.m */; };
+		157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */; };
+		157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B3078171E3673005AAB02 /* CoreData.framework */; };
+		157B3083171E38E4005AAB02 /* NSManagedObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */; };
+		157B3087171E457E005AAB02 /* CDAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3086171E457E005AAB02 /* CDAddress.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
 		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
@@ -39,6 +45,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		157B3074171E3655005AAB02 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = ../CoreDataManager.h; sourceTree = "<group>"; };
+		157B3075171E3655005AAB02 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = ../CoreDataManager.m; sourceTree = "<group>"; };
+		157B3078171E3673005AAB02 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		157B307A171E36D4005AAB02 /* CDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDUser.h; path = ../CDUser.h; sourceTree = "<group>"; };
+		157B307B171E36D4005AAB02 /* CDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDUser.m; path = ../CDUser.m; sourceTree = "<group>"; };
+		157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OCMapper.xcdatamodel; sourceTree = "<group>"; };
+		157B3081171E38E4005AAB02 /* NSManagedObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObjectMapper.h; sourceTree = "<group>"; };
+		157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectMapper.m; sourceTree = "<group>"; };
+		157B3085171E457E005AAB02 /* CDAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAddress.h; sourceTree = "<group>"; };
+		157B3086171E457E005AAB02 /* CDAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAddress.m; sourceTree = "<group>"; };
 		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */,
 				15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */,
 				15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */,
 				15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */,
@@ -99,6 +116,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		157B3084171E4518005AAB02 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				157B3074171E3655005AAB02 /* CoreDataManager.h */,
+				157B3075171E3655005AAB02 /* CoreDataManager.m */,
+				157B307A171E36D4005AAB02 /* CDUser.h */,
+				157B307B171E36D4005AAB02 /* CDUser.m */,
+				157B3085171E457E005AAB02 /* CDAddress.h */,
+				157B3086171E457E005AAB02 /* CDAddress.m */,
+				157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
 		15B554A0171B7B3B0058E159 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +152,7 @@
 		15B554AE171B7B3B0058E159 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				157B3078171E3673005AAB02 /* CoreData.framework */,
 				15B554AF171B7B3B0058E159 /* UIKit.framework */,
 				15B554B1171B7B3B0058E159 /* Foundation.framework */,
 				15B554B3171B7B3B0058E159 /* CoreGraphics.framework */,
@@ -150,6 +182,7 @@
 		15E2B96B171BEAEB00526C77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				157B3084171E4518005AAB02 /* Core Data */,
 				15E2B96C171BEAEB00526C77 /* Address.h */,
 				15E2B96D171BEAEB00526C77 /* Address.m */,
 				15E2B96E171BEAEB00526C77 /* Comment.h */,
@@ -169,6 +202,8 @@
 				15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */,
 				15E2B979171BEAEB00526C77 /* ObjectMapper.h */,
 				15E2B97A171BEAEB00526C77 /* ObjectMapper.m */,
+				157B3081171E38E4005AAB02 /* NSManagedObjectMapper.h */,
+				157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
 				15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */,
 				15E2B994171BED2400526C77 /* OCMapper.h */,
@@ -303,6 +338,11 @@
 				15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */,
 				15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */,
 				15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */,
+				157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */,
+				157B307C171E36D4005AAB02 /* CDUser.m in Sources */,
+				157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */,
+				157B3083171E38E4005AAB02 /* NSManagedObjectMapper.m in Sources */,
+				157B3087171E457E005AAB02 /* CDAddress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +522,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */,
+			);
+			currentVersion = 157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */;
+			name = OCMapper.xcdatamodeld;
+			path = ../OCMapper.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 15B554A2171B7B3B0058E159 /* Project object */;
 }
