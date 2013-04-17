@@ -9,8 +9,10 @@
 #import "ObjectMapper.h"
 #import <CoreData/CoreData.h>
 
-@interface NSManagedObjectMapper : ObjectMapper
+@interface ManagedObjectMapper : ObjectMapper
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

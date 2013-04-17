@@ -146,7 +146,14 @@
 		{ 
 			if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
 			{
-				nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
+				if ([value isKindOfClass:[NSDate class]])
+				{
+					nestedObject = value;
+				}
+				else if ([value isKindOfClass:[NSString class]])
+				{
+					nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
+				}
 			}
 			else
 			{

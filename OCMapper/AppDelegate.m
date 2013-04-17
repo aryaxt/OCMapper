@@ -11,7 +11,7 @@
 #import "Comment.h"
 #import "OCMapper.h"
 #import "CoreDataManager.h"
-#import "NSManagedObjectMapper.h"
+#import "ManagedObjectMapper.h"
 #import "CDAddress.h"
 #import "CDUser.h"
 

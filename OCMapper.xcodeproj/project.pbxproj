@@ -11,8 +11,11 @@
 		157B307C171E36D4005AAB02 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B307B171E36D4005AAB02 /* CDUser.m */; };
 		157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */; };
 		157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B3078171E3673005AAB02 /* CoreData.framework */; };
-		157B3083171E38E4005AAB02 /* NSManagedObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */; };
+		157B3083171E38E4005AAB02 /* ManagedObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3082171E38E4005AAB02 /* ManagedObjectMapper.m */; };
 		157B3087171E457E005AAB02 /* CDAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3086171E457E005AAB02 /* CDAddress.m */; };
+		157B308F171E5461005AAB02 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B3078171E3673005AAB02 /* CoreData.framework */; };
+		157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */; };
+		157B309C171E5D32005AAB02 /* CDPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B309B171E5D32005AAB02 /* CDPost.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
 		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
@@ -51,10 +54,14 @@
 		157B307A171E36D4005AAB02 /* CDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDUser.h; path = ../CDUser.h; sourceTree = "<group>"; };
 		157B307B171E36D4005AAB02 /* CDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDUser.m; path = ../CDUser.m; sourceTree = "<group>"; };
 		157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OCMapper.xcdatamodel; sourceTree = "<group>"; };
-		157B3081171E38E4005AAB02 /* NSManagedObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSManagedObjectMapper.h; sourceTree = "<group>"; };
-		157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSManagedObjectMapper.m; sourceTree = "<group>"; };
+		157B3081171E38E4005AAB02 /* ManagedObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectMapper.h; sourceTree = "<group>"; };
+		157B3082171E38E4005AAB02 /* ManagedObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectMapper.m; sourceTree = "<group>"; };
 		157B3085171E457E005AAB02 /* CDAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAddress.h; sourceTree = "<group>"; };
 		157B3086171E457E005AAB02 /* CDAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAddress.m; sourceTree = "<group>"; };
+		157B3094171E58C0005AAB02 /* ManagedObjectMapperTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectMapperTest.h; sourceTree = "<group>"; };
+		157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectMapperTest.m; sourceTree = "<group>"; };
+		157B309A171E5D32005AAB02 /* CDPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPost.h; sourceTree = "<group>"; };
+		157B309B171E5D32005AAB02 /* CDPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPost.m; sourceTree = "<group>"; };
 		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,6 +117,7 @@
 				15B554CE171B7B3C0058E159 /* SenTestingKit.framework in Frameworks */,
 				15B554CF171B7B3C0058E159 /* UIKit.framework in Frameworks */,
 				15B554D0171B7B3C0058E159 /* Foundation.framework in Frameworks */,
+				157B308F171E5461005AAB02 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +133,8 @@
 				157B307B171E36D4005AAB02 /* CDUser.m */,
 				157B3085171E457E005AAB02 /* CDAddress.h */,
 				157B3086171E457E005AAB02 /* CDAddress.m */,
+				157B309A171E5D32005AAB02 /* CDPost.h */,
+				157B309B171E5D32005AAB02 /* CDPost.m */,
 				157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */,
 			);
 			path = "Core Data";
@@ -202,8 +212,8 @@
 				15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */,
 				15E2B979171BEAEB00526C77 /* ObjectMapper.h */,
 				15E2B97A171BEAEB00526C77 /* ObjectMapper.m */,
-				157B3081171E38E4005AAB02 /* NSManagedObjectMapper.h */,
-				157B3082171E38E4005AAB02 /* NSManagedObjectMapper.m */,
+				157B3081171E38E4005AAB02 /* ManagedObjectMapper.h */,
+				157B3082171E38E4005AAB02 /* ManagedObjectMapper.m */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
 				15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */,
 				15E2B994171BED2400526C77 /* OCMapper.h */,
@@ -217,6 +227,8 @@
 				15E2B98C171BEAF400526C77 /* InfoPlist.strings */,
 				15E2B98E171BEAF400526C77 /* ObjectMapperTests.h */,
 				15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */,
+				157B3094171E58C0005AAB02 /* ManagedObjectMapperTest.h */,
+				157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */,
 				15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */,
 			);
 			path = OCMapperTests;
@@ -341,8 +353,9 @@
 				157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */,
 				157B307C171E36D4005AAB02 /* CDUser.m in Sources */,
 				157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */,
-				157B3083171E38E4005AAB02 /* NSManagedObjectMapper.m in Sources */,
+				157B3083171E38E4005AAB02 /* ManagedObjectMapper.m in Sources */,
 				157B3087171E457E005AAB02 /* CDAddress.m in Sources */,
+				157B309C171E5D32005AAB02 /* CDPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */,
+				157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

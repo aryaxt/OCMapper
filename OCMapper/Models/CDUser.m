@@ -13,5 +13,7 @@
 @dynamic lastName;
 @dynamic age;
 @dynamic dateOfBirth;
+@dynamic address;
+@dynamic posts;
 
 @end

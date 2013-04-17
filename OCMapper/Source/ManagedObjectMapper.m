@@ -6,10 +6,22 @@
 //  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
 //
 
-#import "NSManagedObjectMapper.h"
+#import "ManagedObjectMapper.h"
 
-@implementation NSManagedObjectMapper
+@implementation ManagedObjectMapper
 @synthesize managedObjectContext;
+
+#pragma mark - Initialization -
+
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext
+{
+	if (self = [super init])
+	{
+		self.managedObjectContext = aManagedObjectContext;
+	}
+	
+	return self;
+}
 
 #pragma mark - Overriding Methods -
 
@@ -28,5 +40,21 @@
 	
 	return [super objectFromSource:source toInstanceOfClass:class];
 }
+
+- (id)processArray:(NSArray *)value forClass:(Class)class
+{
+	NSMutableSet *nestedSet = [NSMutableSet set];
+	
+	for (id objectInArray in value)
+	{
+		id nestedObject = [self objectFromSource:objectInArray toInstanceOfClass:class];
+		
+		if (nestedSet)
+			[nestedSet addObject:nestedObject];
+	}
+	
+	return nestedSet;
+}
+
 
 @end
