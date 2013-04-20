@@ -176,7 +176,7 @@
 	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
 }
 
-- (void)testOneToOneSimpleAutoMappingShouldNotBeCaseSensitive
+- (void)testAutoMappingShouldNotBeCaseSensitive
 {
 	NSString *firstName = @"Aryan";
 	NSNumber *age = @26;

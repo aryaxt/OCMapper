@@ -147,12 +147,6 @@
 			if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]])
 			{
 				objectType = [self classFromString:key];
-				
-				if (!objectType && key.length > 1 && [[key substringFromIndex:key.length-1] isEqual:@"s"])
-					objectType = [self classFromString:[key substringToIndex:key.length-1]];
-				
-				if (!objectType && key.length > 2 && [[key substringFromIndex:key.length-2] isEqual:@"es"])
-					objectType = [self classFromString:[key substringToIndex:key.length-2]];
 			}
 		}
 		
@@ -218,6 +212,8 @@
 	if (NSClassFromString([className capitalizedString]))
 		return NSClassFromString([className capitalizedString]);
 	
+	NSString *classNameLowerCase = [className lowercaseString];
+	
 	int numClasses;
 	Class *classes = NULL;
 	
@@ -232,8 +228,11 @@
 		for (int i = 0; i < numClasses; i++)
 		{
 			Class class = classes[i];
+			NSString *thisClassNameLowerCase = [NSStringFromClass(class) lowercaseString];
 			
-			if ([[NSStringFromClass(class) lowercaseString] isEqual:[className lowercaseString]])
+			if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
+				[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
+				[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
 				return class;
 		}
 	}
