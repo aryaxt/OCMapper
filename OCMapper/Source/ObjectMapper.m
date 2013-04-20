@@ -21,6 +21,7 @@
 @synthesize dateFormatterDictionary;
 @synthesize defaultDateFormatter;
 @synthesize commonDateFormaters;
+@synthesize instanceProvider;
 
 #pragma mark - initialization -
 
@@ -41,6 +42,7 @@
 	if (self = [super init])
 	{
 		self.mappingDictionary = [NSMutableDictionary dictionary];
+		self.instanceProvider = [[ObjectInstanceProvider alloc] init];
 	}
 	
 	return self;
@@ -70,6 +72,16 @@
 	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
 }
 
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
+{
+	if (!dateFormatterDictionary)
+	{
+		dateFormatterDictionary = [[NSMutableDictionary alloc] init];
+	}
+	
+	[self.dateFormatterDictionary setObject:dateFormatter forKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
+}
+
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
 {
 	if ([source isKindOfClass:[NSDictionary class]])
@@ -86,14 +98,22 @@
 	}
 }
 
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
+- (NSDictionary *)dictionaryFromObject:(NSObject *)object
 {
-	if (!dateFormatterDictionary)
-	{
-		dateFormatterDictionary = [[NSMutableDictionary alloc] init];
-	}
+	NSMutableDictionary *props = [NSMutableDictionary dictionary];
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList([object class], &outCount);
 	
-	[self.dateFormatterDictionary setObject:dateFormatter forKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
+    for (i = 0; i < outCount; i++)
+	{
+        objc_property_t property = properties[i];
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        id propertyValue = [object valueForKey:(NSString *)propertyName];
+        if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+    }
+	
+    free(properties);
+    return props;
 }
 
 #pragma mark - Private Methods -
@@ -103,14 +123,9 @@
 	return [self.dateFormatterDictionary objectForKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
 }
 
-- (id)emptyInstanceFromClass:(Class)class
-{
-	return [[class alloc] init];
-}
-
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
-	id object = [self emptyInstanceFromClass:class];
+	id object = [self.instanceProvider emptyInstanceFromClass:class];
 	
 	for (NSString *key in source)
 	{
@@ -127,43 +142,53 @@
 		}
 		else
 		{
-			propertyName = key;
-			objectType = [self classFromString:key];
+			propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
 			
-			if (!objectType && key.length && [[key substringFromIndex:key.length-1] isEqual:@"s"])
-				objectType = [self classFromString:[key substringToIndex:key.length-1]];
+			if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]])
+			{
+				objectType = [self classFromString:key];
+				
+				if (!objectType && key.length > 1 && [[key substringFromIndex:key.length-1] isEqual:@"s"])
+					objectType = [self classFromString:[key substringToIndex:key.length-1]];
+				
+				if (!objectType && key.length > 2 && [[key substringFromIndex:key.length-2] isEqual:@"es"])
+					objectType = [self classFromString:[key substringToIndex:key.length-2]];
+			}
 		}
 		
-		if ([value isKindOfClass:[NSDictionary class]])
+		if (class && object && [object respondsToSelector:NSSelectorFromString(propertyName)])
 		{
-			nestedObject = [self processDictionary:value forClass:objectType];
-		}
-		else if ([value isKindOfClass:[NSArray class]])
-		{
-			nestedObject = [self processArray:value forClass:objectType];
-		}
-		else
-		{ 
-			if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+			if ([value isKindOfClass:[NSDictionary class]])
 			{
-				if ([value isKindOfClass:[NSDate class]])
-				{
-					nestedObject = value;
-				}
-				else if ([value isKindOfClass:[NSString class]])
-				{
-					nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
-				}
+				nestedObject = [self processDictionary:value forClass:objectType];
+			}
+			else if ([value isKindOfClass:[NSArray class]])
+			{
+				nestedObject = [self processArray:value forClass:objectType];
 			}
 			else
 			{
-				nestedObject = value;
+				if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+				{
+					if ([value isKindOfClass:[NSDate class]])
+					{
+						nestedObject = value;
+					}
+					else if ([value isKindOfClass:[NSString class]])
+					{
+						nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
+					}
+				}
+				else
+				{
+					nestedObject = value;
+				}
 			}
-		}
-		
-		if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-		{
-			[object setValue:nestedObject forKey:propertyName];
+			
+			if ([object respondsToSelector:NSSelectorFromString(propertyName)])
+			{
+				[object setValue:nestedObject forKey:propertyName];
+			}
 		}
 	}
 	
@@ -172,17 +197,17 @@
 
 - (id)processArray:(NSArray *)value forClass:(Class)class
 {
-	NSMutableArray *nestedArray = [NSMutableArray array];
+	id collection = [self.instanceProvider emptyInstanceOfCollectionObject];
 	
 	for (id objectInArray in value)
 	{
 		id nestedObject = [self objectFromSource:objectInArray toInstanceOfClass:class];
 		
 		if (nestedObject)
-			[nestedArray addObject:nestedObject];
+			[collection addObject:nestedObject];
 	}
 
-	return nestedArray;
+	return collection;
 }
 
 - (Class)classFromString:(NSString *)className

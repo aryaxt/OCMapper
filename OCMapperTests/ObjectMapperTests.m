@@ -176,4 +176,43 @@
 	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
 }
 
+- (void)testOneToOneSimpleAutoMappingShouldNotBeCaseSensitive
+{
+	NSString *firstName = @"Aryan";
+	NSNumber *age = @26;
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:firstName forKey:@"FirstNAmE"];
+	[userDictionary setObject:age forKey:@"aGe"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
+}
+
+- (void)testPerformance
+{
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@"SAN DIEGO" forKey:@"city"];
+	[addressDictionary setObject:@"US" forKey:@"country"];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"Ghassemi" forKey:@"lastName"];
+	[userDictionary setObject:@26 forKey:@"age"];
+	[userDictionary setObject:@"01-21/2005" forKey:@"dateOfBirth"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	NSDate *methodStart = [NSDate date];
+	
+	NSArray *users = [self.mapper objectFromSource:@[userDictionary, userDictionary, userDictionary, userDictionary,
+					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary,
+					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary]
+								 toInstanceOfClass:[User class]];
+	
+	NSDate *methodFinish = [NSDate date];
+	NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
+}
+
 @end

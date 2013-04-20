@@ -7,10 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "ManagedObjectMapper.h"
+#import "ObjectMapper.h"
+#import "ManagedObjectInstanceProvider.h"
 
 @interface ManagedObjectMapperTest : SenTestCase
 
-@property (nonatomic, strong) ManagedObjectMapper *mapper;
+@property (nonatomic, strong) ObjectMapper *mapper;
 
 @end

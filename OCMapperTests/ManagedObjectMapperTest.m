@@ -22,7 +22,11 @@
     [super setUp];
 	
 	CoreDataManager *coreDataManager = [[CoreDataManager alloc] init];
-	self.mapper = [[ManagedObjectMapper alloc] initWithManagedObjectContext:coreDataManager.managedObjectContext];
+	ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc]
+													   initWithManagedObjectContext:coreDataManager.managedObjectContext];
+	
+	self.mapper = [[ObjectMapper alloc] init];
+	self.mapper.instanceProvider = instanceProvider;
 }
 
 - (void)tearDown

@@ -7,13 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "User.h"
-#import "Comment.h"
-#import "OCMapper.h"
-#import "CoreDataManager.h"
-#import "ManagedObjectMapper.h"
-#import "CDAddress.h"
-#import "CDUser.h"
 
 @implementation AppDelegate
 
