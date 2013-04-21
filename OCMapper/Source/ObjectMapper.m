@@ -8,20 +8,17 @@
 
 #import "ObjectMapper.h"
 
-#define KEY_FOR_ARRAY_OF_OBJECT_MAPPING_INFOS @"objectMappingInfos"
-
 @interface ObjectMapper()
-@property (nonatomic, strong) NSMutableDictionary *mappingDictionary;
 @property (nonatomic, strong) NSMutableDictionary *dateFormatterDictionary;
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
 @end
 
 @implementation ObjectMapper
-@synthesize mappingDictionary;
 @synthesize dateFormatterDictionary;
 @synthesize defaultDateFormatter;
 @synthesize commonDateFormaters;
 @synthesize instanceProvider;
+@synthesize mappingProvider;
 
 #pragma mark - initialization -
 
@@ -41,7 +38,7 @@
 {
 	if (self = [super init])
 	{
-		self.mappingDictionary = [NSMutableDictionary dictionary];
+		self.mappingProvider = [[InCodeMappintProvider alloc] init];
 		self.instanceProvider = [[ObjectInstanceProvider alloc] init];
 	}
 	
@@ -49,28 +46,6 @@
 }
 
 #pragma mark - Public Methods -
-
-- (void)mapFromDictionaryKey:(NSString *)source toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class
-{
-	NSMutableDictionary *mappingForClass = [self.mappingDictionary objectForKey:NSStringFromClass(class)];
-	
-	if (!mappingForClass)
-	{
-		mappingForClass = [NSMutableDictionary dictionary];
-		[mappingForClass setObject:[NSMutableArray array] forKey:KEY_FOR_ARRAY_OF_OBJECT_MAPPING_INFOS];
-	}
-	
-	NSMutableArray *objectMappingInfos = [mappingForClass objectForKey:KEY_FOR_ARRAY_OF_OBJECT_MAPPING_INFOS];
-	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:source propertyKey:propertyKey andObjectType:objectType];
-	[objectMappingInfos addObject:info];
-	
-	[self.mappingDictionary setObject:mappingForClass forKey:NSStringFromClass(class)];
-}
-
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class
-{
-	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
-}
 
 - (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
 {
@@ -129,7 +104,7 @@
 	
 	for (NSString *key in source)
 	{
-		ObjectMappingInfo *mappingInfo = [self mappingInfoByDictionaryKey:key forClass:class];
+		ObjectMappingInfo *mappingInfo = [self.mappingProvider mappingInfoForClass:class andDictionaryKey:key];
 		id value = [source objectForKey:(NSString *)key];
 		NSString *propertyName;
 		Class objectType;
@@ -235,19 +210,6 @@
 				[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
 				return class;
 		}
-	}
-	
-	return nil;
-}
-
-- (ObjectMappingInfo *)mappingInfoByDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class
-{
-	NSMutableArray *mappingInfos = [[self.mappingDictionary objectForKey:NSStringFromClass(class)] objectForKey:KEY_FOR_ARRAY_OF_OBJECT_MAPPING_INFOS];
-	
-	for (ObjectMappingInfo *info in mappingInfos)
-	{
-		if ([info.dictionaryKey isEqual:dictionaryKey])
-			return info;
 	}
 	
 	return nil;

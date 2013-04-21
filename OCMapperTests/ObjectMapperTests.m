@@ -20,11 +20,14 @@
     [super setUp];
 	
 	self.mapper = [[ObjectMapper alloc] init];
+	self.mappingProvider = [[InCodeMappintProvider alloc] init];
+	self.mapper.mappingProvider = self.mappingProvider;
 }
 
 - (void)tearDown
 {
 	self.mapper = nil;
+	self.mappingProvider =  nil;
 	
     [super tearDown];
 }
@@ -94,9 +97,9 @@
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
 	[userDictionary setObject:addressDictionary forKey:ADDRESS_KEY];
 	
-	[self.mapper mapFromDictionaryKey:ADDRESS_KEY toPropertyKey:@"address" withObjectType:[Address class] forClass:[User class]];
-	[self.mapper mapFromDictionaryKey:CITY_KEY toPropertyKey:@"city" forClass:[Address class]];
-	[self.mapper mapFromDictionaryKey:COUNTRY_KEY toPropertyKey:@"country" forClass:[Address class]];
+	[self.mappingProvider mapFromDictionaryKey:ADDRESS_KEY toPropertyKey:@"address" withObjectType:[Address class] forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:CITY_KEY toPropertyKey:@"city" forClass:[Address class]];
+	[self.mappingProvider mapFromDictionaryKey:COUNTRY_KEY toPropertyKey:@"country" forClass:[Address class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	STAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
@@ -115,8 +118,8 @@
 	[userDictionary setObject:firstName forKey:SOME_FIRST_NAME_KEY];
 	[userDictionary setObject:age forKey:SOME_AGE_KEY];
 	
-	[self.mapper mapFromDictionaryKey:SOME_FIRST_NAME_KEY toPropertyKey:@"firstName" forClass:[User class]];
-	[self.mapper mapFromDictionaryKey:SOME_AGE_KEY toPropertyKey:@"age" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:SOME_FIRST_NAME_KEY toPropertyKey:@"firstName" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:SOME_AGE_KEY toPropertyKey:@"age" forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");

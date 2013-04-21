@@ -11,17 +11,18 @@
 #import "ObjectMappingInfo.h"
 #import "InstanceProvider.h"
 #import "ObjectInstanceProvider.h"
+#import "MappingProvider.h"
+#import "InCodeMappintProvider.h"
 
 @interface ObjectMapper : NSObject
 
 @property (nonatomic, strong) NSDateFormatter *defaultDateFormatter;
 @property (nonatomic, strong) id <InstanceProvider> instanceProvider;
+@property (nonatomic, strong) id <MappingProvider> mappingProvider;
 
 + (ObjectMapper *)sharedInstance;
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
 - (NSDictionary *)dictionaryFromObject:(NSObject *)object;
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class;
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class;
 - (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class;
 
 @end

@@ -14,6 +14,7 @@
 
 @implementation ManagedObjectMapperTest
 @synthesize mapper;
+@synthesize mappingProvider;
 
 #pragma mark - Setup & Teardown -
 
@@ -25,13 +26,17 @@
 	ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc]
 													   initWithManagedObjectContext:coreDataManager.managedObjectContext];
 	
+	self.mappingProvider = [[InCodeMappintProvider alloc] init];
+	
 	self.mapper = [[ObjectMapper alloc] init];
+	self.mapper.mappingProvider = self.mappingProvider;
 	self.mapper.instanceProvider = instanceProvider;
 }
 
 - (void)tearDown
 {
 	self.mapper = nil;
+	self.mappingProvider = nil;
 	
     [super tearDown];
 }
@@ -60,7 +65,7 @@
 
 - (void)testNestedMapping
 {
-	[self.mapper mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDUser class]];
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDUser class]];
 	
 	NSString *city = @"San Diego";
 	NSString *country = @"US";
@@ -79,7 +84,7 @@
 
 - (void)testNestedArrayMapping
 {
-	[self.mapper mapFromDictionaryKey:@"posts" toPropertyKey:@"posts" withObjectType:[CDPost class] forClass:[CDUser class]];
+	[self.mappingProvider mapFromDictionaryKey:@"posts" toPropertyKey:@"posts" withObjectType:[CDPost class] forClass:[CDUser class]];
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
