@@ -10,9 +10,7 @@
 #import <objc/runtime.h>
 #import "ObjectMappingInfo.h"
 #import "InstanceProvider.h"
-#import "ObjectInstanceProvider.h"
 #import "MappingProvider.h"
-#import "InCodeMappintProvider.h"
 
 @interface ObjectMapper : NSObject
 
@@ -23,6 +21,5 @@
 + (ObjectMapper *)sharedInstance;
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
 - (NSDictionary *)dictionaryFromObject:(NSObject *)object;
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class;
 
 @end

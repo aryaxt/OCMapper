@@ -19,8 +19,8 @@
 		157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B313D17234A97005AAB02 /* NSObject+ObjectMapper.m */; };
 		157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */; };
 		157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */; };
-		157B315517237CAA005AAB02 /* InCodeMappintProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B315417237CAA005AAB02 /* InCodeMappintProvider.m */; };
 		157B315817237CB9005AAB02 /* XMLMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B315717237CB9005AAB02 /* XMLMappingProvider.m */; };
+		157B3161172389BE005AAB02 /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3160172389BE005AAB02 /* InCodeMappingProvider.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
 		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
@@ -73,10 +73,10 @@
 		157B314517234ADF005AAB02 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectInstanceProvider.h; sourceTree = "<group>"; };
 		157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectInstanceProvider.m; sourceTree = "<group>"; };
 		157B315217237C87005AAB02 /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
-		157B315317237CAA005AAB02 /* InCodeMappintProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCodeMappintProvider.h; sourceTree = "<group>"; };
-		157B315417237CAA005AAB02 /* InCodeMappintProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCodeMappintProvider.m; sourceTree = "<group>"; };
+		157B315317237CAA005AAB02 /* InCodeMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCodeMappingProvider.h; sourceTree = "<group>"; };
 		157B315617237CB9005AAB02 /* XMLMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLMappingProvider.h; sourceTree = "<group>"; };
 		157B315717237CB9005AAB02 /* XMLMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLMappingProvider.m; sourceTree = "<group>"; };
+		157B3160172389BE005AAB02 /* InCodeMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCodeMappingProvider.m; sourceTree = "<group>"; };
 		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -178,8 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				157B315217237C87005AAB02 /* MappingProvider.h */,
-				157B315317237CAA005AAB02 /* InCodeMappintProvider.h */,
-				157B315417237CAA005AAB02 /* InCodeMappintProvider.m */,
+				157B315317237CAA005AAB02 /* InCodeMappingProvider.h */,
+				157B3160172389BE005AAB02 /* InCodeMappingProvider.m */,
 				157B315617237CB9005AAB02 /* XMLMappingProvider.h */,
 				157B315717237CB9005AAB02 /* XMLMappingProvider.m */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
@@ -400,8 +400,8 @@
 				157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */,
 				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
-				157B315517237CAA005AAB02 /* InCodeMappintProvider.m in Sources */,
 				157B315817237CB9005AAB02 /* XMLMappingProvider.m in Sources */,
+				157B3161172389BE005AAB02 /* InCodeMappingProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,9 +10,10 @@
 #import "MappingProvider.h"
 #import "ObjectMappingInfo.h"
 
-@interface InCodeMappintProvider : NSObject <MappingProvider>
+@interface InCodeMappingProvider : NSObject <MappingProvider>
 
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class;
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class;
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class;
 
 @end

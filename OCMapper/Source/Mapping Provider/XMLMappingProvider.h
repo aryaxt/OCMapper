@@ -11,4 +11,6 @@
 
 @interface XMLMappingProvider : NSObject <MappingProvider>
 
+- (id)initWithXmlFile:(NSString *)fileName;
+
 @end

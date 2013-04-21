@@ -9,12 +9,10 @@
 #import "ObjectMapper.h"
 
 @interface ObjectMapper()
-@property (nonatomic, strong) NSMutableDictionary *dateFormatterDictionary;
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
 @end
 
 @implementation ObjectMapper
-@synthesize dateFormatterDictionary;
 @synthesize defaultDateFormatter;
 @synthesize commonDateFormaters;
 @synthesize instanceProvider;
@@ -34,28 +32,7 @@
 	return singleton;
 }
 
-- (id)init
-{
-	if (self = [super init])
-	{
-		self.mappingProvider = [[InCodeMappintProvider alloc] init];
-		self.instanceProvider = [[ObjectInstanceProvider alloc] init];
-	}
-	
-	return self;
-}
-
 #pragma mark - Public Methods -
-
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
-{
-	if (!dateFormatterDictionary)
-	{
-		dateFormatterDictionary = [[NSMutableDictionary alloc] init];
-	}
-	
-	[self.dateFormatterDictionary setObject:dateFormatter forKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
-}
 
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
 {
@@ -92,11 +69,6 @@
 }
 
 #pragma mark - Private Methods -
-
-- (NSDateFormatter *)dateFormatterForProperty:(NSString *)property andClass:(Class)class
-{
-	return [self.dateFormatterDictionary objectForKey:[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), property]];
-}
 
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
@@ -218,7 +190,7 @@
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
 {
 	NSDate *date;
-	NSDateFormatter *customDateFormatter = [self dateFormatterForProperty:property andClass:class];
+	NSDateFormatter *customDateFormatter = [self.mappingProvider dateFormatterForClass:class andProperty:property];
 	
 	if (customDateFormatter)
 	{

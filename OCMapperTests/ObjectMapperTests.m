@@ -12,6 +12,8 @@
 
 @implementation ObjectMapperTests
 @synthesize mapper;
+@synthesize instanceProvider;
+@synthesize mappingProvider;
 
 #pragma mark - Setup & Teardown -
 
@@ -19,9 +21,12 @@
 {
     [super setUp];
 	
+	self.mappingProvider = [[InCodeMappingProvider alloc] init];
+	self.instanceProvider = [[ObjectInstanceProvider alloc] init];
+	
 	self.mapper = [[ObjectMapper alloc] init];
-	self.mappingProvider = [[InCodeMappintProvider alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
+	self.mapper.instanceProvider = self.instanceProvider;
 }
 
 - (void)tearDown
@@ -170,8 +175,8 @@
 	[userDict setObject:dateOfBirthString forKey:@"dateOfBirth"];
 	[userDict setObject:accountCreationDateString forKey:@"accountCreationDate"];
 	
-	[self.mapper setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
-	[self.mapper setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[User class]];
 	STAssertNotNil(user.accountCreationDate, @"Did nor populate date");

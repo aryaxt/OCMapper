@@ -10,4 +10,28 @@
 
 @implementation XMLMappingProvider
 
+#pragma mark - Initialization -
+
+- (id)initWithXmlFile:(NSString *)fileName
+{
+	if (self = [super init])
+	{
+		
+	}
+	
+	return self;
+}
+
+#pragma mark - MappingProvider Methods -
+
+- (ObjectMappingInfo *)mappingInfoForClass:(Class)class andDictionaryKey:(NSString *)source
+{
+	return nil;
+}
+
+- (NSDateFormatter *)dateFormatterForClass:(Class)class andProperty:(NSString *)property
+{
+	return nil;
+}
+
 @end

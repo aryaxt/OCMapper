@@ -9,11 +9,12 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "ObjectMapper.h"
 #import "ManagedObjectInstanceProvider.h"
-#import "InCodeMappintProvider.h"
+#import "InCodeMappingProvider.h"
 
 @interface ManagedObjectMapperTest : SenTestCase
 
 @property (nonatomic, strong) ObjectMapper *mapper;
-@property (nonatomic, strong) InCodeMappintProvider *mappingProvider;
+@property (nonatomic, strong) InCodeMappingProvider *mappingProvider;
+@property (nonatomic, strong) ManagedObjectInstanceProvider *instanceProvider;
 
 @end

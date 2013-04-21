@@ -10,3 +10,7 @@
 #import	"ObjectMapper.h"
 #import	"NSObject+ObjectMapper.h"
 #import	"NSDictionary+ObjectMapper.h"
+#import "ObjectInstanceProvider.h"
+#import "ManagedObjectInstanceProvider.h"
+#import "InCodeMappingProvider.h"
+#import "XMLMappingProvider.h"
