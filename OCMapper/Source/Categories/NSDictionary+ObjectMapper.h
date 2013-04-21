@@ -12,5 +12,7 @@
 @interface NSDictionary (ObjectMapper)
 
 - (id)objectForClass:(Class)class;
+- (NSDictionary *)dictionaryFromObject:(NSObject *)object;
+- (NSDictionary *)dictionaryFromObject:(NSObject *)object wrappedInParentWithKey:(NSString *)key;
 
 @end

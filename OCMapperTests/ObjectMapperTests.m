@@ -176,43 +176,43 @@
 	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
 }
 
-#pragma mark - Helpers -
-
-- (NSDictionary *)userDictionary
+- (void)testAutoMappingShouldNotBeCaseSensitive
 {
-	/*NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
-	[addressDictionary setObject:city forKey:@"city"];
-	[addressDictionary setObject:country forKey:@"country"];
-	
-	NSMutableDictionary *authorAddressDictionary = [NSMutableDictionary dictionary];
-	[addressDictionary setObject:authorCity forKey:@"city"];
-	[addressDictionary setObject:authorCountry forKey:@"country"];
-	
-	NSMutableDictionary *authorDictionary = [NSMutableDictionary dictionary];
-	[authorDictionary setObject:authorFirstName forKey:@"firstName"];
-	[authorDictionary setObject:authirLastName forKey:@"lastName"];
-	[authorDictionary setObject:[NSNumber numberWithInt:authorAge] forKey:@"age"];
-	[authorDictionary setObject:authorAddressDictionary forKey:@"address"];
-	
-	NSMutableDictionary *commentDictionary = [NSMutableDictionary dictionary];
-	[commentDictionary setObject:postTitle forKey:@"title"];
-	[commentDictionary setObject:postBody forKey:@"body"];
-	[commentDictionary setObject:authorDictionary forKey:@"author"];
+	NSString *firstName = @"Aryan";
+	NSNumber *age = @26;
 	
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
-	[userDictionary setObject:firstName forKey:@"firstName"];
-	[userDictionary setObject:lastName forKey:@"lastName"];
-	[userDictionary setObject:[NSNumber numberWithInt:age] forKey:@"age"];
-	[userDictionary setObject:addressDictionary forKey:@"address"];
-	[userDictionary setObject:@[commentDictionary, commentDictionary, commentDictionary] forKey:@"comments"];*/
-	return nil;
+	[userDictionary setObject:firstName forKey:@"FirstNAmE"];
+	[userDictionary setObject:age forKey:@"aGe"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
 }
 
-- (NSDictionary *)dictionaryFromJsonString:(NSString *)jsonString
+- (void)testPerformance
 {
-	return [NSJSONSerialization JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
-										   options:NSJSONReadingMutableContainers
-											 error:nil];
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@"SAN DIEGO" forKey:@"city"];
+	[addressDictionary setObject:@"US" forKey:@"country"];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"Ghassemi" forKey:@"lastName"];
+	[userDictionary setObject:@26 forKey:@"age"];
+	[userDictionary setObject:@"01-21/2005" forKey:@"dateOfBirth"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	NSDate *methodStart = [NSDate date];
+	
+	NSArray *users = [self.mapper objectFromSource:@[userDictionary, userDictionary, userDictionary, userDictionary,
+					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary,
+					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary]
+								 toInstanceOfClass:[User class]];
+	
+	NSDate *methodFinish = [NSDate date];
+	NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
 }
 
 @end

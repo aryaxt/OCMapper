@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3075171E3655005AAB02 /* CoreDataManager.m */; };
+		157B307C171E36D4005AAB02 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B307B171E36D4005AAB02 /* CDUser.m */; };
+		157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */; };
+		157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B3078171E3673005AAB02 /* CoreData.framework */; };
+		157B3087171E457E005AAB02 /* CDAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3086171E457E005AAB02 /* CDAddress.m */; };
+		157B308F171E5461005AAB02 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B3078171E3673005AAB02 /* CoreData.framework */; };
+		157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */; };
+		157B309C171E5D32005AAB02 /* CDPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B309B171E5D32005AAB02 /* CDPost.m */; };
+		157B313E17234A97005AAB02 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B313B17234A97005AAB02 /* NSDictionary+ObjectMapper.m */; };
+		157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B313D17234A97005AAB02 /* NSObject+ObjectMapper.m */; };
+		157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */; };
+		157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
 		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
@@ -21,8 +33,6 @@
 		15E2B983171BEAEB00526C77 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96D171BEAEB00526C77 /* Address.m */; };
 		15E2B984171BEAEB00526C77 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B96F171BEAEB00526C77 /* Comment.m */; };
 		15E2B985171BEAEB00526C77 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B971171BEAEB00526C77 /* User.m */; };
-		15E2B987171BEAEB00526C77 /* NSDictionary+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */; };
-		15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */; };
 		15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97A171BEAEB00526C77 /* ObjectMapper.m */; };
 		15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */; };
 		15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */; };
@@ -39,6 +49,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		157B3074171E3655005AAB02 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = ../CoreDataManager.h; sourceTree = "<group>"; };
+		157B3075171E3655005AAB02 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = ../CoreDataManager.m; sourceTree = "<group>"; };
+		157B3078171E3673005AAB02 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		157B307A171E36D4005AAB02 /* CDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDUser.h; path = ../CDUser.h; sourceTree = "<group>"; };
+		157B307B171E36D4005AAB02 /* CDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDUser.m; path = ../CDUser.m; sourceTree = "<group>"; };
+		157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OCMapper.xcdatamodel; sourceTree = "<group>"; };
+		157B3085171E457E005AAB02 /* CDAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAddress.h; sourceTree = "<group>"; };
+		157B3086171E457E005AAB02 /* CDAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAddress.m; sourceTree = "<group>"; };
+		157B3094171E58C0005AAB02 /* ManagedObjectMapperTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectMapperTest.h; sourceTree = "<group>"; };
+		157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectMapperTest.m; sourceTree = "<group>"; };
+		157B309A171E5D32005AAB02 /* CDPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPost.h; sourceTree = "<group>"; };
+		157B309B171E5D32005AAB02 /* CDPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPost.m; sourceTree = "<group>"; };
+		157B313A17234A97005AAB02 /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
+		157B313B17234A97005AAB02 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
+		157B313C17234A97005AAB02 /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
+		157B313D17234A97005AAB02 /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
+		157B314117234AA7005AAB02 /* InstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstanceProvider.h; sourceTree = "<group>"; };
+		157B314217234ACB005AAB02 /* ObjectInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectInstanceProvider.h; sourceTree = "<group>"; };
+		157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectInstanceProvider.m; sourceTree = "<group>"; };
+		157B314517234ADF005AAB02 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectInstanceProvider.h; sourceTree = "<group>"; };
+		157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectInstanceProvider.m; sourceTree = "<group>"; };
 		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -60,10 +91,6 @@
 		15E2B971171BEAEB00526C77 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		15E2B972171BEAEB00526C77 /* OCMapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCMapper-Info.plist"; sourceTree = "<group>"; };
 		15E2B973171BEAEB00526C77 /* OCMapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCMapper-Prefix.pch"; sourceTree = "<group>"; };
-		15E2B975171BEAEB00526C77 /* NSDictionary+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ObjectMapper.h"; sourceTree = "<group>"; };
-		15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ObjectMapper.m"; sourceTree = "<group>"; };
-		15E2B977171BEAEB00526C77 /* NSObject+ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ObjectMapper.h"; sourceTree = "<group>"; };
-		15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ObjectMapper.m"; sourceTree = "<group>"; };
 		15E2B979171BEAEB00526C77 /* ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
 		15E2B97A171BEAEB00526C77 /* ObjectMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMapper.m; sourceTree = "<group>"; };
 		15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMappingInfo.h; sourceTree = "<group>"; };
@@ -80,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */,
 				15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */,
 				15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */,
 				15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */,
@@ -93,12 +121,52 @@
 				15B554CE171B7B3C0058E159 /* SenTestingKit.framework in Frameworks */,
 				15B554CF171B7B3C0058E159 /* UIKit.framework in Frameworks */,
 				15B554D0171B7B3C0058E159 /* Foundation.framework in Frameworks */,
+				157B308F171E5461005AAB02 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		157B3084171E4518005AAB02 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				157B3074171E3655005AAB02 /* CoreDataManager.h */,
+				157B3075171E3655005AAB02 /* CoreDataManager.m */,
+				157B307A171E36D4005AAB02 /* CDUser.h */,
+				157B307B171E36D4005AAB02 /* CDUser.m */,
+				157B3085171E457E005AAB02 /* CDAddress.h */,
+				157B3086171E457E005AAB02 /* CDAddress.m */,
+				157B309A171E5D32005AAB02 /* CDPost.h */,
+				157B309B171E5D32005AAB02 /* CDPost.m */,
+				157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		157B313917234A97005AAB02 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				157B313A17234A97005AAB02 /* NSDictionary+ObjectMapper.h */,
+				157B313B17234A97005AAB02 /* NSDictionary+ObjectMapper.m */,
+				157B313C17234A97005AAB02 /* NSObject+ObjectMapper.h */,
+				157B313D17234A97005AAB02 /* NSObject+ObjectMapper.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		157B314017234AA7005AAB02 /* Instance Provider */ = {
+			isa = PBXGroup;
+			children = (
+				157B314117234AA7005AAB02 /* InstanceProvider.h */,
+				157B314217234ACB005AAB02 /* ObjectInstanceProvider.h */,
+				157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */,
+				157B314517234ADF005AAB02 /* ManagedObjectInstanceProvider.h */,
+				157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */,
+			);
+			path = "Instance Provider";
+			sourceTree = "<group>";
+		};
 		15B554A0171B7B3B0058E159 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +189,7 @@
 		15B554AE171B7B3B0058E159 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				157B3078171E3673005AAB02 /* CoreData.framework */,
 				15B554AF171B7B3B0058E159 /* UIKit.framework */,
 				15B554B1171B7B3B0058E159 /* Foundation.framework */,
 				15B554B3171B7B3B0058E159 /* CoreGraphics.framework */,
@@ -150,6 +219,7 @@
 		15E2B96B171BEAEB00526C77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				157B3084171E4518005AAB02 /* Core Data */,
 				15E2B96C171BEAEB00526C77 /* Address.h */,
 				15E2B96D171BEAEB00526C77 /* Address.m */,
 				15E2B96E171BEAEB00526C77 /* Comment.h */,
@@ -163,10 +233,8 @@
 		15E2B974171BEAEB00526C77 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				15E2B975171BEAEB00526C77 /* NSDictionary+ObjectMapper.h */,
-				15E2B976171BEAEB00526C77 /* NSDictionary+ObjectMapper.m */,
-				15E2B977171BEAEB00526C77 /* NSObject+ObjectMapper.h */,
-				15E2B978171BEAEB00526C77 /* NSObject+ObjectMapper.m */,
+				157B314017234AA7005AAB02 /* Instance Provider */,
+				157B313917234A97005AAB02 /* Categories */,
 				15E2B979171BEAEB00526C77 /* ObjectMapper.h */,
 				15E2B97A171BEAEB00526C77 /* ObjectMapper.m */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
@@ -182,6 +250,8 @@
 				15E2B98C171BEAF400526C77 /* InfoPlist.strings */,
 				15E2B98E171BEAF400526C77 /* ObjectMapperTests.h */,
 				15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */,
+				157B3094171E58C0005AAB02 /* ManagedObjectMapperTest.h */,
+				157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */,
 				15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */,
 			);
 			path = OCMapperTests;
@@ -299,10 +369,17 @@
 				15E2B983171BEAEB00526C77 /* Address.m in Sources */,
 				15E2B984171BEAEB00526C77 /* Comment.m in Sources */,
 				15E2B985171BEAEB00526C77 /* User.m in Sources */,
-				15E2B987171BEAEB00526C77 /* NSDictionary+ObjectMapper.m in Sources */,
-				15E2B988171BEAEB00526C77 /* NSObject+ObjectMapper.m in Sources */,
 				15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */,
 				15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */,
+				157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */,
+				157B307C171E36D4005AAB02 /* CDUser.m in Sources */,
+				157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */,
+				157B3087171E457E005AAB02 /* CDAddress.m in Sources */,
+				157B309C171E5D32005AAB02 /* CDPost.m in Sources */,
+				157B313E17234A97005AAB02 /* NSDictionary+ObjectMapper.m in Sources */,
+				157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */,
+				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
+				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */,
+				157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +560,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */,
+			);
+			currentVersion = 157B307E171E3714005AAB02 /* OCMapper.xcdatamodel */;
+			name = OCMapper.xcdatamodeld;
+			path = ../OCMapper.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 15B554A2171B7B3B0058E159 /* Project object */;
 }

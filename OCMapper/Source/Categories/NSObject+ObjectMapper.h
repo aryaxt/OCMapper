@@ -12,5 +12,7 @@
 @interface NSObject (ObjectMapper)
 
 + (id)objectFromDictionary:(NSDictionary *)dictionary;
+- (NSDictionary *)dictionary;
+- (NSDictionary *)dictionaryWrappedInParentWithKey:(NSString *)key;
 
 @end
