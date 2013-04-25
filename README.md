@@ -121,10 +121,10 @@ Each post has an author and the conversion class (User) doesn't have a similar n
 }
 
 // Handle different key for dateOfBirth
-[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[User class]];
+[inCodeMappingProvider mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[User class]];
 
 // Handle conversion of "author" to a "User" object
-[[ObjectMapper sharedInstance] mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
+[inCodeMappingProvider mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
 ```
@@ -150,7 +150,7 @@ Date Conversion
 -------------------------
 Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance. Note that custom dateFormatters have priority over defaultDateFormatter
 ```objective-c
-[[ObjectMapper sharedInstance] setDefaultDateFormatter:aDefaultDateFormatter];
+[inCodeMappingProvider setDefaultDateFormatter:aDefaultDateFormatter];
 ```
 
 ObjectMapper uses a list of common NSDateFormatters to convert string to NSDate. Here is a list of common dateFormats supported out of the box
@@ -174,12 +174,12 @@ You can also have custom NSDateFormatter specific to classes & properties
 // Custom formatter for accoutn creation date
 NSDateFormatter *accountCreationFormatter = [[NSDateFormatter alloc] init];
 [accountCreationFormatter setDateFormat:@"MM/dd/yyyy"];
-[self.mapper setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
+[inCodeMappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
 
 // Custom formatter for date of birth
 NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
 [dateOfBirthFormatter setDateFormat:@"yyyy-dd-MM"];
-[self.mapper setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
+[inCodeMappingProvider setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
 
 User *user = [User objectFromDictionary:aDictionary];
 ```
