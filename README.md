@@ -7,6 +7,8 @@ Features:
 - Supports array structures
 - Supports Tree Structures
 - Supports complex object nesting 
+- Supports Core Data (NSManagedObjects)
+- Mapping configuration can be done both in code or it can be read from a PLIST
 - Auto detects key/values based on NSDictionary keys
 - Fully Configurable
 - Does not require subclassing or adding any extra code to your model
