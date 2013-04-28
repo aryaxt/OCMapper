@@ -61,7 +61,18 @@
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         id propertyValue = [object valueForKey:(NSString *)propertyName];
-        if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+		
+		NSString *classString = NSStringFromClass([propertyValue class]);
+
+		#warning this is very bad, find a better way to tell the difference between application specific classes and cocoa classes
+		if ((classString.length > 2 && [[classString substringToIndex:2] isEqual:@"__"]))
+		{
+			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+		}
+		else
+		{
+			if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
+		}
     }
 	
     free(properties);

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MappingProvider.h"
+#import "XMLDictionary.h"
 
 @interface XMLMappingProvider : NSObject <MappingProvider>
 

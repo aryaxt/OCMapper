@@ -10,6 +10,8 @@
 #import "ObjectMapper.h"
 #import "InCodeMappingProvider.h"
 #import "ObjectInstanceProvider.h"
+#import "XMLMappingProvider.h"
+#import "PLISTMappingProvider.h"
 
 @interface ObjectMapperTests : SenTestCase
 

@@ -14,8 +14,6 @@
 @property (nonatomic, strong) NSString *propertyKey;
 @property (nonatomic, assign) Class objectType;
 
-+ (id)objectMappingInfoWithDictionaryKey:(NSString *)dictionaryKey propertyKey:(NSString *)propertyKey andObjectType:(Class)objectType;
-+ (id)objectMappingInfoWithDictionaryKey:(NSString *)dictionaryKey propertyKey:(NSString *)propertyKey;
 - (id)initWithDictionaryKey:(NSString *)aDictionaryKey propertyKey:(NSString *)aPropertyKey andObjectType:(Class)anObjectType;
 
 @end

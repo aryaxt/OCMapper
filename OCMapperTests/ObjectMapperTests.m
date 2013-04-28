@@ -223,4 +223,32 @@
 	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
 }
 
+- (void)testDictionaryFromObject
+{
+	Address *address = [[Address alloc] init];
+	address.city = @"San Diego";
+	address.country = @"US";
+	
+	User *user = [[User alloc] init];
+	user.firstName = @"Aryan";
+	user.lastName = @"Ghassmei";
+	user.address = address;
+	user.age = @26;
+	user.dateOfBirth = [NSDate date];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+}
+
+- (void)testXmlMapping
+{
+	XMLMappingProvider *provider = [[XMLMappingProvider alloc] initWithXmlFile:@"ObjectMappingConfig"];
+	self.mapper.mappingProvider = provider;
+}
+
+- (void)testPlistMapping
+{
+	PLISTMappingProvider *provider = [[PLISTMappingProvider alloc] initWithFileName:@"ObjectMappingConfig"];
+	self.mapper.mappingProvider = provider;
+}
+
 @end
