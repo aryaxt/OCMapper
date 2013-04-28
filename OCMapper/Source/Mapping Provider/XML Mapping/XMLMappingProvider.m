@@ -17,7 +17,7 @@
 	if (self = [super init])
 	{
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"xml"];
-		NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLFile:filePath];
+
 	}
 	
 	return self;
