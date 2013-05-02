@@ -14,6 +14,8 @@
 
 @implementation ManagedObjectMapperTest
 @synthesize mapper;
+@synthesize mappingProvider;
+@synthesize instanceProvider;
 
 #pragma mark - Setup & Teardown -
 
@@ -22,16 +24,20 @@
     [super setUp];
 	
 	CoreDataManager *coreDataManager = [[CoreDataManager alloc] init];
-	ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc]
+	self.instanceProvider = [[ManagedObjectInstanceProvider alloc]
 													   initWithManagedObjectContext:coreDataManager.managedObjectContext];
 	
+	self.mappingProvider = [[InCodeMappingProvider alloc] init];
+	
 	self.mapper = [[ObjectMapper alloc] init];
-	self.mapper.instanceProvider = instanceProvider;
+	self.mapper.mappingProvider = self.mappingProvider;
+	self.mapper.instanceProvider = self.instanceProvider;
 }
 
 - (void)tearDown
 {
 	self.mapper = nil;
+	self.mappingProvider = nil;
 	
     [super tearDown];
 }
@@ -60,7 +66,7 @@
 
 - (void)testNestedMapping
 {
-	[self.mapper mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDUser class]];
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDUser class]];
 	
 	NSString *city = @"San Diego";
 	NSString *country = @"US";
@@ -79,18 +85,18 @@
 
 - (void)testNestedArrayMapping
 {
-	[self.mapper mapFromDictionaryKey:@"posts" toPropertyKey:@"posts" withObjectType:[CDPost class] forClass:[CDUser class]];
+	[self.mappingProvider mapFromDictionaryKey:@"posts" toPropertyKey:@"posts" withObjectType:[CDPost class] forClass:[CDUser class]];
 	
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"MM/dd/yyyy"];
 	
 	NSString *title1 = @"title 1";
 	NSString *date1 = @"06/21/2013";
-	NSDate *expectedDate1 = [dateFormatter dateFromString:date1];
+	//NSDate *expectedDate1 = [dateFormatter dateFromString:date1];
 	
 	NSString *title2 = @"title 2";
 	NSString *date2 = @"02/16/2012";
-	NSDate *expectedDate2 = [dateFormatter dateFromString:date2];
+	//NSDate *expectedDate2 = [dateFormatter dateFromString:date2];
 	
 	NSMutableDictionary *postDictionary = [NSMutableDictionary dictionary];
 	[postDictionary setObject:title1 forKey:@"title"];
@@ -104,6 +110,7 @@
 	[userDict setObject:@[postDictionary2, postDictionary] forKey:@"posts"];
 	
 	CDUser *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[CDUser class]];
+	user = nil;
 }
 
 @end

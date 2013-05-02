@@ -1,0 +1,11 @@
+<mapping>
+	<class name="User">
+		<mappingInfo dictionaryKey="firstName" propertyKey="firstName">
+		<mappingInfo dictionaryKey="address" propertyKey="address" objectType="Address">
+		<mappingInfo dictionaryKey="address" propertyKey="address" objectType="Address">
+		<mappingInfo dictionaryKey="dob" propertyKey="dateOfBirth" dateFormat="dd/MM/yyyy" timeZone="">
+	</class>
+	<class name="Address">
+		<mappingInfo dictionaryKey="str" propertyKey="street">
+	</class>
+</mapping>

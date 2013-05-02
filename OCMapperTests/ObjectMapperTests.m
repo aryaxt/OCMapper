@@ -12,6 +12,8 @@
 
 @implementation ObjectMapperTests
 @synthesize mapper;
+@synthesize instanceProvider;
+@synthesize mappingProvider;
 
 #pragma mark - Setup & Teardown -
 
@@ -19,12 +21,18 @@
 {
     [super setUp];
 	
+	self.mappingProvider = [[InCodeMappingProvider alloc] init];
+	self.instanceProvider = [[ObjectInstanceProvider alloc] init];
+	
 	self.mapper = [[ObjectMapper alloc] init];
+	self.mapper.mappingProvider = self.mappingProvider;
+	self.mapper.instanceProvider = self.instanceProvider;
 }
 
 - (void)tearDown
 {
 	self.mapper = nil;
+	self.mappingProvider =  nil;
 	
     [super tearDown];
 }
@@ -94,9 +102,9 @@
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
 	[userDictionary setObject:addressDictionary forKey:ADDRESS_KEY];
 	
-	[self.mapper mapFromDictionaryKey:ADDRESS_KEY toPropertyKey:@"address" withObjectType:[Address class] forClass:[User class]];
-	[self.mapper mapFromDictionaryKey:CITY_KEY toPropertyKey:@"city" forClass:[Address class]];
-	[self.mapper mapFromDictionaryKey:COUNTRY_KEY toPropertyKey:@"country" forClass:[Address class]];
+	[self.mappingProvider mapFromDictionaryKey:ADDRESS_KEY toPropertyKey:@"address" withObjectType:[Address class] forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:CITY_KEY toPropertyKey:@"city" forClass:[Address class]];
+	[self.mappingProvider mapFromDictionaryKey:COUNTRY_KEY toPropertyKey:@"country" forClass:[Address class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	STAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
@@ -115,8 +123,8 @@
 	[userDictionary setObject:firstName forKey:SOME_FIRST_NAME_KEY];
 	[userDictionary setObject:age forKey:SOME_AGE_KEY];
 	
-	[self.mapper mapFromDictionaryKey:SOME_FIRST_NAME_KEY toPropertyKey:@"firstName" forClass:[User class]];
-	[self.mapper mapFromDictionaryKey:SOME_AGE_KEY toPropertyKey:@"age" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:SOME_FIRST_NAME_KEY toPropertyKey:@"firstName" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:SOME_AGE_KEY toPropertyKey:@"age" forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
@@ -167,8 +175,8 @@
 	[userDict setObject:dateOfBirthString forKey:@"dateOfBirth"];
 	[userDict setObject:accountCreationDateString forKey:@"accountCreationDate"];
 	
-	[self.mapper setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
-	[self.mapper setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[User class]];
 	STAssertNotNil(user.accountCreationDate, @"Did nor populate date");
@@ -213,6 +221,36 @@
 	NSDate *methodFinish = [NSDate date];
 	NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
 	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
+}
+
+- (void)testDictionaryFromObject
+{
+	Address *address = [[Address alloc] init];
+	address.city = @"San Diego";
+	address.country = @"US";
+	
+	User *user = [[User alloc] init];
+	user.firstName = @"Aryan";
+	user.lastName = @"Ghassmei";
+	user.address = address;
+	user.age = @26;
+	user.dateOfBirth = [NSDate date];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	NSDictionary *addressDictionary = [dictionary objectForKey:@"address"];
+	
+	STAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
+	STAssertTrue([[addressDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	STAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
+}
+
+
+- (void)testPlistMapping
+{
+	PLISTMappingProvider *provider = [[PLISTMappingProvider alloc] initWithFileName:@"ObjectMappingConfig"];
+	self.mapper.mappingProvider = provider;
 }
 
 @end
