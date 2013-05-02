@@ -40,7 +40,6 @@
 		15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */; };
 		15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */; };
 		15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF052F172783F70041358D /* InCodeMappingProvider.m */; };
-		15EF0537172783F70041358D /* XMLMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF0534172783F70041358D /* XMLMappingProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,8 +111,6 @@
 		15E2B994171BED2400526C77 /* OCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapper.h; sourceTree = "<group>"; };
 		15EF052E172783F70041358D /* InCodeMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCodeMappingProvider.h; sourceTree = "<group>"; };
 		15EF052F172783F70041358D /* InCodeMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCodeMappingProvider.m; sourceTree = "<group>"; };
-		15EF0533172783F70041358D /* XMLMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLMappingProvider.h; sourceTree = "<group>"; };
-		15EF0534172783F70041358D /* XMLMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLMappingProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +192,6 @@
 			children = (
 				15371EC217278C4500A508F4 /* PLIST Mapping */,
 				15EF052D172783F70041358D /* In Code Mapping */,
-				15EF0530172783F70041358D /* XML Mapping */,
 				157B315217237C87005AAB02 /* MappingProvider.h */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
 				15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */,
@@ -301,15 +297,6 @@
 				15EF052F172783F70041358D /* InCodeMappingProvider.m */,
 			);
 			path = "In Code Mapping";
-			sourceTree = "<group>";
-		};
-		15EF0530172783F70041358D /* XML Mapping */ = {
-			isa = PBXGroup;
-			children = (
-				15EF0533172783F70041358D /* XMLMappingProvider.h */,
-				15EF0534172783F70041358D /* XMLMappingProvider.m */,
-			);
-			path = "XML Mapping";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,7 +425,6 @@
 				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
 				15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */,
-				15EF0537172783F70041358D /* XMLMappingProvider.m in Sources */,
 				15371EC517278C6300A508F4 /* PLISTMappingProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

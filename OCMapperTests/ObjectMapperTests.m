@@ -237,13 +237,15 @@
 	user.dateOfBirth = [NSDate date];
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	NSDictionary *addressDictionary = [dictionary objectForKey:@"address"];
+	
+	STAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
+	STAssertTrue([[addressDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	STAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
 }
 
-- (void)testXmlMapping
-{
-	XMLMappingProvider *provider = [[XMLMappingProvider alloc] initWithXmlFile:@"ObjectMappingConfig"];
-	self.mapper.mappingProvider = provider;
-}
 
 - (void)testPlistMapping
 {
