@@ -1,21 +1,18 @@
 OC Mapper for Objective C
 =========================
 
-OCMapper is an NSDictionary to NSObject convertor.
+OCMapper is a data mapping library for Objective C
 
 Features:
-- Supports array structures
-- Supports Tree Structures
+- Supports array mapping
+- Supports tree structure mapping
 - Supports complex object nesting 
 - Supports Core Data (NSManagedObjects)
 - Mapping configuration can be done both in code or it can be read from a PLIST
 - Auto detects key/values based on NSDictionary keys
 - Fully Configurable
-- Does not require subclassing or adding any extra code to your model
-- Convert Date values to NSDate
-- Takes default dateformatter and uses it for all NSDate conversions
-- NSDate conversion can be configured based on specific class & properties
-
+- Does not require subclassing or adding any extra code to your models
+- Supports date default and configurable date conversion
 
 
 Examples
@@ -58,10 +55,10 @@ User *user = [User objectFromDictionary:aDictionary];
 
 Nested Automatic Mapping
 -------------------------
-In this case everything is mapped automatic as well because all key/values are similar.
+In this case everything is mapped automaticly because all key/values are similar.
 "address" will automatically convert to "Address" Object.
-"posts" will automatically convert to array of "Post" objects.
-The library detect the plural sign at the end of the key, and finds the right class to use for mapping
+"posts" will automatically convert to an array of "Post" objects.
+The library detect the plural nouns, and finds the right class to be used for mapping
 ```objective-c
 {
    "firstName"   : "Aryan",
@@ -89,9 +86,9 @@ User *user = [User objectFromDictionary:aDictionary];
 
 Complex Mapping
 -------------------------
-Here is a more complex scenario.
+Here is a more complex scenario where the dictionary keys do not match the model property names.
 The key for date of birth changes from "dateOfBirth" to "dob".
-Each post has an author and the conversion class (User) doesn't have a similar name
+Each post has an author and the conversion class (User) doesn't have a property with that name.
 ```objective-c
 {
    "firstName"   : "Aryan",
@@ -150,7 +147,7 @@ NSArray *users = [User objectFromDictionary:aDictionary];
 
 Date Conversion
 -------------------------
-Automapper has a property named defaultDateFormatter, and when the property set it'll use this for date conversion on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance. Note that custom dateFormatters have priority over defaultDateFormatter
+Automapper has a property named defaultDateFormatter, and when the property is set it'll use this NSDateFormatter for date conversions on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance. Note that custom dateFormatters have priority over defaultDateFormatter
 ```objective-c
 [inCodeMappingProvider setDefaultDateFormatter:aDefaultDateFormatter];
 ```
@@ -197,7 +194,7 @@ Urse *user = [mapper objectFromSource:dictionary toInstanceOfClass:[User class]]
 Urse *user = [[ObjectMapper sharedInstance] objectFromSource:dictionary toInstanceOfClass:[User class]];
 ```
 
-In order to use these categories you must add the mapping to the singleton Instance
+In order to use these categories you must add your mapping provider to the singleton Instance
 ```objective-c
 // Using NSObject Category
 User *user = [User objectFromDictionary:aDictionary];
