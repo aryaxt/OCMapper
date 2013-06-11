@@ -36,6 +36,12 @@
 
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
 {
+	if (!mappingProvider)
+		@throw ([NSException exceptionWithName:@"MissingMappingProvider" reason:@"Mapping provider is not set" userInfo:nil]);
+	
+	if (!instanceProvider)
+		@throw ([NSException exceptionWithName:@"MissingInstanceProvider" reason:@"Instance provider is not set" userInfo:nil]);
+	
 	if ([source isKindOfClass:[NSDictionary class]])
 	{
 		return [self processDictionary:source forClass:class];
