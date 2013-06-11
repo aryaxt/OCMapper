@@ -170,7 +170,7 @@ You can also have custom NSDateFormatter specific to classes & properties
       "dateOfBirth"         : "2005-21-01"
 }
 
-// Custom formatter for accoutn creation date
+// Custom formatter for account creation date
 NSDateFormatter *accountCreationFormatter = [[NSDateFormatter alloc] init];
 [accountCreationFormatter setDateFormat:@"MM/dd/yyyy"];
 [inCodeMappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
