@@ -3,10 +3,20 @@
 //  OCMapper
 //
 //  Created by Aryan Gh on 4/14/13.
-//  Copyright (c) 2013 Aryan Gh. All rights reserved.
+//  Copyright (c) 2013 Aryan Ghassemi. All rights reserved.
 //
 
 #import "ObjectMapper.h"
+
+#ifdef DEBUG
+	#define ILog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelInfo]
+	#define WLog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelWarning]
+	#define ELog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelError]
+#else
+	#define ILog(format, ...) /* */
+	#define WLog(format, ...) /* */
+	#define ELog(format, ...) /* */
+#endif
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
@@ -17,6 +27,7 @@
 @synthesize commonDateFormaters;
 @synthesize instanceProvider;
 @synthesize mappingProvider;
+@synthesize loggingProvider;
 
 #pragma mark - initialization -
 
@@ -44,14 +55,17 @@
 	
 	if ([source isKindOfClass:[NSDictionary class]])
 	{
+		ILog(@"____________________ Mapping Dictionary to instance [%@] ____________________", NSStringFromClass(class));
 		return [self processDictionary:source forClass:class];
 	}
 	else if ([source isKindOfClass:[NSArray class]])
 	{
+		ILog(@"____________________   Mapping Array to instance [%@] ____________________", NSStringFromClass(class));
 		return [self processArray:source forClass:class];
 	}
 	else
 	{
+		ILog(@"____________________   Mapping field [%@] ____________________", NSStringFromClass(class));
 		return source;
 	}
 }
@@ -70,7 +84,7 @@
 		
 		NSString *classString = NSStringFromClass([propertyValue class]);
 
-		#warning this is very bad, find a better way to tell the difference between application specific classes and cocoa classes
+		#warning this is very bad, find a better way to tell the difference between application specific classes and Objective C classes
 		if ((classString.length > 2 && [[classString substringToIndex:2] isEqual:@"__"]))
 		{
 			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
@@ -116,6 +130,8 @@
 		
 		if (class && object && [object respondsToSelector:NSSelectorFromString(propertyName)])
 		{
+			ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
+			
 			if ([value isKindOfClass:[NSDictionary class]])
 			{
 				nestedObject = [self processDictionary:value forClass:objectType];
@@ -147,6 +163,10 @@
 			{
 				[object setValue:nestedObject forKey:propertyName];
 			}
+		}
+		else
+		{
+			WLog(@"Unable to map from  key(%@) to property(%@) for class (%@)", key, propertyName, NSStringFromClass(class));
 		}
 	}
 	
@@ -212,23 +232,31 @@
 	if (customDateFormatter)
 	{
 		date = [customDateFormatter dateFromString:string];
+		ILog(@"attempting to convert date '%@' on property '%@' for class [%@] using 'customDateFormatter' (%@)", date, property, NSStringFromClass(class), customDateFormatter.dateFormat);
 	}
 	else if (self.defaultDateFormatter)
 	{
 		date = [self.defaultDateFormatter dateFromString:string];
+		ILog(@"attempting to convert '%@' on property '%@' for class [%@] using 'defaultDateFormatter' (%@)", date, property, NSStringFromClass(class), self.defaultDateFormatter.dateFormat);
 	}
 	
 	if (!date)
 	{
-		
 		for (NSDateFormatter *dateFormatter in self.commonDateFormaters)
 		{
 			date = [dateFormatter dateFromString:string];
+			ILog(@"attempting to convert date(%@) on property(%@) for class(%@) using 'commonDateFormaters' (%@)", date, property, NSStringFromClass(class), dateFormatter.dateFormat);
 			
 			if (date)
-				return date;
+			{
+				ILog(@"Converted date(%@) on property(%@) for class(%@) using 'commonDateFormaters' (%@)", date, property, NSStringFromClass(class), dateFormatter.dateFormat);
+				break;
+			}
 		}
 	}
+	
+	if (!date)
+		ELog(@"Unable to convert date(%@) on property(%@) for class(%@)", date, property, NSStringFromClass(class));
 	
 	return date;
 }

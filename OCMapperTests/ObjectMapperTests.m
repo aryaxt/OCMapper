@@ -27,6 +27,7 @@
 	self.mapper = [[ObjectMapper alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
 	self.mapper.instanceProvider = self.instanceProvider;
+	self.mapper.loggingProvider = [[CommonLoggingProvider alloc] initWithLogLevel:LogLevelError];
 }
 
 - (void)tearDown

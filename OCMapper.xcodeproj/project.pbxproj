@@ -22,6 +22,7 @@
 		157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */; };
 		157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */; };
 		157B316317238C08005AAB02 /* ObjectMappingConfig.xml in Resources */ = {isa = PBXBuildFile; fileRef = 157B316217238C08005AAB02 /* ObjectMappingConfig.xml */; };
+		15A1933F1766CBB800016904 /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A1933E1766CBB800016904 /* CommonLoggingProvider.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
 		15B554B4171B7B3B0058E159 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B3171B7B3B0058E159 /* CoreGraphics.framework */; };
@@ -79,6 +80,9 @@
 		157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectInstanceProvider.m; sourceTree = "<group>"; };
 		157B315217237C87005AAB02 /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
 		157B316217238C08005AAB02 /* ObjectMappingConfig.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ObjectMappingConfig.xml; sourceTree = "<group>"; };
+		15A1933C1766CB9B00016904 /* LoggingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggingProvider.h; sourceTree = "<group>"; };
+		15A1933D1766CBB800016904 /* CommonLoggingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonLoggingProvider.h; sourceTree = "<group>"; };
+		15A1933E1766CBB800016904 /* CommonLoggingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonLoggingProvider.m; sourceTree = "<group>"; };
 		15B554AB171B7B3B0058E159 /* OCMapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OCMapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -199,6 +203,16 @@
 			path = "Mapping Provider";
 			sourceTree = "<group>";
 		};
+		15A1933B1766CB9B00016904 /* Logging Provider */ = {
+			isa = PBXGroup;
+			children = (
+				15A1933C1766CB9B00016904 /* LoggingProvider.h */,
+				15A1933D1766CBB800016904 /* CommonLoggingProvider.h */,
+				15A1933E1766CBB800016904 /* CommonLoggingProvider.m */,
+			);
+			path = "Logging Provider";
+			sourceTree = "<group>";
+		};
 		15B554A0171B7B3B0058E159 = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +281,7 @@
 		15E2B974171BEAEB00526C77 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				15A1933B1766CB9B00016904 /* Logging Provider */,
 				157B315017237C75005AAB02 /* Mapping Provider */,
 				157B314017234AA7005AAB02 /* Instance Provider */,
 				157B313917234A97005AAB02 /* Categories */,
@@ -426,6 +441,7 @@
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
 				15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */,
 				15371EC517278C6300A508F4 /* PLISTMappingProvider.m in Sources */,
+				15A1933F1766CBB800016904 /* CommonLoggingProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
