@@ -161,6 +161,9 @@
 			
 			if ([object respondsToSelector:NSSelectorFromString(propertyName)])
 			{
+				if ([nestedObject isKindOfClass:[NSNull class]])
+					nestedObject = nil;
+				
 				[object setValue:nestedObject forKey:propertyName];
 			}
 		}
