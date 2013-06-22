@@ -115,7 +115,7 @@
 		
 		if (mappingInfo)
 		{
-			propertyName = mappingInfo.propertyKey;
+			propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
 			objectType = mappingInfo.objectType;
 		}
 		else

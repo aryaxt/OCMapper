@@ -56,7 +56,7 @@
 
 - (NSString *)uniqueKeyForClass:(Class)class andKey:(NSString *)key
 {
-	return [NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), key];
+	return [[NSString stringWithFormat:@"%@-%@", NSStringFromClass(class), key] lowercaseString];
 }
 
 #pragma mark - MappingProvider Methods -

@@ -247,6 +247,47 @@
 	STAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
 }
 
+- (void)testMappingshouldNotBeCaseSensitiveForPropertyNameWithCustomMapping
+{
+	NSString *firstNameProperty = @"FiRsTNaMe";
+	NSString *firstNameKey = @"first_name";
+	NSString *firstName = @"Aryan";
+
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:firstName forKey:firstNameKey];
+	
+	[self.mappingProvider mapFromDictionaryKey:firstNameKey toPropertyKey:firstNameProperty forClass:[User class]];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+}
+
+- (void)testMappingshouldNotBeCaseSensitiveForPropertyName
+{
+	NSString *firstName = @"Aryan";
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:firstName forKey:@"FirsTNAmE"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+}
+
+- (void)testMappingshouldNotBeCaseSensitiveForDictionaryKeyValue
+{
+	NSString *firstNameKey = @"first_name";
+	NSString *firstNameKeyDifferentCase = @"firsT_name";
+	NSString *firstName = @"Aryan";
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:firstName forKey:firstNameKey];
+	
+	[self.mappingProvider mapFromDictionaryKey:firstNameKeyDifferentCase toPropertyKey:@"firstname" forClass:[User class]];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+}
+
 
 - (void)testPlistMapping
 {
