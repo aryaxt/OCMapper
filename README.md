@@ -145,6 +145,26 @@ Mapping Array on root level
 NSArray *users = [User objectFromDictionary:aDictionary];
 ```
 
+Flat Data to Complex Object
+-------------------------
+```objective-c
+{
+      "firstName"           : "Aryan",
+      "city"                : "San Diego"
+      "country"             : "United States"
+}
+
+   // We map city and country to a nested object called 'address' inside the 'user' object
+	[self.mappingProvider mapFromDictionaryKey:@"city" toPropertyKey:@"address.city" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"address.country" forClass:[User class]];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+   NSLog(@"FirstName;%@   City:%@  Country:%@", 
+      user.firstName,
+      user.address.city, 
+      user.address.coutnry);
+```
+
 Date Conversion
 -------------------------
 Automapper has a property named defaultDateFormatter, and when the property is set it'll use this NSDateFormatter for date conversions on all NSDate properties. It's recomended to set the defaultDateFormatter for best performance. Note that custom dateFormatters have priority over defaultDateFormatter
