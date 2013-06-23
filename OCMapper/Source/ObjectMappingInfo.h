@@ -10,8 +10,8 @@
 
 @interface ObjectMappingInfo : NSObject
 
-@property (nonatomic, strong) NSString *dictionaryKey;
-@property (nonatomic, strong) NSString *propertyKey;
+@property (nonatomic, copy) NSString *dictionaryKey;
+@property (nonatomic, copy) NSString *propertyKey;
 @property (nonatomic, assign) Class objectType;
 
 - (id)initWithDictionaryKey:(NSString *)aDictionaryKey propertyKey:(NSString *)aPropertyKey andObjectType:(Class)anObjectType;

@@ -27,7 +27,6 @@
 	self.mapper = [[ObjectMapper alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
 	self.mapper.instanceProvider = self.instanceProvider;
-	self.mapper.loggingProvider = [[CommonLoggingProvider alloc] initWithLogLevel:LogLevelError];
 }
 
 - (void)tearDown
@@ -293,6 +292,22 @@
 {
 	PLISTMappingProvider *provider = [[PLISTMappingProvider alloc] initWithFileName:@"ObjectMappingConfig"];
 	self.mapper.mappingProvider = provider;
+}
+
+- (void)testFlatDataToComplexObjectConversion
+{	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:@"USA" forKey:@"country"];
+	
+	[self.mappingProvider mapFromDictionaryKey:@"city" toPropertyKey:@"address.city" forClass:[User class]];
+	[self.mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"address.country" forClass:[User class]];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	STAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	STAssertTrue([[userDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	STAssertTrue([[userDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
 }
 
 @end

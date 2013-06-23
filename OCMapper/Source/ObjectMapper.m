@@ -101,75 +101,115 @@
 
 #pragma mark - Private Methods -
 
-- (id)processDictionary:(NSDictionary *)source forClass:(Class)class
+- (NSDictionary *)normalizedDictionaryFromDictionary:(NSDictionary *)source forClass:(Class)class
 {
-	id object = [self.instanceProvider emptyInstanceFromClass:class];
+	NSMutableDictionary *newDictionary = [NSMutableDictionary dictionary];
 	
 	for (NSString *key in source)
 	{
-		ObjectMappingInfo *mappingInfo = [self.mappingProvider mappingInfoForClass:class andDictionaryKey:key];
-		id value = [source objectForKey:(NSString *)key];
-		NSString *propertyName;
-		Class objectType;
-		id nestedObject;
-		
-		if (mappingInfo)
+		@autoreleasepool
 		{
-			propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
-			objectType = mappingInfo.objectType;
-		}
-		else
-		{
-			propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
+			ObjectMappingInfo *mapingIngo = [self.mappingProvider mappingInfoForClass:class andDictionaryKey:key];
+			NSRange rangeOfSeparator = [mapingIngo.propertyKey rangeOfString:@"."];
 			
-			if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]])
+			if (rangeOfSeparator.length)
 			{
-				objectType = [self classFromString:key];
-			}
-		}
-		
-		if (class && object && [object respondsToSelector:NSSelectorFromString(propertyName)])
-		{
-			ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
-			
-			if ([value isKindOfClass:[NSDictionary class]])
-			{
-				nestedObject = [self processDictionary:value forClass:objectType];
-			}
-			else if ([value isKindOfClass:[NSArray class]])
-			{
-				nestedObject = [self processArray:value forClass:objectType];
+				NSString *className = [mapingIngo.propertyKey substringToIndex:rangeOfSeparator.location];
+				NSString *property = [mapingIngo.propertyKey substringFromIndex:rangeOfSeparator.location+1];
+				
+				NSMutableDictionary *nestedDictionary = [newDictionary objectForKey:className];
+				
+				if (!nestedDictionary)
+					nestedDictionary = [NSMutableDictionary dictionary];
+				
+				[nestedDictionary setObject:[source objectForKey:key] forKey:property];
+				[newDictionary setObject:nestedDictionary forKey:className];
 			}
 			else
 			{
-				if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+				[newDictionary setObject:[source objectForKey:key] forKey:key];
+			}
+		}
+	}
+	
+	return newDictionary;
+}
+
+
+- (id)processDictionary:(NSDictionary *)source forClass:(Class)class
+{
+	NSDictionary *normalizedSource = [self normalizedDictionaryFromDictionary:source forClass:class];
+	
+	id object = [self.instanceProvider emptyInstanceFromClass:class];
+	
+	for (NSString *key in normalizedSource)
+	{
+		@autoreleasepool
+		{
+			ObjectMappingInfo *mappingInfo = [self.mappingProvider mappingInfoForClass:class andDictionaryKey:key];
+			id value = [normalizedSource objectForKey:(NSString *)key];
+			NSString *propertyName;
+			Class objectType;
+			id nestedObject;
+			
+			if (mappingInfo)
+			{
+				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
+				objectType = mappingInfo.objectType;
+			}
+			else
+			{
+				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
+				
+				if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]])
 				{
-					if ([value isKindOfClass:[NSDate class]])
-					{
-						nestedObject = value;
-					}
-					else if ([value isKindOfClass:[NSString class]])
-					{
-						nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
-					}
-				}
-				else
-				{
-					nestedObject = value;
+					objectType = [self classFromString:key];
 				}
 			}
 			
-			if ([object respondsToSelector:NSSelectorFromString(propertyName)])
+			if (class && object && [object respondsToSelector:NSSelectorFromString(propertyName)])
 			{
-				if ([nestedObject isKindOfClass:[NSNull class]])
-					nestedObject = nil;
+				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
-				[object setValue:nestedObject forKey:propertyName];
+				if ([value isKindOfClass:[NSDictionary class]])
+				{
+					nestedObject = [self processDictionary:value forClass:objectType];
+				}
+				else if ([value isKindOfClass:[NSArray class]])
+				{
+					nestedObject = [self processArray:value forClass:objectType];
+				}
+				else
+				{
+					if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+					{
+						if ([value isKindOfClass:[NSDate class]])
+						{
+							nestedObject = value;
+						}
+						else if ([value isKindOfClass:[NSString class]])
+						{
+							nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
+						}
+					}
+					else
+					{
+						nestedObject = value;
+					}
+				}
+				
+				if ([object respondsToSelector:NSSelectorFromString(propertyName)])
+				{
+					if ([nestedObject isKindOfClass:[NSNull class]])
+						nestedObject = nil;
+					
+					[object setValue:nestedObject forKey:propertyName];
+				}
 			}
-		}
-		else
-		{
-			WLog(@"Unable to map from  key(%@) to property(%@) for class (%@)", key, propertyName, NSStringFromClass(class));
+			else
+			{
+				WLog(@"Unable to map from  key(%@) to property(%@) for class (%@)", key, propertyName, NSStringFromClass(class));
+			}
 		}
 	}
 	
@@ -214,13 +254,16 @@
 		
 		for (int i = 0; i < numClasses; i++)
 		{
-			Class class = classes[i];
-			NSString *thisClassNameLowerCase = [NSStringFromClass(class) lowercaseString];
-			
-			if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
-				return class;
+			@autoreleasepool
+			{
+				Class class = classes[i];
+				NSString *thisClassNameLowerCase = [NSStringFromClass(class) lowercaseString];
+				
+				if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
+					[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
+					[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
+					return class;
+			}
 		}
 	}
 	
