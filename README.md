@@ -158,8 +158,8 @@ Flat Data to Complex Object
 	[self.mappingProvider mapFromDictionaryKey:@"city" toPropertyKey:@"address.city" forClass:[User class]];
 	[self.mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"address.country" forClass:[User class]];
 	
-	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-   NSLog(@"FirstName;%@   City:%@  Country:%@", 
+	User *user = [User objectFromDictionary:aDictionary];
+      NSLog(@"FirstName:%@   City:%@  Country:%@", 
       user.firstName,
       user.address.city, 
       user.address.coutnry);
