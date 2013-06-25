@@ -9,6 +9,7 @@
 #import "ObjectMapperTests.h"
 #import "ObjectMapper.h"
 #import "User.h"
+#import "Comment.h"
 
 @implementation ObjectMapperTests
 @synthesize mapper;
@@ -223,27 +224,52 @@
 	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
 }
 
-- (void)testDictionaryFromObject
+- (void)testDictionaryFromFlatObject
+{
+	User *user = [[User alloc] init];
+	user.firstName = @"Aryan";
+	user.lastName = @"Ghassmei";
+	user.age = @26;
+	user.dateOfBirth = [NSDate date];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	
+	STAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
+	STAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
+}
+
+- (void)testDictionaryFromComplexObject
 {
 	Address *address = [[Address alloc] init];
 	address.city = @"San Diego";
 	address.country = @"US";
 	
 	User *user = [[User alloc] init];
-	user.firstName = @"Aryan";
-	user.lastName = @"Ghassmei";
 	user.address = address;
-	user.age = @26;
-	user.dateOfBirth = [NSDate date];
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	NSDictionary *addressDictionary = [dictionary objectForKey:@"address"];
 	
-	STAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
-	STAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
-	STAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
 	STAssertTrue([[addressDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 	STAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
+}
+
+- (void)testDictionaryFromObjectWithNestedArray
+{
+	Comment *comment = [[Comment alloc] init];
+	comment.body = @"COMMENT BODY";
+	
+	User *user = [[User alloc] init];
+	user.comments = [NSMutableArray array];
+	[user.comments addObject:comment];
+	[user.comments addObject:comment];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	NSArray *comments = [dictionary objectForKey:@"comments"];
+	
+	STAssertTrue(comments.count == 2, @"Did not populate dictionary correctly");
+	STAssertTrue([[[comments objectAtIndex:0] objectForKey:@"body"] isEqual:comment.body], @"Did not populate dictionary correctly");
 }
 
 - (void)testMappingshouldNotBeCaseSensitiveForPropertyNameWithCustomMapping
