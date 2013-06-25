@@ -82,16 +82,15 @@
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         id propertyValue = [object valueForKey:(NSString *)propertyName];
 		
-		NSString *classString = NSStringFromClass([propertyValue class]);
-
-		#warning this is very bad, find a better way to tell the difference between application specific classes and Objective C classes
-		if ((classString.length > 2 && [[classString substringToIndex:2] isEqual:@"__"]))
-		{
-			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
-		}
-		else
+		// If class is in the main bundle it's an application specific class
+		if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
 		{
 			if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
+		}
+		// It's not in the main bundle so it's a Cocoa Class
+		else
+		{
+			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
 		}
     }
 	
