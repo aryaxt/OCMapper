@@ -80,6 +80,7 @@
 	{
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+		Class class = NSClassFromString([self typeForProperty:propertyName andClass:[object class]]);
         id propertyValue = [object valueForKey:(NSString *)propertyName];
 		
 		// If class is in the main bundle it's an application specific class
@@ -90,6 +91,23 @@
 		// It's not in the main bundle so it's a Cocoa Class
 		else
 		{
+			if (class == [NSDate class])
+			{
+				propertyValue = [propertyValue description];
+			}
+			else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
+			{
+				NSMutableArray *nestedArray = [NSMutableArray array];
+				
+				for (id valueInArray in propertyValue)
+				{
+					[nestedArray addObject:[self dictionaryFromObject:valueInArray]];
+				}
+				
+				propertyValue = nestedArray;
+			}
+			
+			
 			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
 		}
     }
