@@ -28,13 +28,13 @@
 #import "ObjectMapper.h"
 
 #ifdef DEBUG
-	#define ILog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelInfo]
-	#define WLog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelWarning]
-	#define ELog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelError]
+#define ILog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelInfo]
+#define WLog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelWarning]
+#define ELog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelError]
 #else
-	#define ILog(format, ...) /* */
-	#define WLog(format, ...) /* */
-	#define ELog(format, ...) /* */
+#define ILog(format, ...) /* */
+#define WLog(format, ...) /* */
+#define ELog(format, ...) /* */
 #endif
 
 @interface ObjectMapper()
@@ -89,7 +89,33 @@
 	}
 }
 
-- (NSDictionary *)dictionaryFromObject:(NSObject *)object
+- (id)dictionaryFromObject:(NSObject *)object
+{
+	if ([object isKindOfClass:[NSArray class]])
+	{
+		return [self processDictionaryFromArray:(NSArray *)object];
+	}
+	else
+	{
+		return [self processDictionaryFromObject:object];
+	}
+}
+
+#pragma mark - Private Methods -
+
+- (NSArray *)processDictionaryFromArray:(NSArray *)array
+{
+	NSMutableArray *result = [NSMutableArray array];
+	
+	for (id valueInArray in array)
+	{
+		[result addObject:[self dictionaryFromObject:valueInArray]];
+	}
+	
+	return result;
+}
+
+- (NSDictionary *)processDictionaryFromObject:(NSObject *)object
 {
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
     unsigned int outCount, i;
@@ -116,14 +142,7 @@
 			}
 			else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
 			{
-				NSMutableArray *nestedArray = [NSMutableArray array];
-				
-				for (id valueInArray in propertyValue)
-				{
-					[nestedArray addObject:[self dictionaryFromObject:valueInArray]];
-				}
-				
-				propertyValue = nestedArray;
+				propertyValue = [self processDictionaryFromArray:propertyValue];
 			}
 			
 			
@@ -134,8 +153,6 @@
     free(properties);
     return props;
 }
-
-#pragma mark - Private Methods -
 
 - (NSDictionary *)normalizedDictionaryFromDictionary:(NSDictionary *)source forClass:(Class)class
 {

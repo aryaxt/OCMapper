@@ -41,6 +41,6 @@
 
 + (ObjectMapper *)sharedInstance;
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
-- (NSDictionary *)dictionaryFromObject:(NSObject *)object;
+- (id)dictionaryFromObject:(NSObject *)object;
 
 @end

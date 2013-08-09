@@ -291,6 +291,26 @@
 	STAssertTrue([[[comments objectAtIndex:0] objectForKey:@"body"] isEqual:comment.body], @"Did not populate dictionary correctly");
 }
 
+- (void)testDictionaryFromArrayOfObjects
+{
+	Comment *comment1 = [[Comment alloc] init];
+	comment1.body = @"1";
+	
+	Comment *comment2 = [[Comment alloc] init];
+	comment2.body = @"2";
+	
+	NSArray *comments = @[comment1, comment2];
+	NSArray *arrayOfDictionary = [self.mapper dictionaryFromObject:comments];
+	
+	STAssertTrue(arrayOfDictionary.count == 2, @"Did not populate correct number of dictionaries in array");
+	
+	NSString *commentBody1 = [[arrayOfDictionary objectAtIndex:0] objectForKey:@"body"];
+	NSString *commentBody2 = [[arrayOfDictionary objectAtIndex:1] objectForKey:@"body"];
+	
+	STAssertTrue([commentBody1 isEqual:@"1"], @"Did not popoukate dictionary correctly");
+	STAssertTrue([commentBody2 isEqual:@"2"], @"Did not popoukate dictionary correctly");
+}
+
 - (void)testMappingshouldNotBeCaseSensitiveForPropertyNameWithCustomMapping
 {
 	NSString *firstNameProperty = @"FiRsTNaMe";
@@ -331,7 +351,6 @@
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
 }
-
 
 - (void)testPlistMapping
 {
