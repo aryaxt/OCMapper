@@ -154,6 +154,8 @@
     return props;
 }
 
+// Here we normalize dictionary made for flat-to-complex-object mapping
+// For instance in a mapping from "city" to "address.city" we break down "address" and "city"
 - (NSDictionary *)normalizedDictionaryFromDictionary:(NSDictionary *)source forClass:(Class)class
 {
 	NSMutableDictionary *newDictionary = [NSMutableDictionary dictionary];
@@ -187,7 +189,6 @@
 	
 	return newDictionary;
 }
-
 
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
