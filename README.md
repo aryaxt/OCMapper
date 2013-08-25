@@ -8,11 +8,11 @@ Features:
 - Supports tree structure mapping
 - Supports complex object nesting 
 - Supports Core Data (NSManagedObjects)
-- Mapping configuration can be done both in code or it can be read from a PLIST
+- Mapping configuration can be done both in code or through a PLIST
 - Auto detects key/values based on NSDictionary keys
 - Fully Configurable
 - Does not require subclassing or adding any extra code to your models
-- Supports date default and configurable date conversion
+- Auto data conversion, and configurable DateFormatters
 
 
 Examples
