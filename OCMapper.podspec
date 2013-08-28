@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
     s.name = 'OCMapper'
     s.version = '1.0.0'
-    s.summary = 'NSDictionary to model NSObject mapper'
-    s.homepage = 'https://github.com/aryaxt/iOS-Rich-Text-Editor'
+    s.summary = 'NSDictionary to NSObject Mapper'
+    s.homepage = 'https://github.com/aryaxt/OCMapper'
     s.license = {
       :type => 'MIT',
       :file => 'License.txt'
