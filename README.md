@@ -6,7 +6,7 @@ OCMapper is a data mapping library for Objective C that converts NSDictionary to
 - Avoid adding parsing logic to model objects (I'm a big fan of separation of responsibilities!!!)
 
 The end result I was looking for was a single method that would take a URL and a return type (object or array of objects), and just works doesn't matter what.
-Take a look at sample project for more info on how this is done.
+Take a look at the sample project for more info on how this is done.
 ```objective-c
 ServiceClient *client = [[ServiceClient alloc] init];
 
