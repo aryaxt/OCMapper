@@ -1,7 +1,25 @@
 OC Mapper for Objective C
 =========================
 
-OCMapper is a data mapping library for Objective C
+OCMapper is a data mapping library for Objective C that converts NSDictionary to NSObject. My inspiration behind writing OCMapper was to achieve two things:
+- Simplify/Automate Data retrieval through web services
+- Avoid adding parsing logic to model objects (I'm a big fan of separation of responsibilities!!!)
+
+The end result I was looking for was a single method that would take a URL and a return type (object or array of objects), and just works doesn't matter what.
+```objective-c
+ServiceClient *client = [[ServiceClient alloc] init];
+
+// Getting back a single customer from service
+[client fetchDataWithUrl:URL returnType:[Customer class] andCompletion:^(Customer *customer, NSError *error){
+   // Do something with the object
+}];
+
+// Getting back a list of customers from service
+[client fetchDataWithUrl:URL returnType:[Customer class] andCompletion:^(NSArray *customers, NSError *error){
+   // Do something with the object
+}];
+```
+
 
 Features:
 - Supports array mapping
