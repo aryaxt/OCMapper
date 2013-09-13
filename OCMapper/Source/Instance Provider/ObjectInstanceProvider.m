@@ -43,6 +43,7 @@
 
 - (NSString *)propertyNameForObject:(NSObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName
 {
+	NSString *result = nil;
 	unsigned int outCount, i;
     objc_property_t *properties = class_copyPropertyList([object class], &outCount);
 	
@@ -53,11 +54,13 @@
 		
 		if ([[propertyName lowercaseString] isEqual:[caseInsensitivePropertyName lowercaseString]])
 		{
-			return propertyName;
+			result = propertyName;
+			break;
 		}
 	}
 	
-	return nil;
+	free(properties);
+	return result;
 }
 
 @end

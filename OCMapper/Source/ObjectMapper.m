@@ -287,6 +287,8 @@
 
 - (Class)classFromString:(NSString *)className
 {
+	Class result = nil;
+	
 	if (NSClassFromString(className))
 		return NSClassFromString(className);
 	
@@ -316,12 +318,17 @@
 				if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
 					[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
 					[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
-					return class;
+				{
+					result = class;
+					break;
+				}
 			}
 		}
+		
+		free(classes);
 	}
 	
-	return nil;
+	return result;
 }
 
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
