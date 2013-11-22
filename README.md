@@ -1,4 +1,4 @@
-Data Mapping for Objective C
+Data Mapping library for Objective C
 =========================
 
 OCMapper is a data mapping library for Objective C that converts NSDictionary to NSObject. My inspiration behind writing OCMapper was to achieve two things:
