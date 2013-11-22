@@ -1,4 +1,4 @@
-OC Mapper for Objective C
+Data Mapping for Objective C
 =========================
 
 OCMapper is a data mapping library for Objective C that converts NSDictionary to NSObject. My inspiration behind writing OCMapper was to achieve two things:
@@ -32,7 +32,7 @@ Features:
 - Auto detects key/values based on NSDictionary keys
 - Fully Configurable
 - Does not require subclassing or adding any extra code to your models
-- Auto data conversion, and configurable DateFormatters
+- Auto date conversion, and configurable DateFormatters
 
 
 Examples
@@ -203,6 +203,9 @@ ObjectMapper uses a list of common NSDateFormatters to convert string to NSDate.
 ```
 
 You can also have custom NSDateFormatter specific to classes & properties
+
+<b>NOTE:</b> Setting DateFormatter is not required as long as all date formats are standard or if the defaultDateFormatter knows how to parse the dates. The code below is just to demonstrate that it's possible to set custom dateformatters but it is not required due to use of standard date formats in this example.
+
 ```objective-c
 {
       "firstName"           : "Aryan",
