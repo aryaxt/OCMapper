@@ -143,6 +143,7 @@ Each post has an author and the conversion class (User) doesn't have a property 
 [inCodeMappingProvider mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[User class]];
 
 // Handle conversion of "author" to a "User" object
+// Mapping would NOT be required if both dictionary an drpopery were named 'user'
 [inCodeMappingProvider mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
