@@ -39,6 +39,8 @@
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
+@property (nonatomic, strong) NSMutableArray *classNamesInMainBundle;
+@property (nonatomic, strong) NSMutableDictionary *mappedClassNames;
 @end
 
 @implementation ObjectMapper
@@ -60,6 +62,16 @@
 	});
 	
 	return singleton;
+}
+
+- (id)init
+{
+	if (self = [super init])
+	{
+		[self populateClassNamesInMainBundle];
+	}
+	
+	return self;
 }
 
 #pragma mark - Public Methods -
@@ -102,6 +114,36 @@
 }
 
 #pragma mark - Private Methods -
+
+- (void)populateClassNamesInMainBundle
+{
+	self.classNamesInMainBundle = [NSMutableArray array];
+	
+	int numClasses;
+	Class *classes = NULL;
+	
+	classes = NULL;
+	numClasses = objc_getClassList(NULL, 0);
+	
+	if (numClasses > 0)
+	{
+		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
+		numClasses = objc_getClassList(classes, numClasses);
+		
+		for (int i = 0; i < numClasses; i++)
+		{
+			@autoreleasepool
+			{
+				Class class = classes[i];
+				
+				if ([NSBundle bundleForClass:class] == [NSBundle mainBundle])
+					[self.classNamesInMainBundle addObject:NSStringFromClass(class)];
+			}
+		}
+	}
+		
+	free(classes);
+}
 
 - (NSArray *)processDictionaryFromArray:(NSArray *)array
 {
@@ -215,13 +257,13 @@
 			{
 				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
 				
-				if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]])
+				if (propertyName && ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]))
 				{
 					objectType = [self classFromString:key];
 				}
 			}
 			
-			if (class && object && [object respondsToSelector:NSSelectorFromString(propertyName)])
+			if (class && object && propertyName && [object respondsToSelector:NSSelectorFromString(propertyName)])
 			{
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
@@ -287,7 +329,10 @@
 
 - (Class)classFromString:(NSString *)className
 {
-	Class result = nil;
+	Class result = [self.mappedClassNames objectForKey:className];
+	
+	if (result)
+		return result;
 	
 	if (NSClassFromString(className))
 		return NSClassFromString(className);
@@ -297,35 +342,21 @@
 	
 	NSString *classNameLowerCase = [className lowercaseString];
 	
-	int numClasses;
-	Class *classes = NULL;
-	
-	classes = NULL;
-	numClasses = objc_getClassList(NULL, 0);
-	
-	if (numClasses > 0)
+	for (NSString *className in self.classNamesInMainBundle)
 	{
-		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
-		numClasses = objc_getClassList(classes, numClasses);
-		
-		for (int i = 0; i < numClasses; i++)
+		@autoreleasepool
 		{
-			@autoreleasepool
+			NSString *thisClassNameLowerCase = [className lowercaseString];
+			
+			if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
+				[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
+				[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
 			{
-				Class class = classes[i];
-				NSString *thisClassNameLowerCase = [NSStringFromClass(class) lowercaseString];
-				
-				if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
-					[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
-					[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
-				{
-					result = class;
-					break;
-				}
+				result = NSClassFromString(className);
+				[self.mappedClassNames setObject:result forKey:className];
+				break;
 			}
 		}
-		
-		free(classes);
 	}
 	
 	return result;
