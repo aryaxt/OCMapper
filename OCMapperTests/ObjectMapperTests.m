@@ -29,6 +29,7 @@
 #import "ObjectMapper.h"
 #import "User.h"
 #import "Comment.h"
+#import "SpecialUser.h"
 
 @implementation ObjectMapperTests
 @synthesize mapper;
@@ -372,6 +373,24 @@
 	STAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
 	STAssertTrue([[userDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 	STAssertTrue([[userDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
+}
+
+- (void)testShouldMapPropertyInSuperClass
+{
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth" forKey:@"power"];
+	
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	
+	SpecialUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[SpecialUser class]];
+	
+	STAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	STAssertTrue([[userDictionary objectForKey:@"power"] isEqual:user.power], @"Did not populate dictionary correctly");
+	STAssertTrue([[[userDictionary objectForKey:@"address"] objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 }
 
 @end

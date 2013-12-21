@@ -14,7 +14,7 @@
 
 @implementation OCMapperConfig
 
-// We call this from appDelegate
+// We call this from appDelegate when application loads
 
 + (void)configure
 {

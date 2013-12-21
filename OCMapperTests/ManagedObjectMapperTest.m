@@ -30,6 +30,7 @@
 #import	"CDUser.h"
 #import "CDAddress.h"
 #import "CDPost.h"
+#import "CDSpecialUser.h"
 
 @implementation ManagedObjectMapperTest
 @synthesize mapper;
@@ -130,6 +131,17 @@
 	
 	CDUser *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[CDUser class]];
 	user = nil;
+}
+
+- (void)testShouldMapPropertiesInSuperClass
+{
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth" forKey:@"power"];
+	
+	CDSpecialUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	STAssertTrue([user.firstName isEqual:[userDictionary objectForKey:@"firstName"]], @"date did not populate correctly");
+	STAssertTrue([user.power isEqual:[userDictionary objectForKey:@"power"]], @"date did not populate correctly");
 }
 
 @end

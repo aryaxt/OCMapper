@@ -68,7 +68,7 @@
 {
 	if (self = [super init])
 	{
-		[self populateClassNamesInMainBundle];
+		[self populateClassNamesFromMainBundle];
 	}
 	
 	return self;
@@ -115,7 +115,7 @@
 
 #pragma mark - Private Methods -
 
-- (void)populateClassNamesInMainBundle
+- (void)populateClassNamesFromMainBundle
 {
 	self.classNamesInMainBundle = [NSMutableArray array];
 	

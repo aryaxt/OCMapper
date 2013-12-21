@@ -59,6 +59,8 @@
 		15E2B989171BEAEB00526C77 /* ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97A171BEAEB00526C77 /* ObjectMapper.m */; };
 		15E2B98A171BEAEB00526C77 /* ObjectMappingInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B97C171BEAEB00526C77 /* ObjectMappingInfo.m */; };
 		15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */; };
+		15EA38021866102D005CCEA0 /* SpecialUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA38011866102D005CCEA0 /* SpecialUser.m */; };
+		15EA380518661548005CCEA0 /* CDSpecialUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA380418661548005CCEA0 /* CDSpecialUser.m */; };
 		15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF052F172783F70041358D /* InCodeMappingProvider.m */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +170,10 @@
 		15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectMapperTests.m; sourceTree = "<group>"; };
 		15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OCMapperTests-Info.plist"; sourceTree = "<group>"; };
 		15E2B994171BED2400526C77 /* OCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapper.h; sourceTree = "<group>"; };
+		15EA38001866102D005CCEA0 /* SpecialUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialUser.h; sourceTree = "<group>"; };
+		15EA38011866102D005CCEA0 /* SpecialUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialUser.m; sourceTree = "<group>"; };
+		15EA380318661548005CCEA0 /* CDSpecialUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDSpecialUser.h; sourceTree = "<group>"; };
+		15EA380418661548005CCEA0 /* CDSpecialUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSpecialUser.m; sourceTree = "<group>"; };
 		15EF052E172783F70041358D /* InCodeMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCodeMappingProvider.h; sourceTree = "<group>"; };
 		15EF052F172783F70041358D /* InCodeMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCodeMappingProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -273,6 +279,8 @@
 				157B309A171E5D32005AAB02 /* CDPost.h */,
 				157B309B171E5D32005AAB02 /* CDPost.m */,
 				157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */,
+				15EA380318661548005CCEA0 /* CDSpecialUser.h */,
+				15EA380418661548005CCEA0 /* CDSpecialUser.m */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -399,6 +407,8 @@
 				15E2B971171BEAEB00526C77 /* User.m */,
 				157B316217238C08005AAB02 /* ObjectMappingConfig.xml */,
 				15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */,
+				15EA38001866102D005CCEA0 /* SpecialUser.h */,
+				15EA38011866102D005CCEA0 /* SpecialUser.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -571,8 +581,10 @@
 				1502B37117CD94EA00C095DE /* SampleViewController.m in Sources */,
 				1502B38A17CD985300C095DE /* AFHTTPClient.m in Sources */,
 				1502B38B17CD985300C095DE /* AFHTTPRequestOperation.m in Sources */,
+				15EA380518661548005CCEA0 /* CDSpecialUser.m in Sources */,
 				1502B38C17CD985300C095DE /* AFImageRequestOperation.m in Sources */,
 				1502B38D17CD985300C095DE /* AFJSONRequestOperation.m in Sources */,
+				15EA38021866102D005CCEA0 /* SpecialUser.m in Sources */,
 				1502B38E17CD985300C095DE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				1502B38F17CD985300C095DE /* AFPropertyListRequestOperation.m in Sources */,
 				1502B39017CD985300C095DE /* AFURLConnectionOperation.m in Sources */,

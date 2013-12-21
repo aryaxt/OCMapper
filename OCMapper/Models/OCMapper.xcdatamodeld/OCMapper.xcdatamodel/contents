@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="CDAddress" representedClassName="CDAddress" syncable="YES">
         <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,6 +10,9 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CDUser" inverseName="posts" inverseEntity="CDUser" syncable="YES"/>
     </entity>
+    <entity name="CDSpecialUser" representedClassName="CDSpecialUser" parentEntity="CDUser" syncable="YES">
+        <attribute name="power" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="CDUser" representedClassName="CDUser" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="dateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
@@ -19,8 +22,9 @@
         <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPost" inverseName="user" inverseEntity="CDPost" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDUser" positionX="-63" positionY="-27" width="128" height="133"/>
-        <element name="CDAddress" positionX="-288" positionY="-10" width="128" height="88"/>
-        <element name="CDPost" positionX="117" positionY="-9" width="128" height="88"/>
+        <element name="CDAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDPost" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDSpecialUser" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

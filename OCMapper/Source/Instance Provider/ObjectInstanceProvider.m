@@ -44,23 +44,34 @@
 - (NSString *)propertyNameForObject:(NSObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName
 {
 	NSString *result = nil;
-	unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList([object class], &outCount);
+	Class currentClass = [object class];
 	
-    for (i = 0; i < outCount; i++)
+	while (currentClass && currentClass != [NSObject class])
 	{
-        objc_property_t property = properties[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+		unsigned int outCount, i;
+		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
 		
-		if ([[propertyName lowercaseString] isEqual:[caseInsensitivePropertyName lowercaseString]])
+		for (i = 0; i < outCount; i++)
 		{
-			result = propertyName;
-			break;
+			objc_property_t property = properties[i];
+			NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+			
+			if ([[propertyName lowercaseString] isEqual:[caseInsensitivePropertyName lowercaseString]])
+			{
+				result = propertyName;
+				break;
+			}
 		}
+		
+		free(properties);
+		
+		if (result)
+			return result;
+		
+		currentClass = class_getSuperclass(currentClass);
 	}
 	
-	free(properties);
-	return result;
+	return nil;
 }
 
 @end
