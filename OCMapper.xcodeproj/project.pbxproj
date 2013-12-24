@@ -48,6 +48,8 @@
 		15B554CE171B7B3C0058E159 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554CD171B7B3C0058E159 /* SenTestingKit.framework */; };
 		15B554CF171B7B3C0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554D0171B7B3C0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
+		15D5AB401869E90A007DB250 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D5AB3F1869E90A007DB250 /* SystemConfiguration.framework */; };
+		15D5AB421869E910007DB250 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D5AB411869E910007DB250 /* MobileCoreServices.framework */; };
 		15E2B97D171BEAEB00526C77 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E2B964171BEAEB00526C77 /* AppDelegate.m */; };
 		15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B965171BEAEB00526C77 /* Default-568h@2x.png */; };
 		15E2B97F171BEAEB00526C77 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 15E2B966171BEAEB00526C77 /* Default.png */; };
@@ -146,6 +148,8 @@
 		15B554B3171B7B3B0058E159 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		15B554CC171B7B3C0058E159 /* OCMapperTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCMapperTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15B554CD171B7B3C0058E159 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		15D5AB3F1869E90A007DB250 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		15D5AB411869E910007DB250 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		15E2B963171BEAEB00526C77 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		15E2B964171BEAEB00526C77 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		15E2B965171BEAEB00526C77 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15D5AB421869E910007DB250 /* MobileCoreServices.framework in Frameworks */,
+				15D5AB401869E90A007DB250 /* SystemConfiguration.framework in Frameworks */,
 				1502B3A817CDA67400C095DE /* Security.framework in Frameworks */,
 				1502B3A517CDA5D400C095DE /* CFNetwork.framework in Frameworks */,
 				157B3080171E383D005AAB02 /* CoreData.framework in Frameworks */,
@@ -364,6 +370,8 @@
 		15B554AE171B7B3B0058E159 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15D5AB411869E910007DB250 /* MobileCoreServices.framework */,
+				15D5AB3F1869E90A007DB250 /* SystemConfiguration.framework */,
 				1502B3A617CDA66800C095DE /* Security.framework */,
 				1502B3A317CDA5C700C095DE /* CFNetwork.framework */,
 				157B3078171E3673005AAB02 /* CoreData.framework */,
