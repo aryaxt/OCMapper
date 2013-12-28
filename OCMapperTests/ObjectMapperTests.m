@@ -393,4 +393,15 @@
 	STAssertTrue([[[userDictionary objectForKey:@"address"] objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 }
 
+- (void)testShouldPopulateDictionaryWithPropertyInSuperClass
+{
+	SpecialUser *user = [[SpecialUser alloc] init];
+	user.power = @"stealth";
+	user.firstName = @"Aryan";
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	STAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	STAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+}
+
 @end

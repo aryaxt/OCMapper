@@ -160,39 +160,47 @@
 - (NSDictionary *)processDictionaryFromObject:(NSObject *)object
 {
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
-    unsigned int outCount, i;
-    objc_property_t *properties = class_copyPropertyList([object class], &outCount);
 	
-    for (i = 0; i < outCount; i++)
+	Class currentClass = [object class];
+	
+	while (currentClass && currentClass != [NSObject class])
 	{
-        objc_property_t property = properties[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-		Class class = NSClassFromString([self typeForProperty:propertyName andClass:[object class]]);
-        id propertyValue = [object valueForKey:(NSString *)propertyName];
+		unsigned int outCount, i;
+		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
 		
-		// If class is in the main bundle it's an application specific class
-		if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
+		for (i = 0; i < outCount; i++)
 		{
-			if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
-		}
-		// It's not in the main bundle so it's a Cocoa Class
-		else
-		{
-			if (class == [NSDate class])
-			{
-				propertyValue = [propertyValue description];
-			}
-			else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
-			{
-				propertyValue = [self processDictionaryFromArray:propertyValue];
-			}
+			objc_property_t property = properties[i];
+			NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+			Class class = NSClassFromString([self typeForProperty:propertyName andClass:[object class]]);
+			id propertyValue = [object valueForKey:(NSString *)propertyName];
 			
-			
-			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+			// If class is in the main bundle it's an application specific class
+			if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
+			{
+				if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
+			}
+			// It's not in the main bundle so it's a Cocoa Class
+			else
+			{
+				if (class == [NSDate class])
+				{
+					propertyValue = [propertyValue description];
+				}
+				else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
+				{
+					propertyValue = [self processDictionaryFromArray:propertyValue];
+				}
+				
+				
+				if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+			}
 		}
-    }
-	
-    free(properties);
+
+		free(properties);
+		currentClass = class_getSuperclass(currentClass);
+	}
+		
     return props;
 }
 
