@@ -29,11 +29,13 @@
 #import "ObjectMapper.h"
 #import "ManagedObjectInstanceProvider.h"
 #import "InCodeMappingProvider.h"
+#import "CoreDataManager.h"
 
 @interface ManagedObjectMapperTest : SenTestCase
 
 @property (nonatomic, strong) ObjectMapper *mapper;
 @property (nonatomic, strong) InCodeMappingProvider *mappingProvider;
 @property (nonatomic, strong) ManagedObjectInstanceProvider *instanceProvider;
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 
 @end

@@ -26,16 +26,12 @@
 // THE SOFTWARE.
 
 #import "ManagedObjectMapperTest.h"
-#import "CoreDataManager.h"
 #import	"CDUser.h"
 #import "CDAddress.h"
 #import "CDPost.h"
 #import "CDSpecialUser.h"
 
 @implementation ManagedObjectMapperTest
-@synthesize mapper;
-@synthesize mappingProvider;
-@synthesize instanceProvider;
 
 #pragma mark - Setup & Teardown -
 
@@ -43,9 +39,9 @@
 {
     [super setUp];
 	
-	CoreDataManager *coreDataManager = [[CoreDataManager alloc] init];
+	self.coreDataManager = [[CoreDataManager alloc] init];
 	self.instanceProvider = [[ManagedObjectInstanceProvider alloc]
-													   initWithManagedObjectContext:coreDataManager.managedObjectContext];
+													   initWithManagedObjectContext:self.coreDataManager.managedObjectContext];
 	
 	self.mappingProvider = [[InCodeMappingProvider alloc] init];
 	
@@ -142,6 +138,18 @@
 	CDSpecialUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
 	STAssertTrue([user.firstName isEqual:[userDictionary objectForKey:@"firstName"]], @"date did not populate correctly");
 	STAssertTrue([user.power isEqual:[userDictionary objectForKey:@"power"]], @"date did not populate correctly");
+}
+
+- (void)testShouldPopulateDictionaryWithPropertyInSuperClass
+{
+	CDSpecialUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+														inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	user.power = @"stealth";
+	user.firstName = @"Aryan";
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	STAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	STAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
 @end
