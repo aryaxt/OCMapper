@@ -227,6 +227,20 @@ NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
 User *user = [User objectFromDictionary:aDictionary];
 ```
 
+Core Data Support
+-------------------------
+In order to use core data you must pass an instance of ManagedObjectInstanceProvider to object Mapper
+```objective-c
+ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc] initWithManagedObjectContext:moc];
+	
+[[ObjectMapper sharedInstance] setInstanceProvider:instanceProvider];
+```
+On default Object mapper creates a new instance of NSManagedObject on every mapping. In order to update existing managed object you could provide unique keys for a given class and ObjectMapper would automatically update the existing managed object instead of creating a new instance.
+
+```objective-c
+[managedObjectInstanceProvider setUniqueKeys:@[@"userId"] forClass:[User class]];
+```
+
 Different Usage & Helpers
 -------------------------
 ```objective-c
