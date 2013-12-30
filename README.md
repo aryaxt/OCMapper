@@ -241,8 +241,14 @@ ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvide
 On default Object mapper creates a new instance of NSManagedObject on every mapping. In order to update an existing managed object you could provide unique keys for a given class and ObjectMapper would automatically update the existing managed object instead of creating a new instance.
 
 ```objective-c
-[managedObjectInstanceProvider setUniqueKeys:@[@"userId"] forClass:[User class]];
+[managedObjectInstanceProvider setUniqueKeys:@[@"userId"] forClass:[User class] withUpsertMode:UpsertModePurgeExistingObject];
 ```
+
+When assigning keys for classes OCMApper also requires an enum which describes how ObjectMapper should upsert existing records.
+
+- **UpsertModeUpdateExistingObject:** This option creates a new temporary instance of managed object, and then based on the given keys attempts to find an existing record. If it finds ONE record it updates all properties of the existing managed object and finally removes the temporary object. Using this upsert mode delete does not get called on any of the navigation properties, and therefore records remain in memory. For instance if the user's address has changed from A to B address would be updated properly, but both records would remain in memory.
+
+- **UpsertModePurgeExistingObject:** This option creates a new instance of managed object, and then based on the given keys it attempts to find a record. If it finds ONE record it calls delete on that record, and then inserts the newly created object into context. Since delete get's called using this option core data would delete all related relational objects, all "delete rules" in core data model would be applied. For instance if a user get's updated, and phone number changes from A to B, and if trhe delete rule is marked as cascade, then Address B would beremoved and address A would be assigned to the user.
 
 Different Usage & Helpers
 -------------------------
