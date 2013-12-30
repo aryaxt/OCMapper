@@ -232,23 +232,23 @@ Core Data Support
 In order to use core data you must pass an instance of ManagedObjectInstanceProvider to object Mapper.
 
 Object Mapper does not currently support both core-data and non-core-data mapping at the same time using a single instance of ObjectMapper.
-in order to use both, avoid using the singleton instance and Category methods. Instead initialize 2 diffrent instances of ObjectMapper one with ObjectInstanceProvider and another with ManagedObjectInstanceProvider.
+in order to use both avoid using the singleton instance and Category methods. Instead initialize 2 diffrent instances of ObjectMapper; one with ObjectInstanceProvider and another with ManagedObjectInstanceProvider.
 ```objective-c
 ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc] initWithManagedObjectContext:moc];
 	
 [[ObjectMapper sharedInstance] setInstanceProvider:instanceProvider];
 ```
-On default Object mapper creates a new instance of NSManagedObject on every mapping. In order to update an existing managed object you could provide unique keys for a given class and ObjectMapper would automatically update the existing managed object instead of creating a new instance.
+On default Object mapper creates a new instance of NSManagedObject on every mapping. In order to update an existing record you could provide unique keys for a given class and ObjectMapper would automatically update the existing record.
 
 ```objective-c
 [managedObjectInstanceProvider setUniqueKeys:@[@"userId"] forClass:[User class] withUpsertMode:UpsertModePurgeExistingObject];
 ```
 
-When assigning keys for classes OCMApper also requires an enum which describes how ObjectMapper should upsert existing records.
+When assigning keys for classes OCMApper also requires an enum describes how ObjectMapper should upsert existing records.
 
-- **UpsertModeUpdateExistingObject:** This option creates a new temporary instance of managed object, and then based on the given keys attempts to find an existing record. If it finds ONE record it updates all properties of the existing managed object and finally removes the temporary object. Using this upsert mode delete does not get called on any of the navigation properties, and therefore records remain in memory. For instance if the user's address has changed from A to B address would be updated properly, but both records would remain in memory.
+- **UpsertModeUpdateExistingObject:** This option creates a new temporary instance of managed object, and then based on the given keys it attempts to find an existing record. If it finds ONE record it updates all properties of the existing managed object and finally removes the temporary object. When using this upsert mode, delete does not get called on any of the related managed objects, and therefore records remain in memory. For instance if the user's address has changed from A to B address would be updated properly, but both records would remain in core data.
 
-- **UpsertModePurgeExistingObject:** This option creates a new instance of managed object, and then based on the given keys it attempts to find a record. If it finds ONE record it calls delete on that record, and then inserts the newly created object into context. Since delete get's called using this option core data would delete all related relational objects, all "delete rules" in core data model would be applied. For instance if a user get's updated, and phone number changes from A to B, and if trhe delete rule is marked as cascade, then Address B would beremoved and address A would be assigned to the user.
+- **UpsertModePurgeExistingObject:** This option creates a new instance of managed object, and then based on the given keys it attempts to find an existing record. If it finds ONE record it calls delete on that record, and then inserts the newly created object into context. Using this upser mode, delete gets called on existing managed object, and therefore core data would delete all related relational objects, and all "delete rules" in core data model would be applied. For instance, if a user get's updated, and phone number changes from A to B, and if trhe delete rule is marked as cascade, then Address A would be removed and address B would be assigned to the user.
 
 Different Usage & Helpers
 -------------------------
