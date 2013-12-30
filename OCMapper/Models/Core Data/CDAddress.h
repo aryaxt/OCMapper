@@ -29,6 +29,7 @@
 
 @interface CDAddress : NSManagedObject
 
+@property (nonatomic, strong) NSNumber *addressId;
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *country;
 

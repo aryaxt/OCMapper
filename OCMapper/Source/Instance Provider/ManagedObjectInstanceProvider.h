@@ -29,10 +29,14 @@
 #import <CoreData/CoreData.h>
 #import "InstanceProvider.h"
 
+typedef enum {
+	UpsertModeUpdateExistingObject,
+	UpsertModePurgeExistingObject
+}UpsertMode;
+
 @interface ManagedObjectInstanceProvider : NSObject <InstanceProvider>
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-- (id)initWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext;
+- (void)setUniqueKeys:(NSArray *)keys forClass:(Class)class withUpsertMode:(UpsertMode)upsertMode;
 
 @end

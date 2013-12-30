@@ -31,14 +31,22 @@
 
 #pragma mark - InstanceProvider Methods -
 
-- (id)emptyInstanceFromClass:(Class)class
+- (id)emptyInstanceForClass:(Class)class
 {
 	return [[class alloc] init];
 }
 
-- (id)emptyInstanceOfCollectionObject
+- (id)emptyCollectionInstance
 {
 	return [NSMutableArray array];
+}
+
+- (id)upsertObject:(NSObject *)object error:(NSError **)error;
+{
+	// Object not stored anywhere and therefore no need to upsert
+	// This is specifically made for NSManagedObjects used by ManagedObjectInstanceProvider
+	
+	return object;
 }
 
 - (NSString *)propertyNameForObject:(NSObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName

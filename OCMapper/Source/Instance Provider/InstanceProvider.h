@@ -29,8 +29,9 @@
 
 @protocol InstanceProvider <NSObject>
 
-- (id)emptyInstanceFromClass:(Class)class;
-- (id)emptyInstanceOfCollectionObject;
+- (id)emptyInstanceForClass:(Class)class;
+- (id)emptyCollectionInstance;
+- (id)upsertObject:(NSObject *)object error:(NSError **)error;
 - (NSString *)propertyNameForObject:(NSObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName;
 
 @end
