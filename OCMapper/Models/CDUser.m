@@ -28,6 +28,7 @@
 #import "CDUser.h"
 
 @implementation CDUser
+@dynamic userId;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic age;

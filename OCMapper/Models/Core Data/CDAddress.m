@@ -28,6 +28,7 @@
 #import "CDAddress.h"
 
 @implementation CDAddress
+@dynamic addressId;
 @dynamic city;
 @dynamic country;
 

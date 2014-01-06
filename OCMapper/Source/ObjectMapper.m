@@ -44,11 +44,6 @@
 @end
 
 @implementation ObjectMapper
-@synthesize defaultDateFormatter;
-@synthesize commonDateFormaters;
-@synthesize instanceProvider;
-@synthesize mappingProvider;
-@synthesize loggingProvider;
 
 #pragma mark - initialization -
 
@@ -78,10 +73,10 @@
 
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
 {
-	if (!mappingProvider)
+	if (!_mappingProvider)
 		@throw ([NSException exceptionWithName:@"MissingMappingProvider" reason:@"Mapping provider is not set" userInfo:nil]);
 	
-	if (!instanceProvider)
+	if (!_instanceProvider)
 		@throw ([NSException exceptionWithName:@"MissingInstanceProvider" reason:@"Instance provider is not set" userInfo:nil]);
 	
 	if ([source isKindOfClass:[NSDictionary class]])
@@ -244,7 +239,7 @@
 {
 	NSDictionary *normalizedSource = [self normalizedDictionaryFromDictionary:source forClass:class];
 	
-	id object = [self.instanceProvider emptyInstanceFromClass:class];
+	id object = [self.instanceProvider emptyInstanceForClass:class];
 	
 	for (NSString *key in normalizedSource)
 	{
@@ -317,12 +312,21 @@
 		}
 	}
 	
+	NSError *error;
+	object = [self.instanceProvider upsertObject:object error:&error];
+	
+	if (error)
+		ELog(@"Attempt to update existing instance failed with error '%@' for class (%@) and object %@",
+			 error.localizedDescription,
+			 NSStringFromClass(class),
+			 object);
+	
 	return object;
 }
 
 - (id)processArray:(NSArray *)value forClass:(Class)class
 {
-	id collection = [self.instanceProvider emptyInstanceOfCollectionObject];
+	id collection = [self.instanceProvider emptyCollectionInstance];
 	
 	for (id objectInArray in value)
 	{
@@ -409,36 +413,36 @@
 
 - (NSMutableArray *)commonDateFormaters
 {
-	if (!commonDateFormaters)
+	if (!_commonDateFormaters)
 	{
-		commonDateFormaters = [NSMutableArray array];
+		_commonDateFormaters = [NSMutableArray array];
 		
 		NSDateFormatter *formatter1 = [[NSDateFormatter alloc] init];
 		[formatter1 setDateFormat:@"yyyy-MM-dd"];
-		[commonDateFormaters addObject:formatter1];
+		[_commonDateFormaters addObject:formatter1];
 		
 		NSDateFormatter *formatter2 = [[NSDateFormatter alloc] init];
 		[formatter2 setDateFormat:@"MM/dd/yyyy"];
-		[commonDateFormaters addObject:formatter2];
+		[_commonDateFormaters addObject:formatter2];
 		
 		NSDateFormatter *formatter3 = [[NSDateFormatter alloc] init];
 		[formatter3 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZ"];
-		[commonDateFormaters addObject:formatter3];
+		[_commonDateFormaters addObject:formatter3];
 		
 		NSDateFormatter *formatter4 = [[NSDateFormatter alloc] init];
 		[formatter4 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-		[commonDateFormaters addObject:formatter4];
+		[_commonDateFormaters addObject:formatter4];
 		
 		NSDateFormatter *formatter5 = [[NSDateFormatter alloc] init];
 		[formatter5 setDateFormat:@"MM/dd/yyyy HH:mm:ss aaa"];
-		[commonDateFormaters addObject:formatter5];
+		[_commonDateFormaters addObject:formatter5];
 		
 		NSDateFormatter *formatter6 = [[NSDateFormatter alloc] init];
 		[formatter6 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
-		[commonDateFormaters addObject:formatter6];
+		[_commonDateFormaters addObject:formatter6];
 	}
 	
-	return commonDateFormaters;
+	return _commonDateFormaters;
 }
 
 - (NSString *)typeForProperty:(NSString *)property andClass:(Class)class

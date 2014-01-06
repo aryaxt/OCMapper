@@ -54,6 +54,8 @@
 {
 	self.mapper = nil;
 	self.mappingProvider = nil;
+	self.instanceProvider = nil;
+	self.coreDataManager = nil;
 	
     [super tearDown];
 }
@@ -108,11 +110,9 @@
 	
 	NSString *title1 = @"title 1";
 	NSString *date1 = @"06/21/2013";
-	//NSDate *expectedDate1 = [dateFormatter dateFromString:date1];
 	
 	NSString *title2 = @"title 2";
 	NSString *date2 = @"02/16/2012";
-	//NSDate *expectedDate2 = [dateFormatter dateFromString:date2];
 	
 	NSMutableDictionary *postDictionary = [NSMutableDictionary dictionary];
 	[postDictionary setObject:title1 forKey:@"title"];
@@ -150,6 +150,258 @@
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	STAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
 	STAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+}
+
+- (void)testShouldUpdateExistingManagedObjectBasedOnSingleProvidedKeyInUpsertModelUpdateExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModeUpdateExistingObject];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+														inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	originalUser.power = @"stealth1";
+	originalUser.firstName = @"aryan1";
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@"aryan2" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth2" forKey:@"power"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	STAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	STAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	STAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+}
+
+- (void)testShouldUpdateExistingManagedObjectBasedOnMultipleProvidedKeyInUpsertModelUpdateExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId", @"age"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModeUpdateExistingObject];
+
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	originalUser.age = @1;
+	originalUser.power = @"stealth1";
+	originalUser.firstName = @"aryan1";
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@1 forKey:@"age"];
+	[userDictionary setObject:@"aryan2" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth2" forKey:@"power"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	STAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	STAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	STAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+}
+
+- (void)testShouldNotUpdateExistingManagedObjectBasedOnMultipleProvidedKeyWhenOneKeyIsDifferentInUpsertModelUpdateExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId", @"age"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModeUpdateExistingObject];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	originalUser.age = @2;
+	originalUser.power = @"stealth1";
+	originalUser.firstName = @"aryan1";
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@1 forKey:@"age"];
+	[userDictionary setObject:@"aryan2" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth2" forKey:@"power"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	STAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	STAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	STAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+}
+
+- (void)testShouldNotUpdateExistingManagedObjectBasedOnSingleProvidedKeyWhenKeysAreDifferentInUpsertModelUpdateExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModeUpdateExistingObject];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	originalUser.power = @"stealth1";
+	originalUser.firstName = @"aryan1";
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@2 forKey:@"userId"];
+	[userDictionary setObject:@"aryan2" forKey:@"firstName"];
+	[userDictionary setObject:@"stealth2" forKey:@"power"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	STAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	STAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	STAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+}
+
+- (void)testNumberOfCreatedManagedObjectsOnUpdateForUpsertModeUpdateExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModeUpdateExistingObject];
+	[self.instanceProvider setUniqueKeys:@[@"addressId"] forClass:[CDAddress class] withUpsertMode:UpsertModeUpdateExistingObject];
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDSpecialUser class]];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	
+	CDAddress *originalAddress = [NSEntityDescription insertNewObjectForEntityForName:@"CDAddress"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalAddress.addressId = @1;
+	originalUser.address = originalAddress;
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@"ary" forKey:@"firstName"];
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@1 forKey:@"addressId"];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	newUser = nil; /*Just avoiding warnings*/
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSFetchRequest *userRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDSpecialUser"];
+	NSFetchRequest *addressRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDAddress"];
+	
+	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
+	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
+	
+	STAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
+	STAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
+}
+
+- (void)testNumberOfCreatedManagedObjectsOnNonUpdateForUpsertModeUpdateExisting
+{
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDSpecialUser class]];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	
+	CDAddress *originalAddress = [NSEntityDescription insertNewObjectForEntityForName:@"CDAddress"
+															   inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalAddress.addressId = @1;
+	originalUser.address = originalAddress;
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@"ary" forKey:@"firstName"];
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@1 forKey:@"addressId"];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	newUser = nil; /*Just avoiding warnings*/
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSFetchRequest *userRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDSpecialUser"];
+	NSFetchRequest *addressRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDAddress"];
+	
+	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
+	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
+	
+	STAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
+	STAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
+}
+
+- (void)testNumberOfCreatedManagedObjectsOnUpdateForUpsertModePurgeExisting
+{
+	[self.instanceProvider setUniqueKeys:@[@"userId"] forClass:[CDSpecialUser class] withUpsertMode:UpsertModePurgeExistingObject];
+	[self.instanceProvider setUniqueKeys:@[@"addressId"] forClass:[CDAddress class] withUpsertMode:UpsertModePurgeExistingObject];
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDSpecialUser class]];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	
+	CDAddress *originalAddress = [NSEntityDescription insertNewObjectForEntityForName:@"CDAddress"
+															   inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalAddress.addressId = @1;
+	originalUser.address = originalAddress;
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@"ary" forKey:@"firstName"];
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@1 forKey:@"addressId"];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	newUser = nil; /*Just avoiding warnings*/
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSFetchRequest *userRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDSpecialUser"];
+	NSFetchRequest *addressRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDAddress"];
+	
+	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
+	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
+	
+	STAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
+	STAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
+}
+
+- (void)testNumberOfCreatedManagedObjectsOnNonUpdateForUpsertModePurgeExisting
+{
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" withObjectType:[CDAddress class] forClass:[CDSpecialUser class]];
+	
+	CDSpecialUser *originalUser = [NSEntityDescription insertNewObjectForEntityForName:@"CDSpecialUser"
+																inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalUser.userId = @1;
+	
+	CDAddress *originalAddress = [NSEntityDescription insertNewObjectForEntityForName:@"CDAddress"
+															   inManagedObjectContext:self.coreDataManager.managedObjectContext];
+	originalAddress.addressId = @1;
+	originalUser.address = originalAddress;
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@1 forKey:@"userId"];
+	[userDictionary setObject:@"ary" forKey:@"firstName"];
+	NSMutableDictionary *addressDictionary = [NSMutableDictionary dictionary];
+	[addressDictionary setObject:@1 forKey:@"addressId"];
+	[addressDictionary setObject:@"San Diego" forKey:@"city"];
+	[userDictionary setObject:addressDictionary forKey:@"address"];
+	
+	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
+	newUser = nil; /*Just avoiding warnings*/
+	
+	[self.coreDataManager.managedObjectContext save:nil];
+	
+	NSFetchRequest *userRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDSpecialUser"];
+	NSFetchRequest *addressRequest = [NSFetchRequest fetchRequestWithEntityName:@"CDAddress"];
+	
+	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
+	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
+	
+	STAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
+	STAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
 }
 
 @end

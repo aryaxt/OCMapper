@@ -31,6 +31,7 @@
 
 @interface CDUser : NSManagedObject
 
+@property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSDate *dateOfBirth;
