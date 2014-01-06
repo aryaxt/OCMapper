@@ -95,7 +95,7 @@
 {
 	UpsertInfo *upsertInfo = [self.uniqueKeysDictionary objectForKey:NSStringFromClass([object class])];
 	
-	if (!upsertInfo)
+	if (!upsertInfo || !upsertInfo.keys.count)
 		return object;
 	
 	NSMutableArray *predicates = [NSMutableArray array];
