@@ -21,6 +21,10 @@ ServiceClient *client = [[ServiceClient alloc] init];
 }];
 ```
 
+Swift Support
+=========================
+OCMapper takes advantage of the objective c runtime API, and will only work for classes that inherit from NSObject
+
 
 Features:
 -------------------------
