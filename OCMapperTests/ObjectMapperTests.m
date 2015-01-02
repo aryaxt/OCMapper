@@ -233,10 +233,13 @@
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	
 	[self measureBlock:^{
-       	[self.mapper objectFromSource:@[userDictionary, userDictionary, userDictionary, userDictionary,
-                                                         userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary,
-                                                         userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary]
-                                     toInstanceOfClass:[User class]];
+		NSMutableArray *usersDictionary = [NSMutableArray array];
+		
+		for (int i=0 ; i<50 ; i++) {
+			[usersDictionary addObject:userDictionary];
+		}
+		
+       	[self.mapper objectFromSource:usersDictionary toInstanceOfClass:[User class]];
     }];
 }
 

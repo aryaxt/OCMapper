@@ -27,7 +27,23 @@
 
 #import "ObjectInstanceProvider.h"
 
+@interface ObjectInstanceProvider()
+@property (nonatomic, strong) NSMutableDictionary *propertyNameDictionary;
+@end
+
 @implementation ObjectInstanceProvider
+
+#pragma mark - Initialization -
+
+- (id)init
+{
+	if (self = [super init])
+	{
+		self.propertyNameDictionary = [NSMutableDictionary dictionary];
+	}
+	
+	return  self;
+}
 
 #pragma mark - InstanceProvider Methods -
 
@@ -53,6 +69,10 @@
 {
 	NSString *result = nil;
 	Class currentClass = [object class];
+	NSString *key = [NSString stringWithFormat:@"%@.%@", NSStringFromClass(currentClass), caseInsensitivePropertyName];
+	
+	if (self.propertyNameDictionary[key])
+		return self.propertyNameDictionary[key];
 	
 	while (currentClass && currentClass != [NSObject class])
 	{
@@ -74,7 +94,10 @@
 		free(properties);
 		
 		if (result)
+		{
+			self.propertyNameDictionary[key] = result;
 			return result;
+		}
 		
 		currentClass = class_getSuperclass(currentClass);
 	}
