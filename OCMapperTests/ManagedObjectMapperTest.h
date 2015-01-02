@@ -25,13 +25,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "ObjectMapper.h"
 #import "ManagedObjectInstanceProvider.h"
 #import "InCodeMappingProvider.h"
 #import "CoreDataManager.h"
 
-@interface ManagedObjectMapperTest : SenTestCase
+@interface ManagedObjectMapperTest : XCTestCase
 
 @property (nonatomic, strong) ObjectMapper *mapper;
 @property (nonatomic, strong) InCodeMappingProvider *mappingProvider;

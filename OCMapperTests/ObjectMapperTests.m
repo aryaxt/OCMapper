@@ -70,8 +70,8 @@
 	[userDictionary setObject:age forKey:@"age"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
-	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.age, age, @"age did not populate correctly");
 }
 
 - (void)testOneToOneSimpleNestedMappingWithSmallCaseNestedKey
@@ -87,8 +87,8 @@
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
-	STAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
+	XCTAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
+	XCTAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
 }
 
 - (void)testOneToOneSimpleNestedMapping
@@ -104,8 +104,8 @@
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
-	STAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
+	XCTAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
+	XCTAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
 }
 
 - (void)testOneToOneCustomNestedMapping
@@ -128,8 +128,8 @@
 	[self.mappingProvider mapFromDictionaryKey:COUNTRY_KEY toPropertyKey:@"country" forClass:[Address class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
-	STAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
+	XCTAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
+	XCTAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
 }
 
 - (void)testOneToOneCustomMapping
@@ -148,8 +148,8 @@
 	[self.mappingProvider mapFromDictionaryKey:SOME_AGE_KEY toPropertyKey:@"age" forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
-	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.age, age, @"age did not populate correctly");
 }
 
 - (void)testAutomaticDateConversion
@@ -163,7 +163,7 @@
 	[userDictionary setObject:dateString forKey:@"dateOfBirth"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
+	XCTAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
 }
 
 - (void)testAutomaticDMappingWithArrayOnRootLevel
@@ -175,10 +175,10 @@
 	[user2Dictionary setObject:@"Chuck" forKey:@"firstName"];
 	
 	NSArray *users = [self.mapper objectFromSource:@[user1Dictionary, user2Dictionary] toInstanceOfClass:[User class]];
-	STAssertTrue(users.count == 2, @"Did not populate correct number of items");
-	STAssertTrue([[[users objectAtIndex:0] firstName] isEqual:
+	XCTAssertTrue(users.count == 2, @"Did not populate correct number of items");
+	XCTAssertTrue([[[users objectAtIndex:0] firstName] isEqual:
 				  [user1Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
-	STAssertTrue([[[users objectAtIndex:1] firstName] isEqual:
+	XCTAssertTrue([[[users objectAtIndex:1] firstName] isEqual:
 				  [user2Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
 }
 
@@ -200,9 +200,9 @@
 	[self.mappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[User class]];
-	STAssertNotNil(user.accountCreationDate, @"Did nor populate date");
-	STAssertNotNil(user.dateOfBirth, @"Did nor populate date");
-	STAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
+	XCTAssertNotNil(user.accountCreationDate, @"Did nor populate date");
+	XCTAssertNotNil(user.dateOfBirth, @"Did nor populate date");
+	XCTAssertTrue([user.accountCreationDate isEqualToDate:user.dateOfBirth], @"Did not populate dates correctly");
 }
 
 - (void)testAutoMappingShouldNotBeCaseSensitive
@@ -215,8 +215,8 @@
 	[userDictionary setObject:age forKey:@"aGe"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
-	STAssertEqualObjects(user.age, age, @"age did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.age, age, @"age did not populate correctly");
 }
 
 - (void)testPerformance
@@ -232,16 +232,12 @@
 	[userDictionary setObject:@"01-21/2005" forKey:@"dateOfBirth"];
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	
-	NSDate *methodStart = [NSDate date];
-	
-	NSArray *users = [self.mapper objectFromSource:@[userDictionary, userDictionary, userDictionary, userDictionary,
-					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary,
-					  userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary]
-								 toInstanceOfClass:[User class]];
-	
-	NSDate *methodFinish = [NSDate date];
-	NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-	NSLog(@"\n\n\n\nExecution Time:%f objectCount:%d\n\n\n\n", executionTime, users.count);
+	[self measureBlock:^{
+       	[self.mapper objectFromSource:@[userDictionary, userDictionary, userDictionary, userDictionary,
+                                                         userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary,
+                                                         userDictionary, userDictionary, userDictionary, userDictionary, userDictionary, userDictionary]
+                                     toInstanceOfClass:[User class]];
+    }];
 }
 
 - (void)testDictionaryFromFlatObject
@@ -254,9 +250,9 @@
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	
-	STAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
-	STAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
-	STAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
 }
 
 - (void)testDictionaryFromComplexObject
@@ -271,8 +267,8 @@
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	NSDictionary *addressDictionary = [dictionary objectForKey:@"address"];
 	
-	STAssertTrue([[addressDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
-	STAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[addressDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[addressDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
 }
 
 - (void)testDictionaryFromObjectWithNestedArray
@@ -288,8 +284,8 @@
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	NSArray *comments = [dictionary objectForKey:@"comments"];
 	
-	STAssertTrue(comments.count == 2, @"Did not populate dictionary correctly");
-	STAssertTrue([[[comments objectAtIndex:0] objectForKey:@"body"] isEqual:comment.body], @"Did not populate dictionary correctly");
+	XCTAssertTrue(comments.count == 2, @"Did not populate dictionary correctly");
+	XCTAssertTrue([[[comments objectAtIndex:0] objectForKey:@"body"] isEqual:comment.body], @"Did not populate dictionary correctly");
 }
 
 - (void)testDictionaryFromArrayOfObjects
@@ -303,13 +299,13 @@
 	NSArray *comments = @[comment1, comment2];
 	NSArray *arrayOfDictionary = [self.mapper dictionaryFromObject:comments];
 	
-	STAssertTrue(arrayOfDictionary.count == 2, @"Did not populate correct number of dictionaries in array");
+	XCTAssertTrue(arrayOfDictionary.count == 2, @"Did not populate correct number of dictionaries in array");
 	
 	NSString *commentBody1 = [[arrayOfDictionary objectAtIndex:0] objectForKey:@"body"];
 	NSString *commentBody2 = [[arrayOfDictionary objectAtIndex:1] objectForKey:@"body"];
 	
-	STAssertTrue([commentBody1 isEqual:@"1"], @"Did not popoukate dictionary correctly");
-	STAssertTrue([commentBody2 isEqual:@"2"], @"Did not popoukate dictionary correctly");
+	XCTAssertTrue([commentBody1 isEqual:@"1"], @"Did not popoukate dictionary correctly");
+	XCTAssertTrue([commentBody2 isEqual:@"2"], @"Did not popoukate dictionary correctly");
 }
 
 - (void)testMappingshouldNotBeCaseSensitiveForPropertyNameWithCustomMapping
@@ -324,7 +320,7 @@
 	[self.mappingProvider mapFromDictionaryKey:firstNameKey toPropertyKey:firstNameProperty forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
 }
 
 - (void)testMappingshouldNotBeCaseSensitiveForPropertyName
@@ -335,7 +331,7 @@
 	[userDictionary setObject:firstName forKey:@"FirsTNAmE"];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
 }
 
 - (void)testMappingshouldNotBeCaseSensitiveForDictionaryKeyValue
@@ -350,7 +346,7 @@
 	[self.mappingProvider mapFromDictionaryKey:firstNameKeyDifferentCase toPropertyKey:@"firstname" forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
+	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
 }
 
 - (void)testPlistMapping
@@ -370,9 +366,9 @@
 	[self.mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"address.country" forClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-	STAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
-	STAssertTrue([[userDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
-	STAssertTrue([[userDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[userDictionary objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[userDictionary objectForKey:@"country"] isEqual:user.address.country], @"Did not populate dictionary correctly");
 }
 
 - (void)testShouldMapPropertyInSuperClass
@@ -388,9 +384,9 @@
 	
 	SpecialUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[SpecialUser class]];
 	
-	STAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
-	STAssertTrue([[userDictionary objectForKey:@"power"] isEqual:user.power], @"Did not populate dictionary correctly");
-	STAssertTrue([[[userDictionary objectForKey:@"address"] objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[userDictionary objectForKey:@"power"] isEqual:user.power], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[[userDictionary objectForKey:@"address"] objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 }
 
 - (void)testShouldPopulateDictionaryWithPropertyInSuperClass
@@ -400,8 +396,8 @@
 	user.firstName = @"Aryan";
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	STAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
-	STAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
 @end

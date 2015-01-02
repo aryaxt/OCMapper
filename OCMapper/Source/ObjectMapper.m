@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
 @property (nonatomic, strong) NSMutableArray *classNamesInMainBundle;
 @property (nonatomic, strong) NSMutableDictionary *mappedClassNames;
+@property (nonatomic, strong) NSMutableDictionary *mappedPropertyNames;
 @end
 
 @implementation ObjectMapper
@@ -64,6 +65,9 @@
 	if (self = [super init])
 	{
 		[self populateClassNamesFromMainBundle];
+        
+        self.mappedClassNames = [NSMutableDictionary dictionary];
+        self.mappedPropertyNames = [NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -136,7 +140,7 @@
 			}
 		}
 	}
-		
+	
 	free(classes);
 }
 
@@ -195,8 +199,8 @@
 		free(properties);
 		currentClass = class_getSuperclass(currentClass);
 	}
-		
-    return props;
+	
+	return props;
 }
 
 // Here we normalize dictionary made for flat-to-complex-object mapping
@@ -259,13 +263,23 @@
 			else
 			{
 				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
-				
+                
 				if (propertyName && ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]))
 				{
-					objectType = [self classFromString:key];
-				}
-			}
-			
+					if ([value isKindOfClass:[NSDictionary class]])
+					{
+						objectType = NSClassFromString([NSString stringWithFormat:@"%@.%@",
+														[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+														,[self typeForProperty:propertyName andClass:class]]);
+					}
+					
+                    if (!objectType)
+                    {
+                        objectType = [self classFromString:key];
+                    }
+                }
+            }
+            
 			if (class && object && propertyName && [object respondsToSelector:NSSelectorFromString(propertyName)])
 			{
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
@@ -341,37 +355,61 @@
 
 - (Class)classFromString:(NSString *)className
 {
-	Class result = [self.mappedClassNames objectForKey:className];
-	
-	if (result)
-		return result;
-	
-	if (NSClassFromString(className))
-		return NSClassFromString(className);
-	
-	if (NSClassFromString([className capitalizedString]))
-		return NSClassFromString([className capitalizedString]);
-	
-	NSString *classNameLowerCase = [className lowercaseString];
-	
-	for (NSString *className in self.classNamesInMainBundle)
-	{
-		@autoreleasepool
-		{
-			NSString *thisClassNameLowerCase = [className lowercaseString];
-			
-			if ([thisClassNameLowerCase isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@s", thisClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@es", thisClassNameLowerCase] isEqual:classNameLowerCase])
-			{
-				result = NSClassFromString(className);
-				[self.mappedClassNames setObject:result forKey:className];
-				break;
-			}
-		}
-	}
-	
-	return result;
+    Class result;
+    
+    if ([self.mappedClassNames objectForKey:className])
+    {
+        result = NSClassFromString([self.mappedClassNames objectForKey:className]);
+        
+        if (result)
+            return result;
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    
+    Class (^testClassName)(NSString *) = ^(NSString *classNameToTest) {
+        Class clazz = NSClassFromString(classNameToTest);
+        
+        if (clazz)
+        {
+            [weakSelf.mappedClassNames setObject:classNameToTest forKey:className];
+        }
+        
+        return clazz;
+    };
+    
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    
+    NSString *predictedClassName = className;
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    
+    predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className.capitalizedString];
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    
+    NSString *classNameLowerCase = [className lowercaseString];
+    
+    for (NSString *bundleClassName in self.classNamesInMainBundle)
+    {
+        @autoreleasepool
+        {
+            NSString *bundleClassNameLowerCase = [bundleClassName lowercaseString];
+            NSString *appNameLowerCase = appName.lowercaseString;
+            
+            if ([bundleClassNameLowerCase isEqual:classNameLowerCase] ||
+                [bundleClassNameLowerCase isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
+                [[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
+                [[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
+                [[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
+                [[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]])
+            {
+                result = NSClassFromString(bundleClassName);
+                [self.mappedClassNames setObject:bundleClassName forKey:className];
+                break;
+            }
+        }
+    }
+    
+    return result;
 }
 
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
@@ -446,14 +484,26 @@
 }
 
 - (NSString *)typeForProperty:(NSString *)property andClass:(Class)class
-{	
-	const char *type = property_getAttributes(class_getProperty(class, [property UTF8String]));
-	NSString *typeString = [NSString stringWithUTF8String:type];
-	NSArray *attributes = [typeString componentsSeparatedByString:@","];
-	NSString *typeAttribute = [attributes objectAtIndex:0];
-	return [[[typeAttribute substringFromIndex:1]
-			 stringByReplacingOccurrencesOfString:@"@" withString:@""]
-			stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+{
+    NSString *key = [NSString stringWithFormat:@"%@.%@", NSStringFromClass(class), property];
+    
+    if (self.mappedPropertyNames[key]) {
+        return self.mappedPropertyNames[key];
+    }
+    
+    const char *type = property_getAttributes(class_getProperty(class, [property UTF8String]));
+    NSString *typeString = [NSString stringWithUTF8String:type];
+    NSArray *attributes = [typeString componentsSeparatedByString:@","];
+    NSString *typeAttribute = [attributes objectAtIndex:0];
+    NSString *className = [[[typeAttribute substringFromIndex:1]
+                            stringByReplacingOccurrencesOfString:@"@" withString:@""]
+                           stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+    
+    if (className) {
+        self.mappedPropertyNames[key] = className;
+    }
+    
+    return className;
 }
 
 @end
