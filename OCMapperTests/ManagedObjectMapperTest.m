@@ -77,9 +77,9 @@
 	[userDictionary setObject:age forKey:@"age"];
 	
 	CDUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDUser class]];
-	STAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
-	STAssertTrue([user.age isEqual:age], @"date did not populate correctly");
-	STAssertTrue([user.firstName isEqual:firstName], @"date did not populate correctly");
+	XCTAssertTrue([user.dateOfBirth isEqual:expectedDate], @"date did not populate correctly");
+	XCTAssertTrue([user.age isEqual:age], @"date did not populate correctly");
+	XCTAssertTrue([user.firstName isEqual:firstName], @"date did not populate correctly");
 }
 
 - (void)testNestedMapping
@@ -97,8 +97,8 @@
 	[userDictionary setObject:addressDict forKey:@"address"];
 	
 	CDUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDUser class]];
-	STAssertTrue([user.address.city isEqual:city], @"date did not populate correctly");
-	STAssertTrue([user.address.country isEqual:country], @"date did not populate correctly");
+	XCTAssertTrue([user.address.city isEqual:city], @"date did not populate correctly");
+	XCTAssertTrue([user.address.country isEqual:country], @"date did not populate correctly");
 }
 
 - (void)testNestedArrayMapping
@@ -136,8 +136,8 @@
 	[userDictionary setObject:@"stealth" forKey:@"power"];
 	
 	CDSpecialUser *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
-	STAssertTrue([user.firstName isEqual:[userDictionary objectForKey:@"firstName"]], @"date did not populate correctly");
-	STAssertTrue([user.power isEqual:[userDictionary objectForKey:@"power"]], @"date did not populate correctly");
+	XCTAssertTrue([user.firstName isEqual:[userDictionary objectForKey:@"firstName"]], @"date did not populate correctly");
+	XCTAssertTrue([user.power isEqual:[userDictionary objectForKey:@"power"]], @"date did not populate correctly");
 }
 
 - (void)testShouldPopulateDictionaryWithPropertyInSuperClass
@@ -148,8 +148,8 @@
 	user.firstName = @"Aryan";
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	STAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
-	STAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
 - (void)testShouldUpdateExistingManagedObjectBasedOnSingleProvidedKeyInUpsertModelUpdateExisting
@@ -169,9 +169,9 @@
 	[userDictionary setObject:@"stealth2" forKey:@"power"];
 	
 	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
-	STAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
-	STAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
-	STAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
 }
 
 - (void)testShouldUpdateExistingManagedObjectBasedOnMultipleProvidedKeyInUpsertModelUpdateExisting
@@ -193,9 +193,9 @@
 	[userDictionary setObject:@"stealth2" forKey:@"power"];
 	
 	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
-	STAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
-	STAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
-	STAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	XCTAssertTrue([originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
 }
 
 - (void)testShouldNotUpdateExistingManagedObjectBasedOnMultipleProvidedKeyWhenOneKeyIsDifferentInUpsertModelUpdateExisting
@@ -217,9 +217,9 @@
 	[userDictionary setObject:@"stealth2" forKey:@"power"];
 	
 	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
-	STAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
-	STAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
-	STAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
 }
 
 - (void)testShouldNotUpdateExistingManagedObjectBasedOnSingleProvidedKeyWhenKeysAreDifferentInUpsertModelUpdateExisting
@@ -239,9 +239,9 @@
 	[userDictionary setObject:@"stealth2" forKey:@"power"];
 	
 	CDSpecialUser *newUser = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[CDSpecialUser class]];
-	STAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
-	STAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
-	STAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.objectID isEqual:newUser.objectID], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.firstName isEqual:newUser.firstName], @"Did Not update existing ManagedObject");
+	XCTAssertTrue(![originalUser.power isEqual:newUser.power], @"Did Not update existing ManagedObject");
 }
 
 - (void)testNumberOfCreatedManagedObjectsOnUpdateForUpsertModeUpdateExisting
@@ -281,8 +281,8 @@
 	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
 	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
 	
-	STAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
-	STAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
 }
 
 - (void)testNumberOfCreatedManagedObjectsOnNonUpdateForUpsertModeUpdateExisting
@@ -320,8 +320,8 @@
 	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
 	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
 	
-	STAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
-	STAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
 }
 
 - (void)testNumberOfCreatedManagedObjectsOnUpdateForUpsertModePurgeExisting
@@ -361,8 +361,8 @@
 	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
 	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
 	
-	STAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
-	STAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(users.count == 1, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(addresses.count == 1, @"Did Not update existing ManagedObject");
 }
 
 - (void)testNumberOfCreatedManagedObjectsOnNonUpdateForUpsertModePurgeExisting
@@ -400,8 +400,8 @@
 	NSArray *users = [self.coreDataManager.managedObjectContext executeFetchRequest:userRequest error:nil];
 	NSArray *addresses = [self.coreDataManager.managedObjectContext executeFetchRequest:addressRequest error:nil];
 	
-	STAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
-	STAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
+	XCTAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
 }
 
 @end
