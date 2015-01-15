@@ -243,6 +243,58 @@ NSDateFormatter *dateOfBirthFormatter = [[NSDateFormatter alloc] init];
 User *user = [User objectFromDictionary:aDictionary];
 ```
 
+Data Transformers
+-------------------------
+Data transformers allow you to capture a certain part of mapping and manually map it. It alsso opens room for polymorphic mapping.
+
+Transform a field to another
+```objective-c
+{
+   "firstName" : "Aryan",
+   "country" : "United States"
+}
+
+@implementation User
+@property(nonatomic, strong) NSString *firstName;
+@property(nonatomic, strong) Country *country;
+@end
+
+[mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"country" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+    return [[Country alloc] initWithName:currentNode];
+}];
+```
+
+Using transformer for polymorphic relationships
+
+```objective-c
+{
+   "firstName" : "Aryan",
+   "vehicleType" : "car",
+   "vehicle" : { /*specific product Info*/ },
+}
+
+@implementation User
+@property(nonatomic, strong) NSString *firstName;
+@property(nonatomic, strong) Vehicle *vehicle;
+@end
+
+[mappingProvider mapFromDictionaryKey:@"vehicle" toPropertyKey:@"vehicle" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+    NSString *productType = [parentNode objectForKey:@"vehicleType"];
+    Vehicle *vehicle;
+    
+    if ([productType isEqual:@"car"])
+    {
+    	vehicle = [Car objectFromDictionary:aDictionary];
+    }
+    else if ([productType isEqual:@"bike"])
+    {
+    	vehicle = [Bike objectFromDictionary:aDictionary];
+    }
+    
+    return vehicle;
+}];
+```
+
 Core Data Support
 -------------------------
 In order to use core data you must pass an instance of ManagedObjectInstanceProvider to object Mapper.
