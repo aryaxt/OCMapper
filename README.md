@@ -291,8 +291,19 @@ Using transformer for polymorphic relationships
     	vehicle = [Bike objectFromDictionary:aDictionary];
     }
     
+    
     return vehicle;
 }];
+
+// Or event better
+
+[mappingProvider mapFromDictionaryKey:@"vehicle" toPropertyKey:@"vehicle" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+
+    NSString *productType = [parentNode objectForKey:@"vehicleType"];
+    Class class = NSClassFromString(productType.capitalizedString);
+    return [class objectFromDictionary:aDictionary];
+}];
+
 ```
 
 Core Data Support
