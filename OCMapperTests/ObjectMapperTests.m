@@ -403,4 +403,21 @@
 	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
+- (void)testShouldTransformDataCorrectly {
+    NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+    [userDictionary setObject:@"Aryan" forKey:@"firstName"];
+    [userDictionary setObject:@"San Diego" forKey:@"address"];
+    
+    Address *address = [[Address alloc] init];
+    
+    [self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+        
+        address.city = currentNode;
+        return address;
+    }];
+    
+    User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+    XCTAssertTrue(user.address == address);
+}
+
 @end

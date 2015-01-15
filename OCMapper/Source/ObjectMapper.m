@@ -184,7 +184,14 @@
 			{
 				if (class == [NSDate class])
 				{
-					propertyValue = [propertyValue description];
+					if (self.defaultDateFormatter)
+					{
+						propertyValue = [self.defaultDateFormatter stringFromDate:propertyValue];
+					}
+					else
+					{
+						propertyValue = [propertyValue description];
+					}
 				}
 				else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
 				{
@@ -252,6 +259,7 @@
 			ObjectMappingInfo *mappingInfo = [self.mappingProvider mappingInfoForClass:class andDictionaryKey:key];
 			id value = [normalizedSource objectForKey:(NSString *)key];
 			NSString *propertyName;
+            MappingTransformer mappingTransformer;
 			Class objectType;
 			id nestedObject;
 			
@@ -259,6 +267,7 @@
 			{
 				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
 				objectType = mappingInfo.objectType;
+                mappingTransformer = mappingInfo.transformer;
 			}
 			else
 			{
@@ -284,7 +293,10 @@
 			{
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
-				if ([value isKindOfClass:[NSDictionary class]])
+                if (mappingTransformer) {
+                    nestedObject = mappingTransformer(value, source);
+                }
+				else if ([value isKindOfClass:[NSDictionary class]])
 				{
 					nestedObject = [self processDictionary:value forClass:objectType];
 				}

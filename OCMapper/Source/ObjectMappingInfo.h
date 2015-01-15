@@ -27,12 +27,16 @@
 
 #import <Foundation/Foundation.h>
 
+typedef id (^MappingTransformer)(id currentNode, id parentNode);
+
 @interface ObjectMappingInfo : NSObject
 
 @property (nonatomic, copy) NSString *dictionaryKey;
 @property (nonatomic, copy) NSString *propertyKey;
+@property (nonatomic, copy) MappingTransformer transformer;
 @property (nonatomic, assign) Class objectType;
 
 - (id)initWithDictionaryKey:(NSString *)aDictionaryKey propertyKey:(NSString *)aPropertyKey andObjectType:(Class)anObjectType;
+- (id)initWithDictionaryKey:(NSString *)aDictionaryKey propertyKey:(NSString *)aPropertyKey andTransformer:(MappingTransformer)transformer;
 
 @end
