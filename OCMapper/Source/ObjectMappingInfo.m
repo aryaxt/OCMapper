@@ -48,14 +48,14 @@
 
 - (id)initWithDictionaryKey:(NSString *)aDictionaryKey propertyKey:(NSString *)aPropertyKey andTransformer:(MappingTransformer)transformer
 {
-    if (self = [super init])
-    {
-        self.dictionaryKey = aDictionaryKey;
-        self.propertyKey = aPropertyKey;
-        self.transformer = transformer;
-    }
-    
-    return self;
+	if (self = [super init])
+	{
+		self.dictionaryKey = aDictionaryKey;
+		self.propertyKey = aPropertyKey;
+		self.transformer = transformer;
+	}
+	
+	return self;
 }
 
 @end

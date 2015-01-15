@@ -67,15 +67,15 @@
 
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class withTransformer:(MappingTransformer)transformer
 {
-    ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andTransformer:transformer];
-    NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
-    [self.mappingDictionary setObject:info forKey:key];
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andTransformer:transformer];
+	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
+	[self.mappingDictionary setObject:info forKey:key];
 }
 
 - (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
 {
-    NSString *key = [self uniqueKeyForClass:class andKey:property];
-    [self.dateFormatterDictionary setObject:dateFormatter forKey:key];
+	NSString *key = [self uniqueKeyForClass:class andKey:property];
+	[self.dateFormatterDictionary setObject:dateFormatter forKey:key];
 }
 
 #pragma mark - public Methods -
