@@ -284,11 +284,11 @@ Data transformers allow you to capture a certain part of mapping and manually ma
     
     if ([productType isEqual:@"car"])
     {
-    	vehicle = [Car objectFromDictionary:aDictionary];
+    	vehicle = [Car objectFromDictionary:currentNode];
     }
     else if ([productType isEqual:@"bike"])
     {
-    	vehicle = [Bike objectFromDictionary:aDictionary];
+    	vehicle = [Bike objectFromDictionary:currentNode];
     }
     
     
@@ -301,7 +301,7 @@ Data transformers allow you to capture a certain part of mapping and manually ma
 
     NSString *productType = [parentNode objectForKey:@"vehicleType"];
     Class class = NSClassFromString(productType.capitalizedString);
-    return [class objectFromDictionary:aDictionary];
+    return [class objectFromDictionary:currentNode];
 }];
 
 ```
