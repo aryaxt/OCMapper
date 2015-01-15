@@ -247,7 +247,7 @@ Data Transformers
 -------------------------
 Data transformers allow you to capture a certain part of mapping and manually map it. It alsso opens room for polymorphic mapping.
 
-Transform a field to another
+**Transform a field to another**
 ```objective-c
 {
    "firstName" : "Aryan",
@@ -264,7 +264,7 @@ Transform a field to another
 }];
 ```
 
-Using transformer for polymorphic relationships
+**Using transformer for polymorphic relationships**
 
 ```objective-c
 {
@@ -304,6 +304,25 @@ Using transformer for polymorphic relationships
     return [class objectFromDictionary:aDictionary];
 }];
 
+```
+
+**Other posibilities with the transformer**
+
+```objective-c
+{
+   "firstName" : "Aryan",
+   "image" : "BASE64_ENCODED_STRING"
+}
+
+@implementation User
+@property(nonatomic, strong) NSString *firstName;
+@property(nonatomic, strong) UIImage *image;
+@end
+
+[mappingProvider mapFromDictionaryKey:@"image" toPropertyKey:@"image" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+
+    return [UIImage imageFromBase64String:currentNode];
+}];
 ```
 
 Core Data Support
