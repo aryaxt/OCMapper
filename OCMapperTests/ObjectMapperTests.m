@@ -40,7 +40,7 @@
 
 - (void)setUp
 {
-    [super setUp];
+	[super setUp];
 	
 	self.mappingProvider = [[InCodeMappingProvider alloc] init];
 	self.instanceProvider = [[ObjectInstanceProvider alloc] init];
@@ -55,7 +55,7 @@
 	self.mapper = nil;
 	self.mappingProvider =  nil;
 	
-    [super tearDown];
+	[super tearDown];
 }
 
 #pragma mark - Tests -
@@ -177,9 +177,9 @@
 	NSArray *users = [self.mapper objectFromSource:@[user1Dictionary, user2Dictionary] toInstanceOfClass:[User class]];
 	XCTAssertTrue(users.count == 2, @"Did not populate correct number of items");
 	XCTAssertTrue([[[users objectAtIndex:0] firstName] isEqual:
-				  [user1Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
+				   [user1Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
 	XCTAssertTrue([[[users objectAtIndex:1] firstName] isEqual:
-				  [user2Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
+				   [user2Dictionary objectForKey:@"firstName"]], @"Did not populate correct attributes");
 }
 
 - (void)testCustomDateConversion
@@ -239,8 +239,8 @@
 			[usersDictionary addObject:userDictionary];
 		}
 		
-       	[self.mapper objectFromSource:usersDictionary toInstanceOfClass:[User class]];
-    }];
+		[self.mapper objectFromSource:usersDictionary toInstanceOfClass:[User class]];
+	}];
 }
 
 - (void)testDictionaryFromFlatObject
@@ -316,7 +316,7 @@
 	NSString *firstNameProperty = @"FiRsTNaMe";
 	NSString *firstNameKey = @"first_name";
 	NSString *firstName = @"Aryan";
-
+	
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
 	[userDictionary setObject:firstName forKey:firstNameKey];
 	
@@ -359,7 +359,7 @@
 }
 
 - (void)testFlatDataToComplexObjectConversion
-{	
+{
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
 	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
 	[userDictionary setObject:@"San Diego" forKey:@"city"];
@@ -401,6 +401,24 @@
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
 	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+}
+
+- (void)testShouldTransformDataCorrectly {
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
+	[userDictionary setObject:@"San Diego" forKey:@"address"];
+	
+	Address *address = [[Address alloc] init];
+	
+	[self.mappingProvider mapFromDictionaryKey:@"address" toPropertyKey:@"address" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+		
+		address.city = currentNode;
+		return address;
+	}];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue(user.address == address);
+	XCTAssertTrue([user.address.city isEqualToString:@"San Diego"]);
 }
 
 @end

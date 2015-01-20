@@ -145,7 +145,7 @@
 		15B554AF171B7B3B0058E159 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		15B554B1171B7B3B0058E159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15B554B3171B7B3B0058E159 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		15B554CC171B7B3C0058E159 /* OCMapperTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCMapperTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15B554CC171B7B3C0058E159 /* OCMapperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OCMapperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15D5AB3F1869E90A007DB250 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15D5AB411869E910007DB250 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		15E2B963171BEAEB00526C77 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				15B554AB171B7B3B0058E159 /* OCMapper.app */,
-				15B554CC171B7B3C0058E159 /* OCMapperTests.octest */,
+				15B554CC171B7B3C0058E159 /* OCMapperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 			);
 			name = OCMapperTests;
 			productName = ObjectMapperTests;
-			productReference = 15B554CC171B7B3C0058E159 /* OCMapperTests.octest */;
+			productReference = 15B554CC171B7B3C0058E159 /* OCMapperTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */

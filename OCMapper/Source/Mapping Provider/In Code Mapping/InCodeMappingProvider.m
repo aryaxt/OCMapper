@@ -53,10 +53,22 @@
 
 #pragma mark - Public Methods -
 
-- (void)mapFromDictionaryKey:(NSString *)source toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class
 {
-	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:source propertyKey:propertyKey andObjectType:objectType];
-	NSString *key = [self uniqueKeyForClass:class andKey:source];
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andObjectType:objectType];
+	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
+	[self.mappingDictionary setObject:info forKey:key];
+}
+
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class
+{
+	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
+}
+
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class withTransformer:(MappingTransformer)transformer
+{
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andTransformer:transformer];
+	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
 	[self.mappingDictionary setObject:info forKey:key];
 }
 
@@ -64,11 +76,6 @@
 {
 	NSString *key = [self uniqueKeyForClass:class andKey:property];
 	[self.dateFormatterDictionary setObject:dateFormatter forKey:key];
-}
-
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class
-{
-	[self mapFromDictionaryKey:dictionaryKey toPropertyKey:propertyKey withObjectType:nil forClass:class];
 }
 
 #pragma mark - public Methods -
