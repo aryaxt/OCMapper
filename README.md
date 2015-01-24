@@ -325,6 +325,20 @@ Data transformers allow you to capture a certain part of mapping and manually ma
 }];
 ```
 
+Inverse mapping
+-------------------------
+Inverse mapping referrs to mapping of an object to a dictionary. This is very similar to a standard dictionary to property mapping. The following methods can be used in order to setup custom mapping for object to dictionary mapping.
+
+```objective-c
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class;
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class withTransformer:(MappingTransformer)transformer;
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forDictionary:(NSString *)property andClass:(Class)class;
+```
+
+```InCodeMappingProvider``` class has a property named ```automaticallyGenerateInverseMapping```. This property is set to true on default, which means whenever a dictionary-to-property mapping is set, an inverse-mapping is automatically generated, and therefore there is no need to manually write mapping for object-to-dictionary mapping. The only exception is that mapping dictionary-to-property with data-transformers cannot be automatically inversed. 
+
+Date formatters are also created for an inverse relationship when automaticallyGenerateInverseMapping is set to true.
+
 Core Data Support
 -------------------------
 In order to use core data you must pass an instance of ManagedObjectInstanceProvider to object Mapper.
