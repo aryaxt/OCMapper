@@ -27,7 +27,6 @@
 		1502B3B117CDA75B00C095DE /* GoogleSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 1502B3B017CDA75B00C095DE /* GoogleSearchResult.m */; };
 		1502B3B317CDADE300C095DE /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1502B3B217CDADE300C095DE /* Storyboard.storyboard */; };
 		15371EC01727879700A508F4 /* ObjectMappingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */; };
-		15371EC517278C6300A508F4 /* PLISTMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15371EC417278C6300A508F4 /* PLISTMappingProvider.m */; };
 		157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3075171E3655005AAB02 /* CoreDataManager.m */; };
 		157B307C171E36D4005AAB02 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B307B171E36D4005AAB02 /* CDUser.m */; };
 		157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */; };
@@ -113,8 +112,6 @@
 		1502B3B017CDA75B00C095DE /* GoogleSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleSearchResult.m; sourceTree = "<group>"; };
 		1502B3B217CDADE300C095DE /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ObjectMappingConfig.plist; sourceTree = "<group>"; };
-		15371EC317278C6300A508F4 /* PLISTMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLISTMappingProvider.h; sourceTree = "<group>"; };
-		15371EC417278C6300A508F4 /* PLISTMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLISTMappingProvider.m; sourceTree = "<group>"; };
 		157B3074171E3655005AAB02 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = ../CoreDataManager.h; sourceTree = "<group>"; };
 		157B3075171E3655005AAB02 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = ../CoreDataManager.m; sourceTree = "<group>"; };
 		157B3078171E3673005AAB02 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -261,15 +258,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		15371EC217278C4500A508F4 /* PLIST Mapping */ = {
-			isa = PBXGroup;
-			children = (
-				15371EC317278C6300A508F4 /* PLISTMappingProvider.h */,
-				15371EC417278C6300A508F4 /* PLISTMappingProvider.m */,
-			);
-			path = "PLIST Mapping";
-			sourceTree = "<group>";
-		};
 		157B3084171E4518005AAB02 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,7 +302,6 @@
 		157B315017237C75005AAB02 /* Mapping Provider */ = {
 			isa = PBXGroup;
 			children = (
-				15371EC217278C4500A508F4 /* PLIST Mapping */,
 				15EF052D172783F70041358D /* In Code Mapping */,
 				157B315217237C87005AAB02 /* MappingProvider.h */,
 				15E2B97B171BEAEB00526C77 /* ObjectMappingInfo.h */,
@@ -581,7 +568,6 @@
 				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
 				15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */,
-				15371EC517278C6300A508F4 /* PLISTMappingProvider.m in Sources */,
 				15A1933F1766CBB800016904 /* CommonLoggingProvider.m in Sources */,
 				1502B37117CD94EA00C095DE /* SampleViewController.m in Sources */,
 				1502B38A17CD985300C095DE /* AFHTTPClient.m in Sources */,

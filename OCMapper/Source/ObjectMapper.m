@@ -170,12 +170,19 @@
 		for (i = 0; i < outCount; i++)
 		{
 			objc_property_t property = properties[i];
-			NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-			Class class = NSClassFromString([self typeForProperty:propertyName andClass:[object class]]);
-			id propertyValue = [object valueForKey:(NSString *)propertyName];
+			NSString *originalPropertyName = [NSString stringWithUTF8String:property_getName(property)];
+			Class class = NSClassFromString([self typeForProperty:originalPropertyName andClass:[object class]]);
+			id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
+            
+			ObjectMappingInfo *mapingInfo = [self.mappingProvider mappingInfoForClass:[object class] andPropertyKey:originalPropertyName];
+			NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : originalPropertyName;
 			
+			if (mapingInfo.transformer) {
+				propertyValue = mapingInfo.transformer(propertyValue, object);
+				[props setObject:propertyValue forKey:propertyName];
+			}
 			// If class is in the main bundle it's an application specific class
-			if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
+			else if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
 			{
 				if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
 			}
@@ -184,7 +191,12 @@
 			{
 				if (class == [NSDate class])
 				{
-					if (self.defaultDateFormatter)
+					NSDateFormatter *dateFormatter = [self.mappingProvider dateFormatterForClass:[object class] andDictionaryKey:originalPropertyName];
+					
+					if (!dateFormatter)
+						dateFormatter = self.defaultDateFormatter;
+					
+					if (dateFormatter)
 					{
 						propertyValue = [self.defaultDateFormatter stringFromDate:propertyValue];
 					}
@@ -197,8 +209,7 @@
 				{
 					propertyValue = [self processDictionaryFromArray:propertyValue];
 				}
-				
-				
+                
 				if (propertyValue) [props setObject:propertyValue forKey:propertyName];
 			}
 		}
@@ -427,7 +438,7 @@
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
 {
 	NSDate *date;
-	NSDateFormatter *customDateFormatter = [self.mappingProvider dateFormatterForClass:class andProperty:property];
+	NSDateFormatter *customDateFormatter = [self.mappingProvider dateFormatterForClass:class andPropertyKey:property];
 	
 	if (customDateFormatter)
 	{

@@ -196,8 +196,8 @@
 	[userDict setObject:dateOfBirthString forKey:@"dateOfBirth"];
 	[userDict setObject:accountCreationDateString forKey:@"accountCreationDate"];
 	
-	[self.mappingProvider setDateFormatter:dateOfBirthFormatter forProperty:@"dateOfBirth" andClass:[User class]];
-	[self.mappingProvider setDateFormatter:accountCreationFormatter forProperty:@"accountCreationDate" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:dateOfBirthFormatter forPropertyKey:@"dateOfBirth" andClass:[User class]];
+	[self.mappingProvider setDateFormatter:accountCreationFormatter forPropertyKey:@"accountCreationDate" andClass:[User class]];
 	
 	User *user = [self.mapper objectFromSource:userDict toInstanceOfClass:[User class]];
 	XCTAssertNotNil(user.accountCreationDate, @"Did nor populate date");
@@ -352,12 +352,6 @@
 	XCTAssertEqualObjects(user.firstName, firstName, @"firstName did not populate correctly");
 }
 
-- (void)testPlistMapping
-{
-	PLISTMappingProvider *provider = [[PLISTMappingProvider alloc] initWithFileName:@"ObjectMappingConfig"];
-	self.mapper.mappingProvider = provider;
-}
-
 - (void)testFlatDataToComplexObjectConversion
 {
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
@@ -392,17 +386,6 @@
 	XCTAssertTrue([[[userDictionary objectForKey:@"address"] objectForKey:@"city"] isEqual:user.address.city], @"Did not populate dictionary correctly");
 }
 
-- (void)testShouldPopulateDictionaryWithPropertyInSuperClass
-{
-	SpecialUser *user = [[SpecialUser alloc] init];
-	user.power = @"stealth";
-	user.firstName = @"Aryan";
-	
-	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
-	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
-}
-
 - (void)testShouldTransformDataCorrectly {
 	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
 	[userDictionary setObject:@"Aryan" forKey:@"firstName"];
@@ -419,6 +402,52 @@
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	XCTAssertTrue(user.address == address);
 	XCTAssertTrue([user.address.city isEqualToString:@"San Diego"]);
+}
+
+- (void)testShouldPopulateDictionaryWithPropertyInSuperClass
+{
+	SpecialUser *user = [[SpecialUser alloc] init];
+	user.power = @"stealth";
+	user.firstName = @"Aryan";
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
+}
+
+- (void)testInverseMappingShouldMapKeysWithCorrectName {
+	User *user = [[User alloc] init];
+	user.firstName = @"Aryan";
+	user.address = [[Address alloc] init];
+	user.address.city = @"SF";
+	
+	[self.mappingProvider mapFromPropertyKey:@"firstName" toDictionaryKey:@"fName" forClass:[User class]];
+	[self.mappingProvider mapFromPropertyKey:@"address" toDictionaryKey:@"location" forClass:[User class]];
+	[self.mappingProvider mapFromPropertyKey:@"city" toDictionaryKey:@"ct" forClass:[Address class]];
+	[self.mappingProvider mapFromPropertyKey:@"dateOfBirth" toDictionaryKey:@"dob" forClass:[User class] withTransformer:^id(id currentNode, id parentNode) {
+		
+		return @"2014";
+	}];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	XCTAssertTrue([dictionary[@"fName"] isEqualToString:user.firstName]);
+	XCTAssertTrue([dictionary[@"dob"] isEqualToString:@"2014"]);
+	XCTAssertTrue([[dictionary[@"location"] objectForKey:@"ct"] isEqualToString:user.address.city]);
+}
+
+- (void)testShouldAutomaticallyGenerateInverseMapping {
+	[self.mappingProvider mapFromDictionaryKey:@"dateOfBirth" toPropertyKey:@"dob" forClass:[User class]];
+	ObjectMappingInfo *info = [self.mappingProvider mappingInfoForClass:[User class] andPropertyKey:@"dob"];
+	
+	XCTAssertTrue([info.dictionaryKey isEqualToString:@"dateOfBirth"]);
+}
+
+- (void)testShouldNotAutomaticallyGenerateInverseMapping {
+	self.mappingProvider.automaticallyGenerateInverseMapping = NO;
+	[self.mappingProvider mapFromDictionaryKey:@"dateOfBirth" toPropertyKey:@"dob" forClass:[User class]];
+	ObjectMappingInfo *info = [self.mappingProvider mappingInfoForClass:[User class] andPropertyKey:@"dob"];
+	
+	XCTAssertNil(info);
 }
 
 @end
