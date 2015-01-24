@@ -27,6 +27,15 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Definition of a block that is called when a data transformer is set.
+ *  This block is used for both converting dictionary to model object and reverse
+ *
+ *  @param currentNode Current node to be converted
+ *  @param parentNode  Parent Node
+ *
+ *  @return id
+ */
 typedef id (^MappingTransformer)(id currentNode, id parentNode);
 
 @interface ObjectMappingInfo : NSObject

@@ -31,7 +31,9 @@
 
 @interface InCodeMappingProvider()
 @property (nonatomic, strong) NSMutableDictionary *mappingDictionary;
+@property (nonatomic, strong) NSMutableDictionary *inverseMappingDictionary;
 @property (nonatomic, strong) NSMutableDictionary *dateFormatterDictionary;
+@property (nonatomic, strong) NSMutableDictionary *inverseDateFormatterDictionary;
 @end
 
 @implementation InCodeMappingProvider
@@ -44,8 +46,11 @@
 {
 	if (self = [super init])
 	{
+		self.automaticallyGenerateInverseMapping = YES;
 		self.mappingDictionary = [NSMutableDictionary dictionary];
+		self.inverseMappingDictionary = [NSMutableDictionary dictionary];
 		self.dateFormatterDictionary = [NSMutableDictionary dictionary];
+		self.inverseDateFormatterDictionary = [NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -58,6 +63,11 @@
 	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andObjectType:objectType];
 	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
 	[self.mappingDictionary setObject:info forKey:key];
+    
+	if (self.automaticallyGenerateInverseMapping)
+	{
+		[self mapFromPropertyKey:propertyKey toDictionaryKey:dictionaryKey forClass:class];
+	}
 }
 
 - (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class
@@ -72,10 +82,33 @@
 	[self.mappingDictionary setObject:info forKey:key];
 }
 
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forProperty:(NSString *)property andClass:(Class)class
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class {
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andObjectType:nil];
+	NSString *key = [self uniqueKeyForClass:class andKey:propertyKey];
+	[self.inverseMappingDictionary setObject:info forKey:key];
+}
+
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class withTransformer:(MappingTransformer)transformer {
+	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andTransformer:transformer];
+	NSString *key = [self uniqueKeyForClass:class andKey:propertyKey];
+	[self.inverseMappingDictionary setObject:info forKey:key];
+}
+
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forPropertyKey:(NSString *)property andClass:(Class)class
 {
 	NSString *key = [self uniqueKeyForClass:class andKey:property];
 	[self.dateFormatterDictionary setObject:dateFormatter forKey:key];
+	
+	if (self.automaticallyGenerateInverseMapping)
+	{
+		[self setDateFormatter:dateFormatter forDictionaryKey:property andClass:class];
+	}
+}
+
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forDictionaryKey:(NSString *)dictionaryKey andClass:(Class)class
+{
+	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
+	[self.inverseDateFormatterDictionary setObject:dateFormatter forKey:key];
 }
 
 #pragma mark - public Methods -
@@ -93,9 +126,20 @@
 	return [self.mappingDictionary objectForKey:key];
 }
 
-- (NSDateFormatter *)dateFormatterForClass:(Class)class andProperty:(NSString *)property
+- (ObjectMappingInfo *)mappingInfoForClass:(Class)class andPropertyKey:(NSString *)source {
+	NSString *key = [self uniqueKeyForClass:class andKey:source];
+	return [self.inverseMappingDictionary objectForKey:key];
+}
+
+- (NSDateFormatter *)dateFormatterForClass:(Class)class andPropertyKey:(NSString *)propertyKey
 {
-	NSString *key = [self uniqueKeyForClass:class andKey:property];
+	NSString *key = [self uniqueKeyForClass:class andKey:propertyKey];
+	return [self.dateFormatterDictionary objectForKey:key];
+}
+
+- (NSDateFormatter *)dateFormatterForClass:(Class)class andDictionaryKey:(NSString *)dictionaryKey
+{
+	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
 	return [self.dateFormatterDictionary objectForKey:key];
 }
 

@@ -29,7 +29,6 @@
 #import "ObjectMapper.h"
 #import "InCodeMappingProvider.h"
 #import "ObjectInstanceProvider.h"
-#import "PLISTMappingProvider.h"
 #import "CommonLoggingProvider.h"
 
 @interface ObjectMapperTests : XCTestCase

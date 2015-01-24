@@ -31,6 +31,8 @@
 @protocol MappingProvider <NSObject>
 
 - (ObjectMappingInfo *)mappingInfoForClass:(Class)class andDictionaryKey:(NSString *)key;
-- (NSDateFormatter *)dateFormatterForClass:(Class)class andProperty:(NSString *)property;
+- (ObjectMappingInfo *)mappingInfoForClass:(Class)class andPropertyKey:(NSString *)key;
+- (NSDateFormatter *)dateFormatterForClass:(Class)class andPropertyKey:(NSString *)key;
+- (NSDateFormatter *)dateFormatterForClass:(Class)class andDictionaryKey:(NSString *)key;
 
 @end
