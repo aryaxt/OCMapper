@@ -1,3 +1,17 @@
+Version 1.4 notes
+=========================
+- You no longer need to set ObjectInstanceProvider on ObjectMapper, this is now added by default.
+
+- You can now have multiple instance providers at the same time (ObjectInstanceProviced & ManagedObjectInstanceProvider)
+
+- In order to be able to map NSMangedObjects (CoreData use):
+```objective-c
+ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc] initWithManagedObjectContext:moc];
+[[ObjectMapper sharedInstance] addInstanceProvider:instanceProvider];
+```
+
+- [Flat Data to Complex Object](https://github.com/aryaxt/OCMapper#Flat Data to Complex Object) is no longer enabled on default in order to improve performance. There is a property named ```normalizeDictionary``` in ```ObjectMapper``` class that allows you to turn this feature on if needed.
+
 Data Mapping library for Objective C
 =========================
 
@@ -341,14 +355,12 @@ Date formatters are also created for an inverse relationship when automaticallyG
 
 Core Data Support
 -------------------------
-In order to use core data you must pass an instance of ManagedObjectInstanceProvider to object Mapper.
+In order to use core data you can add a ```ManagedObjectInstanceProvider``` to ObjectMapper
 
-Object Mapper does not currently support both core-data and non-core-data mapping at the same time using a single instance of ObjectMapper.
-in order to use both avoid using the singleton instance and Category methods. Instead initialize 2 diffrent instances of ObjectMapper; one with ObjectInstanceProvider and another with ManagedObjectInstanceProvider.
 ```objective-c
 ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc] initWithManagedObjectContext:moc];
 	
-[[ObjectMapper sharedInstance] setInstanceProvider:instanceProvider];
+[[ObjectMapper sharedInstance] addInstanceProvider:instanceProvider];
 ```
 On default Object mapper creates a new instance of NSManagedObject on every mapping. In order to update an existing record you could provide unique keys for a given class and ObjectMapper would automatically update the existing record.
 
