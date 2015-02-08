@@ -63,6 +63,11 @@
 
 #pragma mark - Public Methods -
 
+- (BOOL)canHandleClass:(Class)class
+{
+	return ([class isSubclassOfClass:NSManagedObject.class]) ? YES : NO;
+}
+
 - (void)setUniqueKeys:(NSArray *)keys forClass:(Class)class withUpsertMode:(UpsertMode)upsertMode
 {
 	for (id key in keys)

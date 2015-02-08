@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #import "ManagedObjectMapperTest.h"
+#import "User.h"
 #import	"CDUser.h"
 #import "CDAddress.h"
 #import "CDPost.h"
@@ -47,7 +48,7 @@
 	
 	self.mapper = [[ObjectMapper alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
-	self.mapper.instanceProvider = self.instanceProvider;
+	[self.mapper addInstanceProvider:self.instanceProvider];
 }
 
 - (void)tearDown
@@ -402,6 +403,16 @@
 	
 	XCTAssertTrue(users.count == 2, @"Did Not update existing ManagedObject");
 	XCTAssertTrue(addresses.count == 2, @"Did Not update existing ManagedObject");
+}
+
+- (void)testManagedObjectInstanceProviderShouldReturnFalseForNSObjectSubclasses
+{
+	XCTAssertFalse([self.instanceProvider canHandleClass:User.class]);
+}
+
+- (void)testManagedObjectInstanceProviderShouldReturnTrueForNSManagedObjectSubclasses
+{
+	XCTAssertTrue([self.instanceProvider canHandleClass:CDUser.class]);
 }
 
 @end

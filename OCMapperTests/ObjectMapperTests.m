@@ -28,6 +28,7 @@
 #import "ObjectMapperTests.h"
 #import "ObjectMapper.h"
 #import "User.h"
+#import "CDUser.h"
 #import "Comment.h"
 #import "SpecialUser.h"
 
@@ -47,7 +48,6 @@
 	
 	self.mapper = [[ObjectMapper alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
-	self.mapper.instanceProvider = self.instanceProvider;
 }
 
 - (void)tearDown
@@ -361,6 +361,7 @@
 	
 	[self.mappingProvider mapFromDictionaryKey:@"city" toPropertyKey:@"address.city" forClass:[User class]];
 	[self.mappingProvider mapFromDictionaryKey:@"country" toPropertyKey:@"address.country" forClass:[User class]];
+	self.mapper.normalizeDictionary = YES;
 	
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	XCTAssertTrue([[userDictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
@@ -415,7 +416,8 @@
 	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
-- (void)testInverseMappingShouldMapKeysWithCorrectName {
+- (void)testInverseMappingShouldMapKeysWithCorrectName
+{
 	User *user = [[User alloc] init];
 	user.firstName = @"Aryan";
 	user.address = [[Address alloc] init];
@@ -435,19 +437,31 @@
 	XCTAssertTrue([[dictionary[@"location"] objectForKey:@"ct"] isEqualToString:user.address.city]);
 }
 
-- (void)testShouldAutomaticallyGenerateInverseMapping {
+- (void)testShouldAutomaticallyGenerateInverseMapping
+{
 	[self.mappingProvider mapFromDictionaryKey:@"dateOfBirth" toPropertyKey:@"dob" forClass:[User class]];
 	ObjectMappingInfo *info = [self.mappingProvider mappingInfoForClass:[User class] andPropertyKey:@"dob"];
 	
 	XCTAssertTrue([info.dictionaryKey isEqualToString:@"dateOfBirth"]);
 }
 
-- (void)testShouldNotAutomaticallyGenerateInverseMapping {
+- (void)testShouldNotAutomaticallyGenerateInverseMapping
+{
 	self.mappingProvider.automaticallyGenerateInverseMapping = NO;
 	[self.mappingProvider mapFromDictionaryKey:@"dateOfBirth" toPropertyKey:@"dob" forClass:[User class]];
 	ObjectMappingInfo *info = [self.mappingProvider mappingInfoForClass:[User class] andPropertyKey:@"dob"];
 	
 	XCTAssertNil(info);
+}
+
+- (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
+{
+	XCTAssertTrue([self.instanceProvider canHandleClass:User.class]);
+}
+
+- (void)testObjectInstanceProviderShouldReturnFalseForNSManagedObjectSubclasses
+{
+	XCTAssertFalse([self.instanceProvider canHandleClass:CDUser.class]);
 }
 
 @end

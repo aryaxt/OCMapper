@@ -26,21 +26,19 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <objc/runtime.h>
-#import "ObjectMappingInfo.h"
-#import "InstanceProvider.h"
-#import "MappingProvider.h"
-#import "LoggingProvider.h"
+
+@protocol MappingProvider, LoggingProvider, InstanceProvider;
 
 @interface ObjectMapper : NSObject
 
 @property (nonatomic, strong) NSDateFormatter *defaultDateFormatter;
-@property (nonatomic, strong) id <InstanceProvider> instanceProvider;
 @property (nonatomic, strong) id <MappingProvider> mappingProvider;
 @property (nonatomic, strong) id <LoggingProvider> loggingProvider;
+@property (nonatomic, assign) BOOL normalizeDictionary;
 
 + (ObjectMapper *)sharedInstance;
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
 - (id)dictionaryFromObject:(NSObject *)object;
+- (void)addInstanceProvider:(id <InstanceProvider>)instanceProvider;
 
 @end
