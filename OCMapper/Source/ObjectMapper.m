@@ -26,6 +26,12 @@
 // THE SOFTWARE.
 
 #import "ObjectMapper.h"
+#import <objc/runtime.h>
+#import "ObjectMappingInfo.h"
+#import "InstanceProvider.h"
+#import "MappingProvider.h"
+#import "LoggingProvider.h"
+#import "ObjectInstanceProvider.h"
 
 #ifdef DEBUG
 #define ILog(format, ...) [self.loggingProvider log:[NSString stringWithFormat:(format), ##__VA_ARGS__] withLevel:LogLevelInfo]
@@ -42,6 +48,7 @@
 @property (nonatomic, strong) NSMutableArray *classNamesInMainBundle;
 @property (nonatomic, strong) NSMutableDictionary *mappedClassNames;
 @property (nonatomic, strong) NSMutableDictionary *mappedPropertyNames;
+@property (nonatomic, strong) NSMutableArray *instanceProviders;
 @end
 
 @implementation ObjectMapper
@@ -66,6 +73,10 @@
 	{
 		[self populateClassNamesFromMainBundle];
 		
+		self.instanceProviders = [NSMutableArray array];
+		ObjectInstanceProvider *objectInstanceProvider = [[ObjectInstanceProvider alloc] init];
+		[self addInstanceProvider:objectInstanceProvider];
+		
 		self.mappedClassNames = [NSMutableDictionary dictionary];
 		self.mappedPropertyNames = [NSMutableDictionary dictionary];
 	}
@@ -79,9 +90,6 @@
 {
 	if (!_mappingProvider)
 		@throw ([NSException exceptionWithName:@"MissingMappingProvider" reason:@"Mapping provider is not set" userInfo:nil]);
-	
-	if (!_instanceProvider)
-		@throw ([NSException exceptionWithName:@"MissingInstanceProvider" reason:@"Instance provider is not set" userInfo:nil]);
 	
 	if ([source isKindOfClass:[NSDictionary class]])
 	{
@@ -110,6 +118,11 @@
 	{
 		return [self processDictionaryFromObject:object];
 	}
+}
+
+- (void)addInstanceProvider:(id <InstanceProvider>)instanceProvider
+{
+	[self.instanceProviders addObject:instanceProvider];
 }
 
 #pragma mark - Private Methods -
@@ -259,9 +272,10 @@
 
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
-	NSDictionary *normalizedSource = [self normalizedDictionaryFromDictionary:source forClass:class];
+    NSDictionary *normalizedSource = (self.normalizeDictionary) ? [self normalizedDictionaryFromDictionary:source forClass:class] : source;
 	
-	id object = [self.instanceProvider emptyInstanceForClass:class];
+	id <InstanceProvider> instanceProvider = [self instanceProviderForClass:class];
+	id object = [instanceProvider emptyInstanceForClass:class];
 	
 	for (NSString *key in normalizedSource)
 	{
@@ -276,13 +290,13 @@
 			
 			if (mappingInfo)
 			{
-				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
+				propertyName = [instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:mappingInfo.propertyKey];
 				objectType = mappingInfo.objectType;
 				mappingTransformer = mappingInfo.transformer;
 			}
 			else
 			{
-				propertyName = [self.instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
+				propertyName = [instanceProvider propertyNameForObject:object byCaseInsensitivePropertyName:key];
 				
 				if (propertyName && ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]))
 				{
@@ -350,7 +364,7 @@
 	}
 	
 	NSError *error;
-	object = [self.instanceProvider upsertObject:object error:&error];
+	object = [instanceProvider upsertObject:object error:&error];
 	
 	if (error)
 		ELog(@"Attempt to update existing instance failed with error '%@' for class (%@) and object %@",
@@ -361,9 +375,21 @@
 	return object;
 }
 
+- (id <InstanceProvider>)instanceProviderForClass:(Class)class
+{
+	for (id<InstanceProvider> instanceProvider in self.instanceProviders)
+	{
+		if ([instanceProvider canHandleClass:class])
+			return instanceProvider;
+	}
+	
+	return nil;
+}
+
 - (id)processArray:(NSArray *)value forClass:(Class)class
 {
-	id collection = [self.instanceProvider emptyCollectionInstance];
+	id <InstanceProvider> instanceProvider = [self instanceProviderForClass:class];
+	id collection = [instanceProvider emptyCollectionInstance];
 	
 	for (id objectInArray in value)
 	{

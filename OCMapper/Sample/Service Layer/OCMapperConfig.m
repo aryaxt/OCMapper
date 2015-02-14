@@ -18,11 +18,9 @@
 
 + (void)configure
 {
-	ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
 	InCodeMappingProvider *inCodeMappingProvider = [[InCodeMappingProvider alloc] init];
 	CommonLoggingProvider *commonLoggingProvider = [[CommonLoggingProvider alloc] initWithLogLevel:LogLevelInfo];
 	
-	[[ObjectMapper sharedInstance] setInstanceProvider:instanceProvider];
 	[[ObjectMapper sharedInstance] setMappingProvider:inCodeMappingProvider];
 	[[ObjectMapper sharedInstance] setLoggingProvider:commonLoggingProvider];
 	

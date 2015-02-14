@@ -47,6 +47,16 @@
 
 #pragma mark - InstanceProvider Methods -
 
+- (BOOL)canHandleClass:(Class)class
+{
+	static Class managedObjectClass = nil;
+	
+	if (!managedObjectClass)
+		managedObjectClass = NSClassFromString(@"NSManagedObject");
+	
+	return ([class isSubclassOfClass:managedObjectClass]) ? NO : YES;
+}
+
 - (id)emptyInstanceForClass:(Class)class
 {
 	return [[class alloc] init];

@@ -29,6 +29,7 @@
 
 @protocol InstanceProvider <NSObject>
 
+- (BOOL)canHandleClass:(Class)class;
 - (id)emptyInstanceForClass:(Class)class;
 - (id)emptyCollectionInstance;
 - (id)upsertObject:(NSObject *)object error:(NSError **)error;
