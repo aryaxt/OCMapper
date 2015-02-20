@@ -171,64 +171,53 @@
 
 - (NSDictionary *)processDictionaryFromObject:(NSObject *)object
 {
+	id <InstanceProvider> instanceProvider = [self instanceProviderForClass:object.class];
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
 	
-	Class currentClass = [object class];
-	
-	while (currentClass && currentClass != [NSObject class])
+	for (NSString *propertyName in [instanceProvider propertyNamesForClass:object.class])
 	{
-		unsigned int outCount, i;
-		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
+		NSString *originalPropertyName = propertyName;
+		Class class = NSClassFromString([self typeForProperty:originalPropertyName andClass:[object class]]);
+		id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
 		
-		for (i = 0; i < outCount; i++)
-		{
-			objc_property_t property = properties[i];
-			NSString *originalPropertyName = [NSString stringWithUTF8String:property_getName(property)];
-			Class class = NSClassFromString([self typeForProperty:originalPropertyName andClass:[object class]]);
-			id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
-            
-			ObjectMappingInfo *mapingInfo = [self.mappingProvider mappingInfoForClass:[object class] andPropertyKey:originalPropertyName];
-			NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : originalPropertyName;
-			
-			if (mapingInfo.transformer) {
-				propertyValue = mapingInfo.transformer(propertyValue, object);
-				[props setObject:propertyValue forKey:propertyName];
-			}
-			// If class is in the main bundle it's an application specific class
-			else if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
-			{
-				if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
-			}
-			// It's not in the main bundle so it's a Cocoa Class
-			else
-			{
-				if (class == [NSDate class])
-				{
-					NSDateFormatter *dateFormatter = [self.mappingProvider dateFormatterForClass:[object class] andDictionaryKey:originalPropertyName];
-					
-					if (!dateFormatter)
-						dateFormatter = self.defaultDateFormatter;
-					
-					if (dateFormatter)
-					{
-						propertyValue = [self.defaultDateFormatter stringFromDate:propertyValue];
-					}
-					else
-					{
-						propertyValue = [propertyValue description];
-					}
-				}
-				else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
-				{
-					propertyValue = [self processDictionaryFromArray:propertyValue];
-				}
-                
-				if (propertyValue) [props setObject:propertyValue forKey:propertyName];
-			}
+		ObjectMappingInfo *mapingInfo = [self.mappingProvider mappingInfoForClass:[object class] andPropertyKey:originalPropertyName];
+		NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : originalPropertyName;
+		
+		if (mapingInfo.transformer) {
+			propertyValue = mapingInfo.transformer(propertyValue, object);
+			[props setObject:propertyValue forKey:propertyName];
 		}
-		
-		free(properties);
-		currentClass = class_getSuperclass(currentClass);
+		// If class is in the main bundle it's an application specific class
+		else if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
+		{
+			if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
+		}
+		// It's not in the main bundle so it's a Cocoa Class
+		else
+		{
+			if (class == [NSDate class])
+			{
+				NSDateFormatter *dateFormatter = [self.mappingProvider dateFormatterForClass:[object class] andDictionaryKey:originalPropertyName];
+				
+				if (!dateFormatter)
+					dateFormatter = self.defaultDateFormatter;
+				
+				if (dateFormatter)
+				{
+					propertyValue = [self.defaultDateFormatter stringFromDate:propertyValue];
+				}
+				else
+				{
+					propertyValue = [propertyValue description];
+				}
+			}
+			else if ([propertyValue isKindOfClass:[NSArray class]] || [propertyValue isKindOfClass:[NSSet class]])
+			{
+				propertyValue = [self processDictionaryFromArray:propertyValue];
+			}
+			
+			if (propertyValue) [props setObject:propertyValue forKey:propertyName];
+		}
 	}
 	
 	return props;

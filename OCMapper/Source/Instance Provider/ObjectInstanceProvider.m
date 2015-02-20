@@ -115,4 +115,29 @@
 	return nil;
 }
 
+- (NSArray *)propertyNamesForClass:(Class)class
+{
+	NSMutableArray *propertyNames = [NSMutableArray array];
+	
+	Class currentClass = class;
+	
+	while (currentClass && currentClass != [NSObject class])
+	{
+		unsigned int outCount, i;
+		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
+		
+		for (i = 0; i < outCount; i++)
+		{
+			objc_property_t property = properties[i];
+			NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+			[propertyNames addObject:propertyName];
+		}
+		
+		free(properties);
+		currentClass = class_getSuperclass(currentClass);
+	}
+	
+	return propertyNames;
+}
+
 @end

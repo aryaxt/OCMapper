@@ -33,6 +33,7 @@
 - (id)emptyInstanceForClass:(Class)class;
 - (id)emptyCollectionInstance;
 - (id)upsertObject:(NSObject *)object error:(NSError **)error;
+- (NSArray *)propertyNamesForClass:(Class)class;
 - (NSString *)propertyNameForObject:(NSObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName;
 
 @end

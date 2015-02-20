@@ -187,4 +187,17 @@
 	return nil;
 }
 
+- (NSArray *)propertyNamesForClass:(Class)class
+{
+	NSMutableArray *propertyNames = [NSMutableArray array];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:NSStringFromClass(class) inManagedObjectContext:self.managedObjectContext];
+	
+	for (NSPropertyDescription *description in entity.properties)
+	{
+		[propertyNames addObject:description.name];
+	}
+	
+	return propertyNames;
+}
+
 @end
