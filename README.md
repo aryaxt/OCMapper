@@ -37,7 +37,7 @@ ServiceClient *client = [[ServiceClient alloc] init];
 
 Swift Support
 =========================
-NOTE: The version in cocoapods is not compatible with swift YET. get the latest version from Github, and add it directly to the project. OCMapper classes must be in the same module as the objects you are trying to map.
+**NOTE: The version in cocoapods is not compatible with swift YET. get the latest version from Github, and add it directly to the project. OCMapper classes must be in the same module as the objects you are trying to map.**
 
 OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject
 ```swift
