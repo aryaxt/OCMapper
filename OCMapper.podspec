@@ -1,4 +1,5 @@
 Pod::Spec.new do |s|
+    s.platform = :ios, '5.0'
     s.name = 'OCMapper'
     s.version = '1.5'
     s.summary = 'NSDictionary to NSObject Mapper'
