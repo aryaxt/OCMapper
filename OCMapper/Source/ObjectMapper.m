@@ -88,9 +88,6 @@
 
 - (id)objectFromSource:(id)source toInstanceOfClass:(Class)class
 {
-	if (!_mappingProvider)
-		@throw ([NSException exceptionWithName:@"MissingMappingProvider" reason:@"Mapping provider is not set" userInfo:nil]);
-	
 	if ([source isKindOfClass:[NSDictionary class]])
 	{
 		ILog(@"____________________ Mapping Dictionary to instance [%@] ____________________", NSStringFromClass(class));
@@ -169,8 +166,14 @@
 	return result;
 }
 
-- (NSDictionary *)processDictionaryFromObject:(NSObject *)object
+- (id)processDictionaryFromObject:(NSObject *)object
 {
+	// For example when we are mapping an array of string, we shouldn't try to map the string objects inside the array
+	if ([NSBundle mainBundle] != [NSBundle bundleForClass:object.class] && [object class] != [NSArray class])
+	{
+		return object;
+	}
+	
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
 	
 	Class currentClass = [object class];
@@ -303,7 +306,7 @@
 					if ([value isKindOfClass:[NSDictionary class]])
 					{
 						objectType = NSClassFromString([NSString stringWithFormat:@"%@.%@",
-														[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"]
+														[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey]
 														,[self typeForProperty:propertyName andClass:class]]);
 					}
 					
@@ -383,6 +386,8 @@
 			return instanceProvider;
 	}
 	
+	ELog(@"Could not find an instance provider that can handle class '%@'", NSStringFromClass(class));
+	
 	return nil;
 }
 
@@ -427,7 +432,7 @@
 		return clazz;
 	};
 	
-	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 	
 	NSString *predictedClassName = className;
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
