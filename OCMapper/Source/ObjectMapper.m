@@ -182,11 +182,17 @@
 	{
 		unsigned int outCount, i;
 		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
+        NSArray *excludedKeys = [self.mappingProvider excludedKeysForClass:currentClass];
 		
 		for (i = 0; i < outCount; i++)
 		{
 			objc_property_t property = properties[i];
 			NSString *originalPropertyName = [NSString stringWithUTF8String:property_getName(property)];
+            
+            if (excludedKeys && [excludedKeys containsObject:originalPropertyName]) {
+                continue;
+            }
+            
 			Class class = NSClassFromString([self typeForProperty:originalPropertyName andClass:[object class]]);
 			id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
             
