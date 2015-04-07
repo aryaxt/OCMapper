@@ -89,6 +89,14 @@
 - (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class withTransformer:(MappingTransformer)transformer;
 
 /**
+ *  Set keys to be excluded when mapping model to a dictionary
+ *
+ *  @param class        Class to be assign mapping to
+ *  @param keys         NSArray of NSStrings, include properties to be excluded when mapping
+ */
+- (void)excludeMappingForClass:(Class)class withKeys:(NSArray *)keys;
+
+/**
  *  Set dateformatter to be used for converting a dictionary to a model object
  *
  *  @param dateFormatter NSDateFormatter a dateformatter

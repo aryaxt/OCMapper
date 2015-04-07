@@ -454,6 +454,46 @@
 	XCTAssertNil(info);
 }
 
+- (void)testShouldMapArrayOfStringFromDictionaryToObject
+{
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:@[@"keyword1", @2] forKey:@"randomKeywords"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue(user.randomKeywords.count == 2);
+	XCTAssertTrue([user.randomKeywords[0] isEqualToString:@"keyword1"]);
+	XCTAssertTrue([user.randomKeywords[1] isEqualToNumber:@2]);
+}
+
+- (void)testShouldMapArrayOfStringFromObjectToDictionary
+{
+	User *user = [[User alloc] init];
+	user.randomKeywords = @[@"keyword1", @2].mutableCopy;
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	NSArray *array = [dictionary objectForKey:@"randomKeywords"];
+	
+	XCTAssertTrue(array.count == 2);
+	XCTAssertTrue([array[0] isEqualToString:@"keyword1"]);
+	XCTAssertTrue([array[1] isEqualToNumber:@2]);
+}
+
+- (void)testShouldNotMapExcludedKeys {
+    User *user = [[User alloc] init];
+    user.firstName = @"f";
+    user.lastName = @"l";
+    user.age = @28;
+    user.dateOfBirth = [NSDate date];
+    
+    [self.mappingProvider excludeMappingForClass:User.class withKeys:@[@"age", @"lastName"]];
+    
+    NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+    XCTAssertNotNil(dictionary[@"firstName"]);
+    XCTAssertNotNil(dictionary[@"dateOfBirth"]);
+    XCTAssertNil(dictionary[@"age"]);
+    XCTAssertNil(dictionary[@"lastName"]);
+}
+
 - (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
 {
 	XCTAssertTrue([self.instanceProvider canHandleClass:User.class]);

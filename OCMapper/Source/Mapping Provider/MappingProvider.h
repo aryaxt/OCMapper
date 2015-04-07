@@ -34,5 +34,6 @@
 - (ObjectMappingInfo *)mappingInfoForClass:(Class)class andPropertyKey:(NSString *)key;
 - (NSDateFormatter *)dateFormatterForClass:(Class)class andPropertyKey:(NSString *)key;
 - (NSDateFormatter *)dateFormatterForClass:(Class)class andDictionaryKey:(NSString *)key;
+- (NSArray *)excludedKeysForClass:(Class)class;
 
 @end

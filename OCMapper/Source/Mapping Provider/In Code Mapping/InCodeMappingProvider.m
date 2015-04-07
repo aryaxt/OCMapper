@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSMutableDictionary *inverseMappingDictionary;
 @property (nonatomic, strong) NSMutableDictionary *dateFormatterDictionary;
 @property (nonatomic, strong) NSMutableDictionary *inverseDateFormatterDictionary;
+@property (nonatomic, strong) NSMutableDictionary *excludeKeysDictionary;
 @end
 
 @implementation InCodeMappingProvider
@@ -51,6 +52,7 @@
 		self.inverseMappingDictionary = [NSMutableDictionary dictionary];
 		self.dateFormatterDictionary = [NSMutableDictionary dictionary];
 		self.inverseDateFormatterDictionary = [NSMutableDictionary dictionary];
+        self.excludeKeysDictionary = [NSMutableDictionary dictionary];
 	}
 	
 	return self;
@@ -92,6 +94,11 @@
 	ObjectMappingInfo *info = [[ObjectMappingInfo alloc] initWithDictionaryKey:dictionaryKey propertyKey:propertyKey andTransformer:transformer];
 	NSString *key = [self uniqueKeyForClass:class andKey:propertyKey];
 	[self.inverseMappingDictionary setObject:info forKey:key];
+}
+
+- (void)excludeMappingForClass:(Class)class withKeys:(NSArray *)keys
+{
+    [self.excludeKeysDictionary setObject:keys forKey:NSStringFromClass(class)];
 }
 
 - (void)setDateFormatter:(NSDateFormatter *)dateFormatter forPropertyKey:(NSString *)property andClass:(Class)class
@@ -141,6 +148,11 @@
 {
 	NSString *key = [self uniqueKeyForClass:class andKey:dictionaryKey];
 	return [self.dateFormatterDictionary objectForKey:key];
+}
+
+- (NSArray *)excludedKeysForClass:(Class)class
+{
+    return [self.excludeKeysDictionary objectForKey:NSStringFromClass(class)];
 }
 
 @end
