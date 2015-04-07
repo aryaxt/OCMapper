@@ -1,3 +1,10 @@
+Version 1.5 notes
+=========================
+Added feature that allows excludeing fields from being mapped to a dictionary
+```swift
+mappingProvider.excludeMappingForClass(NSManagedObjects.self, withKeys: ["faultingState", "deleted"])
+```
+
 Version 1.4 notes
 =========================
 - You no longer need to set ObjectInstanceProvider on ObjectMapper, this is now added by default.
