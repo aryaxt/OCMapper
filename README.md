@@ -1,4 +1,4 @@
-Version 1.5 notes
+Version 1.6 notes
 =========================
 Added feature that allows excludeing fields from being mapped to a dictionary
 ```swift
