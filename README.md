@@ -5,22 +5,6 @@ OCMapper is a data mapping library for Objective C that converts NSDictionary to
 - Simplify/Automate Data retrieval through web services
 - Avoid adding parsing logic to model objects (I'm a big fan of separation of responsibilities!!!)
 
-The end result I was looking for was a single method that would take a URL and a return type (object or array of objects), and just works doesn't matter what.
-Take a look at the sample project for more info on how this is done.
-```objective-c
-ServiceClient *client = [[ServiceClient alloc] init];
-
-// Getting back a single customer from service
-[client fetchDataWithUrl:URL returnType:[Customer class] andCompletion:^(Customer *customer, NSError *error){
-   // Do something with the object
-}];
-
-// Getting back a list of customers from service
-[client fetchDataWithUrl:URL returnType:[Customer class] andCompletion:^(NSArray *customers, NSError *error){
-   // Do something with the object
-}];
-```
-
 Swift Support
 =========================
 OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject
@@ -72,6 +56,22 @@ public extension Request {
         })
     }
     
+}
+```
+
+Extension Usage
+```swift
+let request = Manager.sharedInstance.request(requestWithPath("example.com/users", method: .GET, parameters: nil))
+        
+request.responseObjects(User.self) { request, response, users, error in
+    // users is an array of User objects
+}
+
+
+let request = Manager.sharedInstance.request(requestWithPath("example.com/users/5", method: .GET, parameters: nil))
+        
+request.responseObject(User.self) { request, response, user, error in
+    // users is an instance of User
 }
 ```
 Features:
