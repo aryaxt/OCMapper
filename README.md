@@ -71,7 +71,7 @@ request.responseObjects(User.self) { request, response, users, error in
 let request = Manager.sharedInstance.request(requestWithPath("example.com/users/5", method: .GET, parameters: nil))
         
 request.responseObject(User.self) { request, response, user, error in
-    // users is an instance of User
+    // user is an instance of User
 }
 ```
 Features:
