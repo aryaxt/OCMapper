@@ -40,6 +40,7 @@ var user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClas
 
 Alamofire Extension
 =========================
+https://github.com/Alamofire/Alamofire
 ```swift
 public extension Request {
     
