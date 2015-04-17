@@ -1,24 +1,3 @@
-Version 1.6 notes
-=========================
-Added feature that allows excludeing fields from being mapped to a dictionary
-```swift
-mappingProvider.excludeMappingForClass(NSManagedObjects.self, withKeys: ["faultingState", "deleted"])
-```
-
-Version 1.4 notes
-=========================
-- You no longer need to set ObjectInstanceProvider on ObjectMapper, this is now added by default.
-
-- You can now have multiple instance providers at the same time (ObjectInstanceProviced & ManagedObjectInstanceProvider)
-
-- In order to be able to map NSMangedObjects (CoreData use):
-```objective-c
-ManagedObjectInstanceProvider *instanceProvider = [[ManagedObjectInstanceProvider alloc] initWithManagedObjectContext:moc];
-[[ObjectMapper sharedInstance] addInstanceProvider:instanceProvider];
-```
-
-- [Flat Data to Complex Object](https://github.com/aryaxt/OCMapper#Flat Data to Complex Object) is no longer enabled on default in order to improve performance. There is a property named ```normalizeDictionary``` in ```ObjectMapper``` class that allows you to turn this feature on if needed.
-
 Data Mapping library for Objective C
 =========================
 
@@ -59,6 +38,41 @@ OCMapper takes advantage of the objective c runtime API, and will only work with
 var user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: User.Self) as User?
 ```
 
+Alamofire Extension
+=========================
+```swift
+public extension Request {
+    
+    public func responseObjects<T: NSObject> (type: T.Type, completion: (NSURLRequest, NSURLResponse?, [T]?, NSError?)->()) -> Self {
+        
+        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments), completionHandler: { (request, response, json, error) in
+            
+            if let error = error {
+                completion(request, response, nil, error)
+            }
+            else {
+                let objects = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: type) as? [T]
+                completion(request, response, objects, nil)
+            }
+        })
+    }
+    
+    public func responseObject<T: NSObject> (type: T.Type, completion: (NSURLRequest, NSURLResponse?, T?, NSError?)->()) -> Self {
+        
+        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments), completionHandler: { (request, response, json, error) in
+            
+            if let error = error {
+                completion(request, response, nil, error)
+            }
+            else {
+                let objects = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: type) as? T
+                completion(request, response, objects, nil)
+            }
+        })
+    }
+    
+}
+```
 Features:
 -------------------------
 - Supports array mapping
@@ -205,6 +219,8 @@ NSArray *users = [User objectFromDictionary:aDictionary];
 
 Flat Data to Complex Object
 -------------------------
+This is no longer enabled on default in order to improve performance. There is a property named ```normalizeDictionary``` in ```ObjectMapper``` class that allows you to turn this feature on if needed.
+
 ```objective-c
 {
       "firstName"           : "Aryan",
