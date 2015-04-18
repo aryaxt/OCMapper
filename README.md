@@ -30,7 +30,7 @@ public extension Request {
     
     public func responseObjects<T: NSObject> (type: T.Type, completion: (NSURLRequest, NSURLResponse?, [T]?, NSError?)->()) -> Self {
         
-        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments), completionHandler: { (request, response, json, error) in
+        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments)) { request, response, json, error in
             
             if let error = error {
                 completion(request, response, nil, error)
@@ -39,21 +39,21 @@ public extension Request {
                 let objects = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: type) as? [T]
                 completion(request, response, objects, nil)
             }
-        })
+        }
     }
     
     public func responseObject<T: NSObject> (type: T.Type, completion: (NSURLRequest, NSURLResponse?, T?, NSError?)->()) -> Self {
         
-        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments), completionHandler: { (request, response, json, error) in
+        return response(serializer: Request.JSONResponseSerializer(options: .AllowFragments)) { request, response, json, error in
             
             if let error = error {
                 completion(request, response, nil, error)
             }
             else {
-                let objects = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: type) as? T
-                completion(request, response, objects, nil)
+                let object = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: type) as? T
+                completion(request, response, object, nil)
             }
-        })
+        }
     }
     
 }
