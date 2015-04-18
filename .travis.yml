@@ -1,0 +1,4 @@
+language: objective-c
+
+script:
+- xcodebuild -project OCMapper.xcodeproj -scheme OCMapperTests -destination 'platform=iOS Simulator,name=iPhone 6' test
