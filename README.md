@@ -1,5 +1,6 @@
 Data Mapping library for Objective C
 =========================
+[![Build Status](https://api.travis-ci.org/aryaxt/OCMapper.svg)](https://api.travis-ci.org/aryaxt/OCMapper)
 
 OCMapper is a data mapping library for Objective C that converts NSDictionary to NSObject. My inspiration behind writing OCMapper was to achieve two things:
 - Simplify/Automate Data retrieval through web services
