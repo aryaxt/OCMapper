@@ -30,7 +30,7 @@
 
 @interface NSDictionary (ObjectMapper)
 
-- (id)objectForClass:(Class)class;
+- (id)objectForClass:(Class)clazz;
 - (NSDictionary *)dictionaryFromObject:(NSObject *)object;
 - (NSDictionary *)dictionaryFromObject:(NSObject *)object wrappedInParentWithKey:(NSString *)key;
 

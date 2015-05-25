@@ -37,7 +37,7 @@
 @property (nonatomic, assign) BOOL normalizeDictionary;
 
 + (ObjectMapper *)sharedInstance;
-- (id)objectFromSource:(id)source toInstanceOfClass:(Class)class;
+- (id)objectFromSource:(id)source toInstanceOfClass:(Class)clazz;
 - (id)dictionaryFromObject:(NSObject *)object;
 - (void)addInstanceProvider:(id <InstanceProvider>)instanceProvider;
 
