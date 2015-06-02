@@ -46,72 +46,72 @@
  *  @param dictionaryKey NSString key in the dictionary
  *  @param propertyKey   NSString name of the property
  *  @param objectType    Class to be instantiated and assigned to property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  */
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)class;
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey withObjectType:(Class)objectType forClass:(Class)clazz;
 
 /**
  *  Set key/property Mapping to be used for converting a dictionary to a model object
  *
  *  @param dictionaryKey NSString key in the dictionary
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  *  @param transformer   Block to be used for transforming an item in dictionary into a desired result and assign to property
  */
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class withTransformer:(MappingTransformer)transformer;
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)clazz withTransformer:(MappingTransformer)transformer;
 
 /**
  *  Set key/property Mapping to be used for converting a dictionary to a model object
  *
  *  @param dictionaryKey NSString key in the dictionary
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  */
-- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)class;
+- (void)mapFromDictionaryKey:(NSString *)dictionaryKey toPropertyKey:(NSString *)propertyKey forClass:(Class)clazz;
 
 /**
  *  Set key/property Mapping to be used for converting a model object to dictionary
  *
  *  @param dictionaryKey NSString key in the dictionary
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  */
-- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class;
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)clazz;
 
 /**
  *  Set key/property Mapping to be used for converting a model object to dictionary
  *
  *  @param dictionaryKey NSString key in the dictionary
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  *  @param transformer   Block to be used for transforming an item in dictionary into a desired result and assign to property
  */
-- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)class withTransformer:(MappingTransformer)transformer;
+- (void)mapFromPropertyKey:(NSString *)propertyKey toDictionaryKey:(NSString *)dictionaryKey forClass:(Class)clazz withTransformer:(MappingTransformer)transformer;
 
 /**
  *  Set keys to be excluded when mapping model to a dictionary
  *
- *  @param class        Class to be assign mapping to
+ *  @param clazz        Class to be assign mapping to
  *  @param keys         NSArray of NSStrings, include properties to be excluded when mapping
  */
-- (void)excludeMappingForClass:(Class)class withKeys:(NSArray *)keys;
+- (void)excludeMappingForClass:(Class)clazz withKeys:(NSArray *)keys;
 
 /**
  *  Set dateformatter to be used for converting a dictionary to a model object
  *
  *  @param dateFormatter NSDateFormatter a dateformatter
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  */
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forPropertyKey:(NSString *)propertyKey andClass:(Class)class;
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forPropertyKey:(NSString *)propertyKey andClass:(Class)clazz;
 
 /**
  *  Set dateformatter to be used for converting a model object to a dictionary
  *
  *  @param dateFormatter NSDateFormatter a dateformatter
  *  @param propertyKey   NSString name of the property
- *  @param class         Class to be assign mapping to
+ *  @param clazz         Class to be assign mapping to
  */
-- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forDictionaryKey:(NSString *)dictionaryKey andClass:(Class)class;
+- (void)setDateFormatter:(NSDateFormatter *)dateFormatter forDictionaryKey:(NSString *)dictionaryKey andClass:(Class)clazz;
 
 @end

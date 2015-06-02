@@ -37,6 +37,6 @@ typedef enum {
 @interface ManagedObjectInstanceProvider : NSObject <InstanceProvider>
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)aManagedObjectContext;
-- (void)setUniqueKeys:(NSArray *)keys forClass:(Class)class withUpsertMode:(UpsertMode)upsertMode;
+- (void)setUniqueKeys:(NSArray *)keys forClass:(Class)clazz withUpsertMode:(UpsertMode)upsertMode;
 
 @end

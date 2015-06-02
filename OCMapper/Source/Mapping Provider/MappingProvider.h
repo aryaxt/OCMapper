@@ -30,10 +30,10 @@
 
 @protocol MappingProvider <NSObject>
 
-- (ObjectMappingInfo *)mappingInfoForClass:(Class)class andDictionaryKey:(NSString *)key;
-- (ObjectMappingInfo *)mappingInfoForClass:(Class)class andPropertyKey:(NSString *)key;
-- (NSDateFormatter *)dateFormatterForClass:(Class)class andPropertyKey:(NSString *)key;
-- (NSDateFormatter *)dateFormatterForClass:(Class)class andDictionaryKey:(NSString *)key;
-- (NSArray *)excludedKeysForClass:(Class)class;
+- (ObjectMappingInfo *)mappingInfoForClass:(Class)clazz andDictionaryKey:(NSString *)key;
+- (ObjectMappingInfo *)mappingInfoForClass:(Class)clazz andPropertyKey:(NSString *)key;
+- (NSDateFormatter *)dateFormatterForClass:(Class)clazz andPropertyKey:(NSString *)key;
+- (NSDateFormatter *)dateFormatterForClass:(Class)clazz andDictionaryKey:(NSString *)key;
+- (NSArray *)excludedKeysForClass:(Class)clazz;
 
 @end
