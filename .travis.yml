@@ -1,4 +1,5 @@
 language: objective-c
+osx_image: beta-xcode6.3
 
 script:
-- xcodebuild -project OCMapper.xcodeproj -scheme OCMapperTests -destination 'platform=iOS Simulator,name=iPhone 7' test
+- xcodebuild -project OCMapper.xcodeproj -scheme OCMapperTests -destination 'platform=iOS Simulator,name=iphonesimulator8.3' test
