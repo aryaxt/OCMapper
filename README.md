@@ -21,7 +21,7 @@ OCMapper takes advantage of the objective c runtime API, and will only work with
     var photos: [Photo]?
 }
 
-var user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: User.Self) as User?
+var user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: User.self) as User?
 ```
 
 Alamofire Extension
