@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSDate *accountCreationDate;
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) Address *address;
+@property (nonatomic, strong) Address *work;
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic, strong) NSMutableArray *randomKeywords;
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CDAddress" representedClassName="CDAddress" syncable="YES">
+        <attribute name="addressId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CDUser" inverseName="address" inverseEntity="CDUser" syncable="YES"/>
+    </entity>
+    <entity name="CDPost" syncable="YES">
+        <attribute name="postedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CDUser" inverseName="posts" inverseEntity="CDUser" syncable="YES"/>
+    </entity>
+    <entity name="CDSpecialUser" representedClassName="CDSpecialUser" parentEntity="CDUser" syncable="YES">
+        <attribute name="power" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="CDUser" representedClassName="CDUser" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="dateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="address" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="CDAddress" inverseName="user" inverseEntity="CDAddress" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPost" inverseName="user" inverseEntity="CDPost" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CDAddress" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDPost" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDSpecialUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDUser" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

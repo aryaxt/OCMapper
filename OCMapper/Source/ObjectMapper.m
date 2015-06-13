@@ -278,9 +278,7 @@
 				{
 					if ([value isKindOfClass:[NSDictionary class]])
 					{
-						objectType = NSClassFromString([NSString stringWithFormat:@"%@.%@",
-														[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey]
-														,[self typeForProperty:propertyName andClass:class]]);
+                        objectType = [self classFromString:[self typeForProperty:propertyName andClass:class]];
 					}
 					
 					if (!objectType)
@@ -294,7 +292,8 @@
 			{
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
-				if (mappingTransformer) {
+				if (mappingTransformer)
+                {
 					nestedObject = mappingTransformer(value, source);
 				}
 				else if ([value isKindOfClass:[NSDictionary class]])
@@ -406,7 +405,6 @@
 	};
 	
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-    NSString *appNameLowerCase = appName.lowercaseString;
     className = className.capitalizedString;
 	
 	NSString *predictedClassName = className;
@@ -415,17 +413,27 @@
 	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className];
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
     
-    predictedClassName = [NSString stringWithFormat:@"%@s", className];
-    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    if ([className hasSuffix:@"s"])
+    {
+        NSString *classNameWithoutS = [className substringToIndex:className.length-1];
+        
+        predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutS];
+        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+        
+        predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutS];
+        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    }
     
-    predictedClassName = [NSString stringWithFormat:@"%@.%@s", appNameLowerCase, className];
-    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-
-    predictedClassName = [NSString stringWithFormat:@"%@es", className];
-    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-    
-    predictedClassName = [NSString stringWithFormat:@"%@.%@es", appNameLowerCase, className];
-    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    if ([className hasSuffix:@"es"])
+    {
+        NSString *classNameWithoutEs = [className substringToIndex:className.length-2];
+        
+        predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutEs];
+        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+        
+        predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutEs];
+        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    }
 	
 	return nil;
 }

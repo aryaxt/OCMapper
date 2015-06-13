@@ -34,7 +34,6 @@
 
 @implementation ObjectMapperTests
 @synthesize mapper;
-@synthesize instanceProvider;
 @synthesize mappingProvider;
 
 #pragma mark - Setup & Teardown -
@@ -44,7 +43,6 @@
 	[super setUp];
 	
 	self.mappingProvider = [[InCodeMappingProvider alloc] init];
-	self.instanceProvider = [[ObjectInstanceProvider alloc] init];
 	
 	self.mapper = [[ObjectMapper alloc] init];
 	self.mapper.mappingProvider = self.mappingProvider;
@@ -106,6 +104,23 @@
 	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
 	XCTAssertEqualObjects(user.address.city, city, @"city did not populate correctly");
 	XCTAssertEqualObjects(user.address.country, country, @"country did not populate correctly");
+}
+
+- (void)testOneToOneSimpleNestedMappingShouldUseReflectionToFindPointerType
+{
+    NSString *city = @"A city Name";
+    NSString *country = @"A country goes here";
+    
+    NSMutableDictionary *workDictionary = [NSMutableDictionary dictionary];
+    [workDictionary setObject:city forKey:@"city"];
+    [workDictionary setObject:country forKey:@"country"];
+    
+    NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+    [userDictionary setObject:workDictionary forKey:@"work"];
+    
+    User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+    XCTAssertEqualObjects(user.work.city, city, @"city did not populate correctly");
+    XCTAssertEqualObjects(user.work.country, country, @"country did not populate correctly");
 }
 
 - (void)testOneToOneCustomNestedMapping
@@ -496,12 +511,14 @@
 
 - (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
 {
-	XCTAssertTrue([self.instanceProvider canHandleClass:User.class]);
+    ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
+	XCTAssertTrue([instanceProvider canHandleClass:User.class]);
 }
 
 - (void)testObjectInstanceProviderShouldReturnFalseForNSManagedObjectSubclasses
 {
-	XCTAssertFalse([self.instanceProvider canHandleClass:CDUser.class]);
+    ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
+	XCTAssertFalse([instanceProvider canHandleClass:CDUser.class]);
 }
 
 @end
