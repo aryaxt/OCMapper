@@ -45,7 +45,6 @@
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
-@property (nonatomic, strong) NSMutableArray *classNamesInMainBundle;
 @property (nonatomic, strong) NSMutableDictionary *mappedClassNames;
 @property (nonatomic, strong) NSMutableDictionary *mappedPropertyNames;
 @property (nonatomic, strong) NSMutableArray *instanceProviders;
@@ -71,8 +70,6 @@
 {
 	if (self = [super init])
 	{
-		[self populateClassNamesFromMainBundle];
-		
 		self.instanceProviders = [NSMutableArray array];
 		ObjectInstanceProvider *objectInstanceProvider = [[ObjectInstanceProvider alloc] init];
 		[self addInstanceProvider:objectInstanceProvider];
@@ -123,36 +120,6 @@
 }
 
 #pragma mark - Private Methods -
-
-- (void)populateClassNamesFromMainBundle
-{
-	self.classNamesInMainBundle = [NSMutableArray array];
-	
-	int numClasses;
-	Class *classes = NULL;
-	
-	classes = NULL;
-	numClasses = objc_getClassList(NULL, 0);
-	
-	if (numClasses > 0)
-	{
-		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
-		numClasses = objc_getClassList(classes, numClasses);
-		
-		for (int i = 0; i < numClasses; i++)
-		{
-			@autoreleasepool
-			{
-				Class class = classes[i];
-				
-				if ([NSBundle bundleForClass:class] == [NSBundle mainBundle])
-					[self.classNamesInMainBundle addObject:NSStringFromClass(class)];
-			}
-		}
-	}
-	
-	free(classes);
-}
 
 - (NSArray *)processDictionaryFromArray:(NSArray *)array
 {
@@ -439,37 +406,28 @@
 	};
 	
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+    NSString *appNameLowerCase = appName.lowercaseString;
+    className = className.capitalizedString;
 	
 	NSString *predictedClassName = className;
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
 	
-	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className.capitalizedString];
+	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className];
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    
+    predictedClassName = [NSString stringWithFormat:@"%@s", className];
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    
+    predictedClassName = [NSString stringWithFormat:@"%@.%@s", appNameLowerCase, className];
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+
+    predictedClassName = [NSString stringWithFormat:@"%@es", className];
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+    
+    predictedClassName = [NSString stringWithFormat:@"%@.%@es", appNameLowerCase, className];
+    if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
 	
-	NSString *classNameLowerCase = [className lowercaseString];
-	
-	for (NSString *bundleClassName in self.classNamesInMainBundle)
-	{
-		@autoreleasepool
-		{
-			NSString *bundleClassNameLowerCase = [bundleClassName lowercaseString];
-			NSString *appNameLowerCase = appName.lowercaseString;
-			
-			if ([bundleClassNameLowerCase isEqual:classNameLowerCase] ||
-				[bundleClassNameLowerCase isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
-				[[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
-				[[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]])
-			{
-				result = NSClassFromString(bundleClassName);
-				[self.mappedClassNames setObject:bundleClassName forKey:className];
-				break;
-			}
-		}
-	}
-	
-	return result;
+	return nil;
 }
 
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class
