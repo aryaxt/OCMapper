@@ -29,10 +29,10 @@
 #import <CoreData/CoreData.h>
 #import "InstanceProvider.h"
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, UpsertMode) {
 	UpsertModeUpdateExistingObject,
 	UpsertModePurgeExistingObject
-}UpsertMode;
+};
 
 @interface ManagedObjectInstanceProvider : NSObject <InstanceProvider>
 
