@@ -45,7 +45,6 @@
 
 @interface ObjectMapper()
 @property (nonatomic, strong) NSMutableArray *commonDateFormaters;
-@property (nonatomic, strong) NSMutableArray *classNamesInMainBundle;
 @property (nonatomic, strong) NSMutableDictionary *mappedClassNames;
 @property (nonatomic, strong) NSMutableDictionary *mappedPropertyNames;
 @property (nonatomic, strong) NSMutableArray *instanceProviders;
@@ -71,8 +70,6 @@
 {
 	if (self = [super init])
 	{
-		[self populateClassNamesFromMainBundle];
-		
 		self.instanceProviders = [NSMutableArray array];
 		ObjectInstanceProvider *objectInstanceProvider = [[ObjectInstanceProvider alloc] init];
 		[self addInstanceProvider:objectInstanceProvider];
@@ -123,36 +120,6 @@
 }
 
 #pragma mark - Private Methods -
-
-- (void)populateClassNamesFromMainBundle
-{
-	self.classNamesInMainBundle = [NSMutableArray array];
-	
-	int numClasses;
-	Class *classes = NULL;
-	
-	classes = NULL;
-	numClasses = objc_getClassList(NULL, 0);
-	
-	if (numClasses > 0)
-	{
-		classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numClasses);
-		numClasses = objc_getClassList(classes, numClasses);
-		
-		for (int i = 0; i < numClasses; i++)
-		{
-			@autoreleasepool
-			{
-				Class class = classes[i];
-				
-				if ([NSBundle bundleForClass:class] == [NSBundle mainBundle])
-					[self.classNamesInMainBundle addObject:NSStringFromClass(class)];
-			}
-		}
-	}
-	
-	free(classes);
-}
 
 - (NSArray *)processDictionaryFromArray:(NSArray *)array
 {
@@ -311,9 +278,7 @@
 				{
 					if ([value isKindOfClass:[NSDictionary class]])
 					{
-						objectType = NSClassFromString([NSString stringWithFormat:@"%@.%@",
-														[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey]
-														,[self typeForProperty:propertyName andClass:class]]);
+                        objectType = [self classFromString:[self typeForProperty:propertyName andClass:class]];
 					}
 					
 					if (!objectType)
@@ -327,7 +292,8 @@
 			{
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
-				if (mappingTransformer) {
+				if (mappingTransformer)
+                {
 					nestedObject = mappingTransformer(value, source);
 				}
 				else if ([value isKindOfClass:[NSDictionary class]])
@@ -439,37 +405,39 @@
 	};
 	
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+    className = className.capitalizedString;
 	
 	NSString *predictedClassName = className;
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
 	
-	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className.capitalizedString];
+	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className];
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
 	
-	NSString *classNameLowerCase = [className lowercaseString];
-	
-	for (NSString *bundleClassName in self.classNamesInMainBundle)
+	// EX: if keyword is "posts" try to find a class named "Post"
+	if ([className hasSuffix:@"s"])
 	{
-		@autoreleasepool
-		{
-			NSString *bundleClassNameLowerCase = [bundleClassName lowercaseString];
-			NSString *appNameLowerCase = appName.lowercaseString;
-			
-			if ([bundleClassNameLowerCase isEqual:classNameLowerCase] ||
-				[bundleClassNameLowerCase isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
-				[[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@s", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]] ||
-				[[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:classNameLowerCase] ||
-				[[NSString stringWithFormat:@"%@es", bundleClassNameLowerCase] isEqual:[NSString stringWithFormat:@"%@.%@", appNameLowerCase, classNameLowerCase]])
-			{
-				result = NSClassFromString(bundleClassName);
-				[self.mappedClassNames setObject:bundleClassName forKey:className];
-				break;
-			}
-		}
+		NSString *classNameWithoutS = [className substringToIndex:className.length-1];
+		
+		predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutS];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+		
+		predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutS];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
 	}
 	
-	return result;
+	// EX: if keyword is "addresses" try to find a class named "Address"
+	if ([className hasSuffix:@"es"])
+	{
+		NSString *classNameWithoutEs = [className substringToIndex:className.length-2];
+		
+		predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutEs];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+		
+		predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutEs];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+	}
+	
+	return nil;
 }
 
 - (NSDate *)dateFromString:(NSString *)string forProperty:(NSString *)property andClass:(Class)class

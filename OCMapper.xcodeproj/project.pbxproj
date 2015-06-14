@@ -26,7 +26,6 @@
 		1502B3AE17CDA74300C095DE /* GoogleSearchResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1502B3AD17CDA74300C095DE /* GoogleSearchResponseData.m */; };
 		1502B3B117CDA75B00C095DE /* GoogleSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 1502B3B017CDA75B00C095DE /* GoogleSearchResult.m */; };
 		1502B3B317CDADE300C095DE /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1502B3B217CDADE300C095DE /* Storyboard.storyboard */; };
-		15371EC01727879700A508F4 /* ObjectMappingConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */; };
 		157B3076171E3655005AAB02 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B3075171E3655005AAB02 /* CoreDataManager.m */; };
 		157B307C171E36D4005AAB02 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B307B171E36D4005AAB02 /* CDUser.m */; };
 		157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157B307D171E3714005AAB02 /* OCMapper.xcdatamodeld */; };
@@ -39,7 +38,6 @@
 		157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B313D17234A97005AAB02 /* NSObject+ObjectMapper.m */; };
 		157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314317234ACB005AAB02 /* ObjectInstanceProvider.m */; };
 		157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */; };
-		157B316317238C08005AAB02 /* ObjectMappingConfig.xml in Resources */ = {isa = PBXBuildFile; fileRef = 157B316217238C08005AAB02 /* ObjectMappingConfig.xml */; };
 		15A1933F1766CBB800016904 /* CommonLoggingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A1933E1766CBB800016904 /* CommonLoggingProvider.m */; };
 		15B554B0171B7B3B0058E159 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554AF171B7B3B0058E159 /* UIKit.framework */; };
 		15B554B2171B7B3B0058E159 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B554B1171B7B3B0058E159 /* Foundation.framework */; };
@@ -62,6 +60,13 @@
 		15EA38021866102D005CCEA0 /* SpecialUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA38011866102D005CCEA0 /* SpecialUser.m */; };
 		15EA380518661548005CCEA0 /* CDSpecialUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EA380418661548005CCEA0 /* CDSpecialUser.m */; };
 		15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15EF052F172783F70041358D /* InCodeMappingProvider.m */; };
+		92514E901B2CC9870098D34D /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8D1B2CC9870098D34D /* Customer.swift */; };
+		92514E911B2CC9870098D34D /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8D1B2CC9870098D34D /* Customer.swift */; };
+		92514E921B2CC9870098D34D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8E1B2CC9870098D34D /* Location.swift */; };
+		92514E931B2CC9870098D34D /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8E1B2CC9870098D34D /* Location.swift */; };
+		92514E941B2CC9870098D34D /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8F1B2CC9870098D34D /* Purchase.swift */; };
+		92514E951B2CC9870098D34D /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8F1B2CC9870098D34D /* Purchase.swift */; };
+		92514E981B2CC99B0098D34D /* ObjectMapperSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E961B2CC99B0098D34D /* ObjectMapperSwiftTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +116,6 @@
 		1502B3AF17CDA75B00C095DE /* GoogleSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleSearchResult.h; sourceTree = "<group>"; };
 		1502B3B017CDA75B00C095DE /* GoogleSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleSearchResult.m; sourceTree = "<group>"; };
 		1502B3B217CDADE300C095DE /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ObjectMappingConfig.plist; sourceTree = "<group>"; };
 		157B3074171E3655005AAB02 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = ../CoreDataManager.h; sourceTree = "<group>"; };
 		157B3075171E3655005AAB02 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataManager.m; path = ../CoreDataManager.m; sourceTree = "<group>"; };
 		157B3078171E3673005AAB02 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -134,7 +138,6 @@
 		157B314517234ADF005AAB02 /* ManagedObjectInstanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedObjectInstanceProvider.h; sourceTree = "<group>"; };
 		157B314617234ADF005AAB02 /* ManagedObjectInstanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedObjectInstanceProvider.m; sourceTree = "<group>"; };
 		157B315217237C87005AAB02 /* MappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingProvider.h; sourceTree = "<group>"; };
-		157B316217238C08005AAB02 /* ObjectMappingConfig.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ObjectMappingConfig.xml; sourceTree = "<group>"; };
 		15A1933C1766CB9B00016904 /* LoggingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggingProvider.h; sourceTree = "<group>"; };
 		15A1933D1766CBB800016904 /* CommonLoggingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonLoggingProvider.h; sourceTree = "<group>"; };
 		15A1933E1766CBB800016904 /* CommonLoggingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonLoggingProvider.m; sourceTree = "<group>"; };
@@ -175,6 +178,12 @@
 		15EA380418661548005CCEA0 /* CDSpecialUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDSpecialUser.m; sourceTree = "<group>"; };
 		15EF052E172783F70041358D /* InCodeMappingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCodeMappingProvider.h; sourceTree = "<group>"; };
 		15EF052F172783F70041358D /* InCodeMappingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCodeMappingProvider.m; sourceTree = "<group>"; };
+		92514E8D1B2CC9870098D34D /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		92514E8E1B2CC9870098D34D /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		92514E8F1B2CC9870098D34D /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
+		92514E961B2CC99B0098D34D /* ObjectMapperSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapperSwiftTests.swift; sourceTree = "<group>"; };
+		92514E9C1B2CC9CA0098D34D /* OCMapper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCMapper-Bridging-Header.h"; sourceTree = "<group>"; };
+		92514E9D1B2CC9CA0098D34D /* OCMapperTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCMapperTests-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +383,8 @@
 				15E2B96B171BEAEB00526C77 /* Models */,
 				15E2B963171BEAEB00526C77 /* AppDelegate.h */,
 				15E2B964171BEAEB00526C77 /* AppDelegate.m */,
+				92514E9C1B2CC9CA0098D34D /* OCMapper-Bridging-Header.h */,
+				92514E9D1B2CC9CA0098D34D /* OCMapperTests-Bridging-Header.h */,
 				15E2B965171BEAEB00526C77 /* Default-568h@2x.png */,
 				15E2B966171BEAEB00526C77 /* Default.png */,
 				15E2B967171BEAEB00526C77 /* Default@2x.png */,
@@ -389,6 +400,7 @@
 		15E2B96B171BEAEB00526C77 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92514E8C1B2CC9870098D34D /* Swift */,
 				157B3084171E4518005AAB02 /* Core Data */,
 				15E2B96C171BEAEB00526C77 /* Address.h */,
 				15E2B96D171BEAEB00526C77 /* Address.m */,
@@ -396,8 +408,6 @@
 				15E2B96F171BEAEB00526C77 /* Comment.m */,
 				15E2B970171BEAEB00526C77 /* User.h */,
 				15E2B971171BEAEB00526C77 /* User.m */,
-				157B316217238C08005AAB02 /* ObjectMappingConfig.xml */,
-				15371EBF1727879700A508F4 /* ObjectMappingConfig.plist */,
 				15EA38001866102D005CCEA0 /* SpecialUser.h */,
 				15EA38011866102D005CCEA0 /* SpecialUser.m */,
 			);
@@ -426,6 +436,7 @@
 				15E2B98F171BEAF400526C77 /* ObjectMapperTests.m */,
 				157B3094171E58C0005AAB02 /* ManagedObjectMapperTest.h */,
 				157B3095171E58C0005AAB02 /* ManagedObjectMapperTest.m */,
+				92514E961B2CC99B0098D34D /* ObjectMapperSwiftTests.swift */,
 				15E2B990171BEAF400526C77 /* OCMapperTests-Info.plist */,
 			);
 			path = OCMapperTests;
@@ -438,6 +449,16 @@
 				15EF052F172783F70041358D /* InCodeMappingProvider.m */,
 			);
 			path = "In Code Mapping";
+			sourceTree = "<group>";
+		};
+		92514E8C1B2CC9870098D34D /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				92514E8D1B2CC9870098D34D /* Customer.swift */,
+				92514E8E1B2CC9870098D34D /* Location.swift */,
+				92514E8F1B2CC9870098D34D /* Purchase.swift */,
+			);
+			path = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -515,8 +536,6 @@
 				15E2B97E171BEAEB00526C77 /* Default-568h@2x.png in Resources */,
 				15E2B97F171BEAEB00526C77 /* Default.png in Resources */,
 				15E2B980171BEAEB00526C77 /* Default@2x.png in Resources */,
-				157B316317238C08005AAB02 /* ObjectMappingConfig.xml in Resources */,
-				15371EC01727879700A508F4 /* ObjectMappingConfig.plist in Resources */,
 				1502B3B317CDADE300C095DE /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,9 +581,11 @@
 				157B307C171E36D4005AAB02 /* CDUser.m in Sources */,
 				157B307F171E3714005AAB02 /* OCMapper.xcdatamodeld in Sources */,
 				157B3087171E457E005AAB02 /* CDAddress.m in Sources */,
+				92514E941B2CC9870098D34D /* Purchase.swift in Sources */,
 				157B309C171E5D32005AAB02 /* CDPost.m in Sources */,
 				157B313E17234A97005AAB02 /* NSDictionary+ObjectMapper.m in Sources */,
 				157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */,
+				92514E921B2CC9870098D34D /* Location.swift in Sources */,
 				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
 				15EF0535172783F70041358D /* InCodeMappingProvider.m in Sources */,
@@ -572,6 +593,7 @@
 				1502B37117CD94EA00C095DE /* SampleViewController.m in Sources */,
 				1502B38A17CD985300C095DE /* AFHTTPClient.m in Sources */,
 				1502B38B17CD985300C095DE /* AFHTTPRequestOperation.m in Sources */,
+				92514E901B2CC9870098D34D /* Customer.swift in Sources */,
 				15EA380518661548005CCEA0 /* CDSpecialUser.m in Sources */,
 				1502B38C17CD985300C095DE /* AFImageRequestOperation.m in Sources */,
 				1502B38D17CD985300C095DE /* AFJSONRequestOperation.m in Sources */,
@@ -594,8 +616,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92514E911B2CC9870098D34D /* Customer.swift in Sources */,
+				92514E951B2CC9870098D34D /* Purchase.swift in Sources */,
 				15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */,
+				92514E931B2CC9870098D34D /* Location.swift in Sources */,
 				157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */,
+				92514E981B2CC99B0098D34D /* ObjectMapperSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,9 +677,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMApper/OCMapper-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -673,9 +701,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMApper/OCMapper-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -684,11 +714,13 @@
 		15B554DF171B7B3C0058E159 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
 				INFOPLIST_FILE = "OCMapper/OCMapper-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = OCMapper;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapper-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -696,11 +728,13 @@
 		15B554E0171B7B3C0058E159 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
 				INFOPLIST_FILE = "OCMapper/OCMapper-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = OCMapper;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapper-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -709,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCMapper.app/OCMapper";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -717,7 +752,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
 				INFOPLIST_FILE = "OCMapperTests/OCMapperTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = OCMapperTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapperTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -726,6 +763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OCMapper.app/OCMapper";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -734,7 +772,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OCMapper/OCMapper-Prefix.pch";
 				INFOPLIST_FILE = "OCMapperTests/OCMapperTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = OCMapperTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapperTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;

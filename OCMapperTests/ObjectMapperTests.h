@@ -35,6 +35,5 @@
 
 @property (nonatomic, strong) ObjectMapper *mapper;
 @property (nonatomic, strong) InCodeMappingProvider *mappingProvider;
-@property (nonatomic, strong) ObjectInstanceProvider *instanceProvider;
 
 @end
