@@ -422,6 +422,9 @@ User *user = [aDictionary objectForClass:[User class]];
 
 Change Log
 -------------------------
+#### 1.9
+Automatic NSString to NSNumber and NSNumber to NSString conversion
+
 #### 1.8
 
 - No longer loading bundle class names in memory on init
