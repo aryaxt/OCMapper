@@ -509,6 +509,18 @@
     XCTAssertNil(dictionary[@"lastName"]);
 }
 
+- (void)testShouldConvertValuesInDictionaryFromNSStringToNSNumberIfNeeded {
+    NSDictionary *userDictionary = @{@"age" : @"28"};
+    User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+    XCTAssertTrue([user.age isEqualToNumber:@28]);
+}
+
+- (void)testShouldConvertValuesInDictionaryFromNSNumberToNSStringIfNeeded {
+    NSDictionary *userDictionary = @{@"firstName" : @123};
+    User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+    XCTAssertTrue([user.firstName isEqualToString:@"123"]);
+}
+
 - (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
 {
     ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];

@@ -306,7 +306,10 @@
 				}
 				else
 				{
-					if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+                    NSString *propertyTypeString = [self typeForProperty:propertyName andClass:class];
+                    
+                    // Convert NSString to NSDate if needed
+					if ([propertyTypeString isEqualToString:@"NSDate"])
 					{
 						if ([value isKindOfClass:[NSDate class]])
 						{
@@ -317,19 +320,26 @@
 							nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
 						}
 					}
+                    // Convert NSString to NSNumber if needed
+                    else if ([propertyTypeString isEqualToString:@"NSNumber"] && [value isKindOfClass:[NSString class]])
+                    {
+                        nestedObject = [NSNumber numberWithDouble:[value doubleValue]];
+                    }
+                    // Convert NSNumber to NSString if needed
+                    else if ([propertyTypeString isEqualToString:@"NSString"] && [value isKindOfClass:[NSNumber class]])
+                    {
+                        nestedObject = [value stringValue];
+                    }
 					else
 					{
 						nestedObject = value;
 					}
 				}
 				
-				if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-				{
-					if ([nestedObject isKindOfClass:[NSNull class]])
-						nestedObject = nil;
-					
-					[object setValue:nestedObject forKey:propertyName];
-				}
+                if ([nestedObject isKindOfClass:[NSNull class]])
+                    nestedObject = nil;
+                
+                [object setValue:nestedObject forKey:propertyName];
 			}
 			else
 			{
