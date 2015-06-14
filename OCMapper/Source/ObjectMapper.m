@@ -415,7 +415,11 @@
 	};
 	
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-	className = className.capitalizedString;
+	
+	if (className.length) {
+		className = [className stringByReplacingCharactersInRange:NSMakeRange(0,1)
+													   withString:[[className substringToIndex:1] capitalizedString]];
+	}
 	
 	NSString *predictedClassName = className;
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
