@@ -419,3 +419,20 @@ User *user = [User objectFromDictionary:aDictionary];
 // Using NSDictionary Category
 User *user = [aDictionary objectForClass:[User class]];
 ```
+
+Change Log
+-------------------------
+#### 1.8
+
+- No longer loading bundle class names in memory on init
+- Fixed for #22
+- No longer need to write mapping for non-array pointers as long as key/property names match (ex: "location" key would automatically map to "location" property event if the class type is named "Address" )
+- Wrote tests for mapping swift classes
+
+Note:
+
+Automatic mapping treats nested array differently. ObjectMapper capitalizes the first character of the dictionary key before checking for a conversion class.
+
+- "UserAddress" will automatically be mapped to "UserAddress"
+- "userAddress" will automatically be mapped to "UserAddress"
+- "useraddress" will NOT be mapped to "UserAddress", you need to manually write mapping
