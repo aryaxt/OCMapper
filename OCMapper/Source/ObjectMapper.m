@@ -149,20 +149,20 @@
 	{
 		unsigned int outCount, i;
 		objc_property_t *properties = class_copyPropertyList(currentClass, &outCount);
-        NSArray *excludedKeys = [self.mappingProvider excludedKeysForClass:currentClass];
+		NSArray *excludedKeys = [self.mappingProvider excludedKeysForClass:currentClass];
 		
 		for (i = 0; i < outCount; i++)
 		{
 			objc_property_t property = properties[i];
 			NSString *originalPropertyName = [NSString stringWithUTF8String:property_getName(property)];
-            
-            if (excludedKeys && [excludedKeys containsObject:originalPropertyName]) {
-                continue;
-            }
-            
+			
+			if (excludedKeys && [excludedKeys containsObject:originalPropertyName]) {
+				continue;
+			}
+			
 			Class class = NSClassFromString([self typeForProperty:originalPropertyName andClass:[object class]]);
 			id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
-            
+			
 			ObjectMappingInfo *mapingInfo = [self.mappingProvider mappingInfoForClass:[object class] andPropertyKey:originalPropertyName];
 			NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : originalPropertyName;
 			
@@ -198,7 +198,7 @@
 				{
 					propertyValue = [self processDictionaryFromArray:propertyValue];
 				}
-                
+				
 				if (propertyValue) [props setObject:propertyValue forKey:propertyName];
 			}
 		}
@@ -248,7 +248,7 @@
 
 - (id)processDictionary:(NSDictionary *)source forClass:(Class)class
 {
-    NSDictionary *normalizedSource = (self.normalizeDictionary) ? [self normalizedDictionaryFromDictionary:source forClass:class] : source;
+	NSDictionary *normalizedSource = (self.normalizeDictionary) ? [self normalizedDictionaryFromDictionary:source forClass:class] : source;
 	
 	id <InstanceProvider> instanceProvider = [self instanceProviderForClass:class];
 	id object = [instanceProvider emptyInstanceForClass:class];
@@ -278,7 +278,7 @@
 				{
 					if ([value isKindOfClass:[NSDictionary class]])
 					{
-                        objectType = [self classFromString:[self typeForProperty:propertyName andClass:class]];
+						objectType = [self classFromString:[self typeForProperty:propertyName andClass:class]];
 					}
 					
 					if (!objectType)
@@ -293,7 +293,7 @@
 				ILog(@"Mapping key(%@) to property(%@) from data(%@)", key, propertyName, [value class]);
 				
 				if (mappingTransformer)
-                {
+				{
 					nestedObject = mappingTransformer(value, source);
 				}
 				else if ([value isKindOfClass:[NSDictionary class]])
@@ -306,7 +306,10 @@
 				}
 				else
 				{
-					if ([[self typeForProperty:propertyName andClass:class] isEqual:@"NSDate"])
+					NSString *propertyTypeString = [self typeForProperty:propertyName andClass:class];
+					
+					// Convert NSString to NSDate if needed
+					if ([propertyTypeString isEqualToString:@"NSDate"])
 					{
 						if ([value isKindOfClass:[NSDate class]])
 						{
@@ -317,19 +320,26 @@
 							nestedObject = [self dateFromString:value forProperty:propertyName andClass:class];
 						}
 					}
+					// Convert NSString to NSNumber if needed
+					else if ([propertyTypeString isEqualToString:@"NSNumber"] && [value isKindOfClass:[NSString class]])
+					{
+						nestedObject = [NSNumber numberWithDouble:[value doubleValue]];
+					}
+					// Convert NSNumber to NSString if needed
+					else if ([propertyTypeString isEqualToString:@"NSString"] && [value isKindOfClass:[NSNumber class]])
+					{
+						nestedObject = [value stringValue];
+					}
 					else
 					{
 						nestedObject = value;
 					}
 				}
 				
-				if ([object respondsToSelector:NSSelectorFromString(propertyName)])
-				{
-					if ([nestedObject isKindOfClass:[NSNull class]])
-						nestedObject = nil;
-					
-					[object setValue:nestedObject forKey:propertyName];
-				}
+				if ([nestedObject isKindOfClass:[NSNull class]])
+					nestedObject = nil;
+				
+				[object setValue:nestedObject forKey:propertyName];
 			}
 			else
 			{
@@ -405,7 +415,7 @@
 	};
 	
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-    className = className.capitalizedString;
+	className = className.capitalizedString;
 	
 	NSString *predictedClassName = className;
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }

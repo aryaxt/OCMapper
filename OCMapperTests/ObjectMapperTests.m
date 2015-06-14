@@ -108,19 +108,19 @@
 
 - (void)testOneToOneSimpleNestedMappingShouldUseReflectionToFindPointerType
 {
-    NSString *city = @"A city Name";
-    NSString *country = @"A country goes here";
-    
-    NSMutableDictionary *workDictionary = [NSMutableDictionary dictionary];
-    [workDictionary setObject:city forKey:@"city"];
-    [workDictionary setObject:country forKey:@"country"];
-    
-    NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
-    [userDictionary setObject:workDictionary forKey:@"work"];
-    
-    User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
-    XCTAssertEqualObjects(user.work.city, city, @"city did not populate correctly");
-    XCTAssertEqualObjects(user.work.country, country, @"country did not populate correctly");
+	NSString *city = @"A city Name";
+	NSString *country = @"A country goes here";
+	
+	NSMutableDictionary *workDictionary = [NSMutableDictionary dictionary];
+	[workDictionary setObject:city forKey:@"city"];
+	[workDictionary setObject:country forKey:@"country"];
+	
+	NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+	[userDictionary setObject:workDictionary forKey:@"work"];
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertEqualObjects(user.work.city, city, @"city did not populate correctly");
+	XCTAssertEqualObjects(user.work.country, country, @"country did not populate correctly");
 }
 
 - (void)testOneToOneCustomNestedMapping
@@ -247,13 +247,13 @@
 	[userDictionary setObject:@"01-21/2005" forKey:@"dateOfBirth"];
 	[userDictionary setObject:addressDictionary forKey:@"address"];
 	
+	NSMutableArray *usersDictionary = [NSMutableArray array];
+	
+	for (int i=0 ; i<50 ; i++) {
+		[usersDictionary addObject:userDictionary];
+	}
+	
 	[self measureBlock:^{
-		NSMutableArray *usersDictionary = [NSMutableArray array];
-		
-		for (int i=0 ; i<50 ; i++) {
-			[usersDictionary addObject:userDictionary];
-		}
-		
 		[self.mapper objectFromSource:usersDictionary toInstanceOfClass:[User class]];
 	}];
 }
@@ -494,30 +494,42 @@
 }
 
 - (void)testShouldNotMapExcludedKeys {
-    User *user = [[User alloc] init];
-    user.firstName = @"f";
-    user.lastName = @"l";
-    user.age = @28;
-    user.dateOfBirth = [NSDate date];
-    
-    [self.mappingProvider excludeMappingForClass:User.class withKeys:@[@"age", @"lastName"]];
-    
-    NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-    XCTAssertNotNil(dictionary[@"firstName"]);
-    XCTAssertNotNil(dictionary[@"dateOfBirth"]);
-    XCTAssertNil(dictionary[@"age"]);
-    XCTAssertNil(dictionary[@"lastName"]);
+	User *user = [[User alloc] init];
+	user.firstName = @"f";
+	user.lastName = @"l";
+	user.age = @28;
+	user.dateOfBirth = [NSDate date];
+	
+	[self.mappingProvider excludeMappingForClass:User.class withKeys:@[@"age", @"lastName"]];
+	
+	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
+	XCTAssertNotNil(dictionary[@"firstName"]);
+	XCTAssertNotNil(dictionary[@"dateOfBirth"]);
+	XCTAssertNil(dictionary[@"age"]);
+	XCTAssertNil(dictionary[@"lastName"]);
+}
+
+- (void)testShouldConvertValuesInDictionaryFromNSStringToNSNumberIfNeeded {
+	NSDictionary *userDictionary = @{@"age" : @"28"};
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue([user.age isEqualToNumber:@28]);
+}
+
+- (void)testShouldConvertValuesInDictionaryFromNSNumberToNSStringIfNeeded {
+	NSDictionary *userDictionary = @{@"firstName" : @123};
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue([user.firstName isEqualToString:@"123"]);
 }
 
 - (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
 {
-    ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
+	ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
 	XCTAssertTrue([instanceProvider canHandleClass:User.class]);
 }
 
 - (void)testObjectInstanceProviderShouldReturnFalseForNSManagedObjectSubclasses
 {
-    ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
+	ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];
 	XCTAssertFalse([instanceProvider canHandleClass:CDUser.class]);
 }
 
