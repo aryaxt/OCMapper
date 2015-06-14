@@ -86,8 +86,9 @@ class ObjectMapperSwiftTests : XCTestCase {
             "fName":            "Aryan",
             "ageee":            28,
             "dob":              date,
-            "address":          ["name": "SF"],
-            "billing-address":  ["name": "SD"],
+            "address":          ["name":  "SF"],
+            "billing-address":  ["name":  "SD"],
+			"status":			["value": "banned"],
             "orders":           [
                 ["summary": "bla 1", "price": 123.4],
                 ["summary": "bla 2", "price": 55],
@@ -106,7 +107,10 @@ class ObjectMapperSwiftTests : XCTestCase {
         
         XCTAssertNotNil(customer.billing, "FAIL")
         XCTAssertTrue(customer.billing!.name == "SD", "FAIL")
-        
+		
+		XCTAssertNotNil(customer.status, "FAIL")
+		XCTAssertTrue(customer.status!.value == "banned", "FAIL")
+		
         let purchases = customer.valueForKey("purchases") as! NSArray
         
         // Can't access calues directly in unit test target, swift throws exception because it doesn't know which target the models belong to, main target or unit test target. This won't be an issue outside of test environment

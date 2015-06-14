@@ -67,6 +67,10 @@
 		92514E941B2CC9870098D34D /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8F1B2CC9870098D34D /* Purchase.swift */; };
 		92514E951B2CC9870098D34D /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E8F1B2CC9870098D34D /* Purchase.swift */; };
 		92514E981B2CC99B0098D34D /* ObjectMapperSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92514E961B2CC99B0098D34D /* ObjectMapperSwiftTests.swift */; };
+		92A297E01B2E32D000B6B2F0 /* ActivationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A297DF1B2E32D000B6B2F0 /* ActivationStatus.swift */; };
+		92A297E11B2E32D000B6B2F0 /* ActivationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A297DF1B2E32D000B6B2F0 /* ActivationStatus.swift */; };
+		92A297E41B2E33B700B6B2F0 /* EmailConfirmation.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A297E31B2E33B700B6B2F0 /* EmailConfirmation.m */; };
+		92A297E51B2E33B700B6B2F0 /* EmailConfirmation.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A297E31B2E33B700B6B2F0 /* EmailConfirmation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +188,9 @@
 		92514E961B2CC99B0098D34D /* ObjectMapperSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapperSwiftTests.swift; sourceTree = "<group>"; };
 		92514E9C1B2CC9CA0098D34D /* OCMapper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCMapper-Bridging-Header.h"; sourceTree = "<group>"; };
 		92514E9D1B2CC9CA0098D34D /* OCMapperTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OCMapperTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		92A297DF1B2E32D000B6B2F0 /* ActivationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivationStatus.swift; sourceTree = "<group>"; };
+		92A297E21B2E33B700B6B2F0 /* EmailConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailConfirmation.h; sourceTree = "<group>"; };
+		92A297E31B2E33B700B6B2F0 /* EmailConfirmation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailConfirmation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +417,8 @@
 				15E2B971171BEAEB00526C77 /* User.m */,
 				15EA38001866102D005CCEA0 /* SpecialUser.h */,
 				15EA38011866102D005CCEA0 /* SpecialUser.m */,
+				92A297E21B2E33B700B6B2F0 /* EmailConfirmation.h */,
+				92A297E31B2E33B700B6B2F0 /* EmailConfirmation.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -457,6 +466,7 @@
 				92514E8D1B2CC9870098D34D /* Customer.swift */,
 				92514E8E1B2CC9870098D34D /* Location.swift */,
 				92514E8F1B2CC9870098D34D /* Purchase.swift */,
+				92A297DF1B2E32D000B6B2F0 /* ActivationStatus.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -585,6 +595,7 @@
 				157B309C171E5D32005AAB02 /* CDPost.m in Sources */,
 				157B313E17234A97005AAB02 /* NSDictionary+ObjectMapper.m in Sources */,
 				157B313F17234A97005AAB02 /* NSObject+ObjectMapper.m in Sources */,
+				92A297E41B2E33B700B6B2F0 /* EmailConfirmation.m in Sources */,
 				92514E921B2CC9870098D34D /* Location.swift in Sources */,
 				157B314417234ACB005AAB02 /* ObjectInstanceProvider.m in Sources */,
 				157B314717234ADF005AAB02 /* ManagedObjectInstanceProvider.m in Sources */,
@@ -601,6 +612,7 @@
 				1502B38E17CD985300C095DE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				1502B38F17CD985300C095DE /* AFPropertyListRequestOperation.m in Sources */,
 				1502B39017CD985300C095DE /* AFURLConnectionOperation.m in Sources */,
+				92A297E01B2E32D000B6B2F0 /* ActivationStatus.swift in Sources */,
 				1502B39117CD985300C095DE /* AFXMLRequestOperation.m in Sources */,
 				1502B39217CD985300C095DE /* UIImageView+AFNetworking.m in Sources */,
 				1502B39B17CDA07100C095DE /* OCMapperConfig.m in Sources */,
@@ -618,10 +630,12 @@
 			files = (
 				92514E911B2CC9870098D34D /* Customer.swift in Sources */,
 				92514E951B2CC9870098D34D /* Purchase.swift in Sources */,
+				92A297E11B2E32D000B6B2F0 /* ActivationStatus.swift in Sources */,
 				15E2B992171BEAF400526C77 /* ObjectMapperTests.m in Sources */,
 				92514E931B2CC9870098D34D /* Location.swift in Sources */,
 				157B3096171E58C0005AAB02 /* ManagedObjectMapperTest.m in Sources */,
 				92514E981B2CC99B0098D34D /* ObjectMapperSwiftTests.swift in Sources */,
+				92A297E51B2E33B700B6B2F0 /* EmailConfirmation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

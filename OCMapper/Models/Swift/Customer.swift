@@ -16,6 +16,7 @@ public class Customer: NSObject {
     public var location: Location?
     public var billing: Location?
     public var home: Location?
+	public var status: ActivationStatus?
     public var purchases: [Purchase]?
     
 }

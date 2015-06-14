@@ -521,6 +521,12 @@
 	XCTAssertTrue([user.firstName isEqualToString:@"123"]);
 }
 
+- (void)testShouldautomaticallyMapClassesWithTwoKeywords {
+	NSDictionary *userDictionary = @{@"econfirmed" : @{@"value" : @"not-confirmed"}};
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue([user.econfirmed.value isEqualToString:@"not-confirmed"]);
+}
+
 - (void)testObjectInstanceProviderShouldReturnTrueForNSObjectSubclasses
 {
 	ObjectInstanceProvider *instanceProvider = [[ObjectInstanceProvider alloc] init];

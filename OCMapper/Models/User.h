@@ -27,6 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Address.h"
+#import "EmailConfirmation.h"
 
 @interface User : NSObject
 
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) NSNumber *age;
 @property (nonatomic, strong) Address *address;
 @property (nonatomic, strong) Address *work;
+@property (nonatomic, strong) EmailConfirmation *econfirmed;
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic, strong) NSMutableArray *randomKeywords;
 
