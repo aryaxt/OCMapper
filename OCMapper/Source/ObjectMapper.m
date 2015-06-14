@@ -412,28 +412,30 @@
 	
 	predictedClassName = [NSString stringWithFormat:@"%@.%@", appName ,className];
 	if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-    
-    if ([className hasSuffix:@"s"])
-    {
-        NSString *classNameWithoutS = [className substringToIndex:className.length-1];
-        
-        predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutS];
-        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-        
-        predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutS];
-        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-    }
-    
-    if ([className hasSuffix:@"es"])
-    {
-        NSString *classNameWithoutEs = [className substringToIndex:className.length-2];
-        
-        predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutEs];
-        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-        
-        predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutEs];
-        if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
-    }
+	
+	// EX: if keyword is "posts" try to find a class named "Post"
+	if ([className hasSuffix:@"s"])
+	{
+		NSString *classNameWithoutS = [className substringToIndex:className.length-1];
+		
+		predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutS];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+		
+		predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutS];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+	}
+	
+	// EX: if keyword is "addresses" try to find a class named "Address"
+	if ([className hasSuffix:@"es"])
+	{
+		NSString *classNameWithoutEs = [className substringToIndex:className.length-2];
+		
+		predictedClassName = [NSString stringWithFormat:@"%@", classNameWithoutEs];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+		
+		predictedClassName = [NSString stringWithFormat:@"%@.%@", appName, classNameWithoutEs];
+		if (testClassName(predictedClassName)) { return testClassName(predictedClassName); }
+	}
 	
 	return nil;
 }
