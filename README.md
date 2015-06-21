@@ -87,6 +87,7 @@ Features:
 - Fully Configurable
 - Does not require subclassing or adding any extra code to your models
 - Auto date conversion, and configurable DateFormatters
+- Auto underscore to camel case mapping
 
 
 Examples
