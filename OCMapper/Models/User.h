@@ -39,7 +39,8 @@
 @property (nonatomic, strong) Address *address;
 @property (nonatomic, strong) Address *work;
 @property (nonatomic, strong) EmailConfirmation *econfirmed;
-@property (nonatomic, strong) NSMutableArray *comments;
-@property (nonatomic, strong) NSMutableArray *randomKeywords;
+@property (nonatomic, strong) NSArray *emailConfirmations;
+@property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) NSArray *randomKeywords;
 
 @end

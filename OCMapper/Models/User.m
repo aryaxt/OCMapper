@@ -28,12 +28,5 @@
 #import "User.h"
 
 @implementation User
-@synthesize firstName;
-@synthesize lastName;
-@synthesize age;
-@synthesize comments;
-@synthesize randomKeywords;
-@synthesize dateOfBirth;
-@synthesize accountCreationDate;
 
 @end

@@ -28,8 +28,5 @@
 #import "Address.h"
 
 @implementation Address
-@synthesize city;
-@synthesize country;
-
 
 @end
