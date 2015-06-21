@@ -79,10 +79,14 @@
 {
 	NSString *result = nil;
 	Class currentClass = [object class];
+	
 	NSString *key = [NSString stringWithFormat:@"%@.%@", NSStringFromClass(currentClass), caseInsensitivePropertyName];
 	
 	if (self.propertyNameDictionary[key])
 		return self.propertyNameDictionary[key];
+	
+	// Support underscore case (EX: map first_name to firstName)
+	caseInsensitivePropertyName = [caseInsensitivePropertyName stringByReplacingOccurrencesOfString:@"_" withString:@""];
 	
 	while (currentClass && currentClass != [NSObject class])
 	{

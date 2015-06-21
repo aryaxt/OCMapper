@@ -28,8 +28,5 @@
 #import "Comment.h"
 
 @implementation Comment
-@synthesize title;
-@synthesize body;
-@synthesize author;
 
 @end

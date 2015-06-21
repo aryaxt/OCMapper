@@ -178,6 +178,9 @@
 
 - (NSString *)propertyNameForObject:(NSManagedObject *)object byCaseInsensitivePropertyName:(NSString *)caseInsensitivePropertyName
 {
+	// Support underscore case (EX: map first_name to firstName)
+	caseInsensitivePropertyName = [caseInsensitivePropertyName stringByReplacingOccurrencesOfString:@"_" withString:@""];
+	
 	for (NSAttributeDescription *attributeDescription in object.entity.properties)
 	{
 		if ([[attributeDescription.name lowercaseString] isEqual:[caseInsensitivePropertyName lowercaseString]])

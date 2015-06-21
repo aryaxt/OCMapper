@@ -295,9 +295,7 @@
 	comment.body = @"COMMENT BODY";
 	
 	User *user = [[User alloc] init];
-	user.comments = [NSMutableArray array];
-	[user.comments addObject:comment];
-	[user.comments addObject:comment];
+	user.comments = @[comment, comment];
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	NSArray *comments = [dictionary objectForKey:@"comments"];
@@ -507,6 +505,23 @@
 	XCTAssertNotNil(dictionary[@"dateOfBirth"]);
 	XCTAssertNil(dictionary[@"age"]);
 	XCTAssertNil(dictionary[@"lastName"]);
+}
+
+- (void)testShouldMapUnderscoesCase {
+	NSDictionary *userDictionary = @{
+									 @"first_name" : @"aryan",
+									 @"e_confirmed" : @{@"value": @"maybe"},
+									 @"email_confirmations" : @[@{@"value": @"yes"}, @{@"value": @"no"}],
+									 @"random_keywords" : @[@"1", @"asd"]};
+	
+	User *user = [self.mapper objectFromSource:userDictionary toInstanceOfClass:[User class]];
+	XCTAssertTrue([user.firstName isEqualToString:@"aryan"]);
+	XCTAssertTrue([user.econfirmed.value isEqualToString:@"maybe"]);
+	XCTAssertTrue([user.randomKeywords containsObject:@"1"]);
+	XCTAssertTrue([user.randomKeywords containsObject:@"asd"]);
+	XCTAssertTrue(user.emailConfirmations.count == 2);
+	XCTAssertTrue([[user.emailConfirmations[0] valueForKey:@"value"] isEqualToString:@"yes"]);
+	XCTAssertTrue([[user.emailConfirmations[1] valueForKey:@"value"] isEqualToString:@"no"]);
 }
 
 - (void)testShouldConvertValuesInDictionaryFromNSStringToNSNumberIfNeeded {
