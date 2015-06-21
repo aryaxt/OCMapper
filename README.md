@@ -422,6 +422,13 @@ User *user = [aDictionary objectForClass:[User class]];
 
 Change Log
 -------------------------
+#### 2.1
+Allow automatic conversion of underscore keys to camelCase properties
+
+- ```first_name``` to ```firstName``` as ```String```
+- ```email_confirmation``` to ```emailConfirmation``` as ```EmailConfirmation``` class
+- ```email_confirmations``` to ```emailConfirmations``` as ```NSArray of EmailConfirmation``` class
+
 #### 2.0
 Fixed a bug that was instroduced in 1.8 where classes with two words in they weren't getting mapped automatically.
 EX (sessionUser would try to map to Sessionuser class instead of SessionUser and would fail to map)
