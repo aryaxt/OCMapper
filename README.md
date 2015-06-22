@@ -178,7 +178,7 @@ Each post has an author and the conversion class (User) doesn't have a property 
                          {
                              "title" : "Post 1 title",
                              "datePosted : "04/15/2013",
-                             "author" : { 
+                             "from" : { 
                                              "firstName" : "Chuck", 
                                              "lastName" : "Norris" 
                                         }
@@ -186,7 +186,7 @@ Each post has an author and the conversion class (User) doesn't have a property 
                          {
                              "title" : "Post 2 title",
                              "datePosted : "04/12/2013",
-                             "author" : { 
+                             "form" : { 
                                              "firstName" : "Chuck", 
                                              "lastName" : "Norris" 
                                         }
@@ -197,8 +197,8 @@ Each post has an author and the conversion class (User) doesn't have a property 
 // Handle different key for dateOfBirth
 [inCodeMappingProvider mapFromDictionaryKey:@"dob" toPropertyKey:@"dateOfBirth" forClass:[User class]];
 
-// Handle conversion of "author" to a "User" object
-// Mapping would NOT be required if both dictionary an drpopery were named 'user'
+// Handle mapping of "form" to "auther" object
+// Mapping would NOT be required if dictionary key and property were both named the same
 [inCodeMappingProvider mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
