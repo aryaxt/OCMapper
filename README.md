@@ -199,7 +199,7 @@ Each post has an author and the conversion class (User) doesn't have a property 
 
 // Handle mapping of "form" to "auther" object
 // Mapping would NOT be required if dictionary key and property were both named the same
-[inCodeMappingProvider mapFromDictionaryKey:@"author" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
+[inCodeMappingProvider mapFromDictionaryKey:@"from" toPropertyKey:@"author" withObjectType:[User class] forClass:[Comment class]];
 
 User *user = [User objectFromDictionary:aDictionary];
 ```
