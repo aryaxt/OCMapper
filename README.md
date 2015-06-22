@@ -11,7 +11,7 @@ Swift Support
 =========================
 OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject
 ```swift
-@objc public class User: NSObject {
+class User: NSObject {
     
     var id: String?
     var name: String?
@@ -21,7 +21,7 @@ OCMapper takes advantage of the objective c runtime API, and will only work with
     var photos: [Photo]?
 }
 
-var user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: User.self) as User?
+let user = ObjectMapper.sharedInstance().objectFromSource(json, toInstanceOfClass: User.self) as? User
 ```
 
 Alamofire Extension
