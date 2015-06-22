@@ -80,15 +80,13 @@ Features:
 -------------------------
 - Supports array mapping
 - Supports tree structure mapping
-- Supports complex object nesting 
-- Supports Core Data (NSManagedObjects)
-- Mapping configuration can be done both in code or through a PLIST
-- Auto detects key/values based on NSDictionary keys
-- Fully Configurable
+- Auto maps everything based on key/values
+- You can write mapping for non-matching dictionary/property keys
+- Override portion of mapping using transformers
+- Supports Core Data (NSManagedObjects mapping)
 - Does not require subclassing or adding any extra code to your models
 - Auto date conversion, and configurable DateFormatters
 - Auto underscore to camel case mapping
-
 
 Examples
 -------------------------
@@ -162,8 +160,7 @@ User *user = [User objectFromDictionary:aDictionary];
 Complex Mapping
 -------------------------
 Here is a more complex scenario where the dictionary keys do not match the model property names.
-The key for date of birth changes from "dateOfBirth" to "dob".
-Each post has an author and the conversion class (User) doesn't have a property with that name.
+The key for date of birth changes from "dateOfBirth" to "dob", and the key for "author" is named "from"
 ```objective-c
 {
    "firstName"   : "Aryan",
