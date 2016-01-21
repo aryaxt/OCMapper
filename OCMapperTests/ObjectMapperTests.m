@@ -268,8 +268,8 @@
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
 	
-	XCTAssertTrue([[dictionary objectForKey:@"firstName"] isEqual:user.firstName], @"Did not populate dictionary correctly");
-	XCTAssertTrue([[dictionary objectForKey:@"lastName"] isEqual:user.lastName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[dictionary objectForKey:@"first_name"] isEqual:user.firstName], @"Did not populate dictionary correctly");
+	XCTAssertTrue([[dictionary objectForKey:@"last_name"] isEqual:user.lastName], @"Did not populate dictionary correctly");
 	XCTAssertTrue([[dictionary objectForKey:@"age"] isEqual:user.age], @"Did not populate dictionary correctly");
 }
 
@@ -425,7 +425,7 @@
 	user.firstName = @"Aryan";
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"first_name"]], @"Did Not populate dictionary properly");
 	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
@@ -484,7 +484,7 @@
 	user.randomKeywords = @[@"keyword1", @2].mutableCopy;
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	NSArray *array = [dictionary objectForKey:@"randomKeywords"];
+	NSArray *array = [dictionary objectForKey:@"random_keywords"];
 	
 	XCTAssertTrue(array.count == 2);
 	XCTAssertTrue([array[0] isEqualToString:@"keyword1"]);
@@ -498,11 +498,11 @@
 	user.age = @28;
 	user.dateOfBirth = [NSDate date];
 	
-	[self.mappingProvider excludeMappingForClass:User.class withKeys:@[@"age", @"lastName"]];
+	[self.mappingProvider excludeMappingForClass:User.class withKeys:@[@"age", @"last_name"]];
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	XCTAssertNotNil(dictionary[@"firstName"]);
-	XCTAssertNotNil(dictionary[@"dateOfBirth"]);
+	XCTAssertNotNil(dictionary[@"first_name"]);
+	XCTAssertNotNil(dictionary[@"date_of_birth"]);
 	XCTAssertNil(dictionary[@"age"]);
 	XCTAssertNil(dictionary[@"lastName"]);
 }

@@ -149,7 +149,7 @@
 	user.firstName = @"Aryan";
 	
 	NSDictionary *dictionary = [self.mapper dictionaryFromObject:user];
-	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"firstName"]], @"Did Not populate dictionary properly");
+	XCTAssertTrue([user.firstName isEqual:[dictionary objectForKey:@"first_name"]], @"Did Not populate dictionary properly");
 	XCTAssertTrue([user.power isEqual:[dictionary objectForKey:@"power"]], @"Did Not populate dictionary properly");
 }
 
