@@ -9,7 +9,9 @@ OCMapper is a data mapping library for Objective C that converts NSDictionary to
 
 Swift Support
 =========================
-OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject
+OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject.
+
+Due to limitations of how you have to define your models to work with OCMapper I don't recommend using it with Swift, although it can be done
 ```swift
 class User: NSObject {
     
