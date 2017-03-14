@@ -11,7 +11,10 @@ Swift Support
 =========================
 OCMapper takes advantage of the objective c runtime API, and will only work with classes that inherit from NSObject.
 
-Due to limitations of how you have to define your models to work with OCMapper I don't recommend using it with Swift, although it can be done
+Due to limitations of how you have to define your models to work with OCMapper I don't recommend using it with Swift, although it can be done. 
+
+I recommend https://github.com/aryaxt/QuickRest for Swift; however, mapping is not automated
+
 ```swift
 class User: NSObject {
     
