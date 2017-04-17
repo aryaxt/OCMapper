@@ -136,7 +136,8 @@
 - (id)processDictionaryFromObject:(NSObject *)object
 {
 	// For example when we are mapping an array of string, we shouldn't try to map the string objects inside the array
-	if ([NSBundle mainBundle] != [NSBundle bundleForClass:object.class] && [object class] != [NSArray class])
+
+	if (![self isClassPartOfMainBundle:object.class] && [object class] != [NSArray class])
 	{
 		return object;
 	}
@@ -171,7 +172,7 @@
 				[props setObject:propertyValue forKey:propertyName];
 			}
 			// If class is in the main bundle it's an application specific class
-			else if ([NSBundle mainBundle] == [NSBundle bundleForClass:[propertyValue class]])
+			else if ([self isClassPartOfMainBundle:[propertyValue class]])
 			{
 				if (propertyValue) [props setObject:[self dictionaryFromObject:propertyValue] forKey:propertyName];
 			}
@@ -558,6 +559,13 @@
 	}
 	
 	return className;
+}
+
+- (BOOL)isClassPartOfMainBundle:(Class)class
+{
+    NSString *const mainBundlePath = [NSBundle mainBundle].bundlePath;
+    NSString *const classBundlePath = [NSBundle bundleForClass:class].bundlePath;
+    return [classBundlePath rangeOfString:mainBundlePath].location != NSNotFound;
 }
 
 @end
