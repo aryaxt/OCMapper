@@ -187,7 +187,7 @@
 					
 					if (dateFormatter)
 					{
-						propertyValue = [self.defaultDateFormatter stringFromDate:propertyValue];
+						propertyValue = [dateFormatter stringFromDate:propertyValue];
 					}
 					else
 					{
