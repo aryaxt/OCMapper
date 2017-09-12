@@ -519,6 +519,14 @@
 				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Aryan Ghassemi";
+				TargetAttributes = {
+					15B554AA171B7B3B0058E159 = {
+						LastSwiftMigration = 0820;
+					};
+					15B554CB171B7B3C0058E159 = {
+						LastSwiftMigration = 0820;
+					};
+				};
 			};
 			buildConfigurationList = 15B554A5171B7B3B0058E159 /* Build configuration list for PBXProject "OCMapper" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -735,6 +743,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = OCMapper;
 				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapper-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -749,6 +758,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = OCMapper;
 				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapper-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -769,6 +779,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = OCMapperTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapperTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Debug;
@@ -789,6 +800,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = OCMapperTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "OCMapper/OCMapperTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
 			name = Release;

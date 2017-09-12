@@ -33,7 +33,7 @@ class ObjectMapperSwiftTests : XCTestCase {
     // MARK: - Tests -
     
     func testAutomaticMapping() {
-        let date = NSDate().dateByAddingTimeInterval(-5555)
+        let date = NSDate().addingTimeInterval(-5555)
         
         let dictionary = [
             "firstName":    "Aryan",
@@ -46,9 +46,9 @@ class ObjectMapperSwiftTests : XCTestCase {
                 ["summary": "bla 2", "price": 55],
                 ["summary": "bla 3", "price": 99.99],
             ]
-        ]
+        ] as [String : Any]
         
-        let customer = objectMapper.objectFromSource(dictionary, toInstanceOfClass: Customer.self) as! Customer
+        let customer = objectMapper.object(fromSource: dictionary, toInstanceOf: Customer.self) as! Customer
         
         XCTAssertTrue(customer.firstName == "Aryan", "FAIL")
         XCTAssertTrue(customer.age == 28, "FAIL")
@@ -60,27 +60,27 @@ class ObjectMapperSwiftTests : XCTestCase {
         XCTAssertNotNil(customer.billing, "FAIL")
         XCTAssertTrue(customer.billing!.name == "SD", "FAIL")
         
-        let purchases = customer.valueForKey("purchases") as! NSArray
+        let purchases = customer.value(forKey: "purchases") as! NSArray
         
          // Can't access calues directly in unit test target, swift throws exception because it doesn't know which target the models belong to, main target or unit test target. This won't be an issue outside of test environment
         XCTAssertTrue(purchases.count == 3, "FAIL")
-        XCTAssertTrue(purchases[0].valueForKey("summary") as! String == "bla 1", "FAIL")
-        XCTAssertTrue(purchases[0].valueForKey("price") as! NSNumber == 123.4, "FAIL")
-        XCTAssertTrue(purchases[1].valueForKey("summary") as! String == "bla 2", "FAIL")
-        XCTAssertTrue(purchases[1].valueForKey("price") as! NSNumber == 55, "FAIL")
-        XCTAssertTrue(purchases[2].valueForKey("summary") as! String == "bla 3", "FAIL")
-        XCTAssertTrue(purchases[2].valueForKey("price") as! NSNumber == 99.99, "FAIL")
+        XCTAssertTrue((purchases[0] as AnyObject).value(forKey: "summary") as! String == "bla 1", "FAIL")
+        XCTAssertTrue((purchases[0] as AnyObject).value(forKey: "price") as! NSNumber == 123.4, "FAIL")
+        XCTAssertTrue((purchases[1] as AnyObject).value(forKey: "summary") as! String == "bla 2", "FAIL")
+        XCTAssertTrue((purchases[1] as AnyObject).value(forKey: "price") as! NSNumber == 55, "FAIL")
+        XCTAssertTrue((purchases[2] as AnyObject).value(forKey: "summary") as! String == "bla 3", "FAIL")
+        XCTAssertTrue((purchases[2] as AnyObject).value(forKey: "price") as! NSNumber == 99.99, "FAIL")
     }
     
     func testManualMapping() {
-        mappingProvider.mapFromDictionaryKey("fName", toPropertyKey: "firstName", forClass: Customer.self)
-        mappingProvider.mapFromDictionaryKey("ageee", toPropertyKey: "age", forClass: Customer.self)
-        mappingProvider.mapFromDictionaryKey("dob", toPropertyKey: "dateOfBirth", forClass: Customer.self)
-        mappingProvider.mapFromDictionaryKey("address", toPropertyKey: "location", withObjectType: Location.self, forClass: Customer.self)
-        mappingProvider.mapFromDictionaryKey("billing-address", toPropertyKey: "billing", withObjectType: Location.self, forClass: Customer.self)
-        mappingProvider.mapFromDictionaryKey("orders", toPropertyKey: "purchases", withObjectType: Purchase.self, forClass: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "fName", toPropertyKey: "firstName", for: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "ageee", toPropertyKey: "age", for: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "dob", toPropertyKey: "dateOfBirth", for: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "address", toPropertyKey: "location", withObjectType: Location.self, for: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "billing-address", toPropertyKey: "billing", withObjectType: Location.self, for: Customer.self)
+        mappingProvider.map(fromDictionaryKey: "orders", toPropertyKey: "purchases", withObjectType: Purchase.self, for: Customer.self)
         
-        let date = NSDate().dateByAddingTimeInterval(-5555)
+        let date = NSDate().addingTimeInterval(-5555)
         
         let dictionary = [
             "fName":            "Aryan",
@@ -94,9 +94,9 @@ class ObjectMapperSwiftTests : XCTestCase {
                 ["summary": "bla 2", "price": 55],
                 ["summary": "bla 3", "price": 99.99],
             ]
-        ]
+        ] as [String : Any]
         
-        let customer = objectMapper.objectFromSource(dictionary, toInstanceOfClass: Customer.self) as! Customer
+        let customer = objectMapper.object(fromSource: dictionary, toInstanceOf: Customer.self) as! Customer
         
         XCTAssertTrue(customer.firstName == "Aryan", "FAIL")
         XCTAssertTrue(customer.age == 28, "FAIL")
@@ -111,16 +111,16 @@ class ObjectMapperSwiftTests : XCTestCase {
 		XCTAssertNotNil(customer.status, "FAIL")
 		XCTAssertTrue(customer.status!.value == "banned", "FAIL")
 		
-        let purchases = customer.valueForKey("purchases") as! NSArray
+        let purchases = customer.value(forKey: "purchases") as! NSArray
         
         // Can't access calues directly in unit test target, swift throws exception because it doesn't know which target the models belong to, main target or unit test target. This won't be an issue outside of test environment
         XCTAssertTrue(purchases.count == 3, "FAIL")
-        XCTAssertTrue(purchases[0].valueForKey("summary") as! String == "bla 1", "FAIL")
-        XCTAssertTrue(purchases[0].valueForKey("price") as! NSNumber == 123.4, "FAIL")
-        XCTAssertTrue(purchases[1].valueForKey("summary") as! String == "bla 2", "FAIL")
-        XCTAssertTrue(purchases[1].valueForKey("price") as! NSNumber == 55, "FAIL")
-        XCTAssertTrue(purchases[2].valueForKey("summary") as! String == "bla 3", "FAIL")
-        XCTAssertTrue(purchases[2].valueForKey("price") as! NSNumber == 99.99, "FAIL")
+        XCTAssertTrue((purchases[0] as AnyObject).value(forKey: "summary") as! String == "bla 1", "FAIL")
+        XCTAssertTrue((purchases[0] as AnyObject).value(forKey: "price") as! NSNumber == 123.4, "FAIL")
+        XCTAssertTrue((purchases[1] as AnyObject).value(forKey: "summary") as! String == "bla 2", "FAIL")
+        XCTAssertTrue((purchases[1] as AnyObject).value(forKey: "price") as! NSNumber == 55, "FAIL")
+        XCTAssertTrue((purchases[2] as AnyObject).value(forKey: "summary") as! String == "bla 3", "FAIL")
+        XCTAssertTrue((purchases[2] as AnyObject).value(forKey: "price") as! NSNumber == 99.99, "FAIL")
     }
     
 }
