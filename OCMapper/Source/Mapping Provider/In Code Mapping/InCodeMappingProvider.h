@@ -109,7 +109,7 @@
  *  Set dateformatter to be used for converting a model object to a dictionary
  *
  *  @param dateFormatter NSDateFormatter a dateformatter
- *  @param propertyKey   NSString name of the property
+ *  @param dictionaryKey NSString name of the key
  *  @param clazz         Class to be assign mapping to
  */
 - (void)setDateFormatter:(NSDateFormatter *)dateFormatter forDictionaryKey:(NSString *)dictionaryKey andClass:(Class)clazz;
