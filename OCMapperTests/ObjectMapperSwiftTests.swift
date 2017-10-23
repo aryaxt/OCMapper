@@ -40,7 +40,6 @@ class ObjectMapperSwiftTests : XCTestCase {
             "age":          28,
             "dateOfBirth":  date,
             "location":     ["name": "SF"],
-            "billing":      ["name": "SD"],
             "purchases":    [
                 ["summary": "bla 1", "price": 123.4],
                 ["summary": "bla 2", "price": 55],
@@ -57,9 +56,6 @@ class ObjectMapperSwiftTests : XCTestCase {
         XCTAssertNotNil(customer.location, "FAIL")
         XCTAssertTrue(customer.location!.name == "SF", "FAIL")
 
-        XCTAssertNotNil(customer.billing, "FAIL")
-        XCTAssertTrue(customer.billing!.name == "SD", "FAIL")
-        
         let purchases = customer.valueForKey("purchases") as! NSArray
         
          // Can't access calues directly in unit test target, swift throws exception because it doesn't know which target the models belong to, main target or unit test target. This won't be an issue outside of test environment
@@ -79,6 +75,7 @@ class ObjectMapperSwiftTests : XCTestCase {
         mappingProvider.mapFromDictionaryKey("address", toPropertyKey: "location", withObjectType: Location.self, forClass: Customer.self)
         mappingProvider.mapFromDictionaryKey("billing-address", toPropertyKey: "billing", withObjectType: Location.self, forClass: Customer.self)
         mappingProvider.mapFromDictionaryKey("orders", toPropertyKey: "purchases", withObjectType: Purchase.self, forClass: Customer.self)
+        mappingProvider.mapFromDictionaryKey("status", toPropertyKey: "status", withObjectType: ActivationStatus.self, forClass: Customer.self)
         
         let date = NSDate().dateByAddingTimeInterval(-5555)
         

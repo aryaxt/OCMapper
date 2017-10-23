@@ -142,6 +142,7 @@
 	}
 	
 	NSMutableDictionary *props = [NSMutableDictionary dictionary];
+    NSRegularExpression *camelCaseRegEx = [NSRegularExpression regularExpressionWithPattern:@"(?<=[a-z])([A-Z])|([A-Z])(?=[a-z])" options:0 error:nil];
 	
 	Class currentClass = [object class];
 	
@@ -164,7 +165,9 @@
 			id propertyValue = [object valueForKey:(NSString *)originalPropertyName];
 			
 			ObjectMappingInfo *mapingInfo = [self.mappingProvider mappingInfoForClass:[object class] andPropertyKey:originalPropertyName];
-			NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : originalPropertyName;
+            
+            NSString *underscoreString = [[camelCaseRegEx stringByReplacingMatchesInString:originalPropertyName options:0 range:NSMakeRange(0, originalPropertyName.length) withTemplate:@"_$1$2"] lowercaseString];
+            NSString *propertyName = (mapingInfo) ? mapingInfo.dictionaryKey : underscoreString;
 			
 			if (mapingInfo.transformer) {
 				propertyValue = mapingInfo.transformer(propertyValue, object);
