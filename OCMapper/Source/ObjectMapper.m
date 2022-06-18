@@ -325,6 +325,11 @@
 					{
 						nestedObject = [NSNumber numberWithDouble:[value doubleValue]];
 					}
+                    // Convert NSString to NSDecimalNumber if needed
+                    else if ([propertyTypeString isEqualToString:@"NSDecimalNumber"] && [value isKindOfClass:[NSString class]])
+                    {
+                        nestedObject = [NSDecimalNumber decimalNumberWithString:value];
+                    }
 					// Convert NSNumber to NSString if needed
 					else if ([propertyTypeString isEqualToString:@"NSString"] && [value isKindOfClass:[NSNumber class]])
 					{
